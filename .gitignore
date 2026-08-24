@@ -1,5 +1,15 @@
-
 # secrets
-.env
 .gh_token
-.device_code*
+.device_code
+.device_code.new
+.env
+
+# generated artifacts (mp3s go to gh-pages, not main)
+# note: 'episodes/*' + negation keeps transcript markdown tracked on main
+episodes/*
+!episodes/*.md
+site/
+audition/
+__pycache__/
+*.wav
+*.tmp.*

@@ -43,7 +43,7 @@ CRON_NIGHTLY: "GENERATED_LATER"   # set in `cron` task (nightly, UTC)
 # ---------------------------------------------------------------------------- #
 # Publishing (GitHub Pages / RSS) — filled by gh-setup/publish tasks
 # ---------------------------------------------------------------------------- #
-GH_REPO: "PENDING_gh_setup"       # e.g. owner/agent-sora
+GH_REPO: "agent-sora/agent-sora"  # created + Pages enabled (gh-setup DONE)
 GH_PAGES_BRANCH: "gh-pages"
 RSS_TITLE: "Agent-Sora Daily ML Papers Podcast"
 RSS_FEED_PATH: "feed.xml"
