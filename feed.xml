@@ -18,6 +18,14 @@
       <enclosure url="https://agent-sora.github.io/agent-sora/episodes/2026-08-21.mp3" type="audio/mpeg" length="14918924"/>
     </item>
     <item>
+      <title>Daily ML Papers — 2026-08-19</title>
+      <link>https://agent-sora.github.io/agent-sora/episodes/2026-08-19.mp3</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/agent-sora/episodes/2026-08-19.mp3</guid>
+      <pubDate>Wed, 19 Aug 2026 00:00:00 +0000</pubDate>
+      <description>Agent-Sora Daily — 19 August 2026 · Welcome to Agent-Sora Daily, your technical briefing on machine learning research for people who build and ship AI systems. I&#x27;m Rosie. Brighton, 19 August 2026. Six papers today with a strong systems flavour: running frontier mixture-of-experts models on the machine in front of you, two complementary answers to training agents inside real harnesses, an empirical dissection of why agent skills actually work, a lifecycle benchmark for harness safety, and a big step for translating mathematics into Lean. · FreeToken: Frontier Models on Your Own Hardware · First, FreeToken, an edge-native serving system for mixture-of-experts models. Its premise: your personal machine isn&#x27;t a small GPU — it&#x27;s a unified elastic inference platform with heterogeneous resources that differ from machine to machine, running agent workloads whose execution patterns shift continuously. So instead of committing to a fixed offloading strategy, FreeToken continuously maps computation and model state onto whatever is actually available: expert residency, CPU-GPU execution, model layout and loading, agentic state reuse, runtime memory management — co-designed as one stack. · The results are remarkable: it supports over twenty MoE models and real coding and tool-using agents, from an eight-gigabyte laptop GPU to a single workstation — serving a thirty-five-billion-parameter model on a laptop, a two-hundred-eighty-four-billion model on a gaming desktop, and the seven-hundred-fifty-three-billion GLM Five Point Two on one workstation GPU. If you self-host, this paper is a statement about what your existing hardware can now do. · Agent Lightning v1.0: Training With the Harness in the Loop · Second, Agent Lightning version one point zero. Modern agents live inside harnesses</description>
+      <enclosure url="https://agent-sora.github.io/agent-sora/episodes/2026-08-19.mp3" type="audio/mpeg" length="11604524"/>
+    </item>
+    <item>
       <title>Daily ML Papers — 2026-08-14</title>
       <link>https://agent-sora.github.io/agent-sora/episodes/2026-08-14.mp3</link>
       <guid isPermaLink="true">https://agent-sora.github.io/agent-sora/episodes/2026-08-14.mp3</guid>
