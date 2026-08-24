@@ -1,0 +1,49 @@
+# Agent-Sora podcast pipeline configuration
+# Decided interactively with the user; source of truth for the nightly job.
+
+# ---- TTS / voice --------------------------------------------------------- #
+# Pick made by the user BY EAR from the 8-voice audition (2026-08-24): ROSIE.
+# Model = biggest available ("we aint that resource constrained").
+TTS_MODEL: "kitten-tts-mini-0.8"   # 80M params, the biggest KittenTTS model
+TTS_VOICE: "Rosie"                 # user's RP pick (audition clips in audition/)
+TTS_ACCENT_ONLY: "RP"              # Received Pronunciation only, per user
+TTS_SAMPLE_RATE: 24000
+TTS_DEVICE: "cpu"
+TTS_ENV: { TMPDIR: "/workspace/.tmp" }  # espeak-ng needs an exec-able dir
+
+# ---------------------------------------------------------------------------- #
+# Paper topic selection rules (scoped by user; text/agentic + audio GEN only).
+# IMPORTANT restrictions from user:
+#   - NO image/video papers.
+#   - LoRA/PEFT ONLY for text/reasoning/agentic uses (not image/video).
+# ---------------------------------------------------------------------------- #
+TOPIC_INCLUDE_FLAVORS:
+  - rl_algorithms_text_agentic     # RL algo work applied to text/agentic tasks
+  - agent_self_improvement         # agents that improve themselves
+  - ai_music_generation            # audio/music gen (audio model, not video)
+  - ai_finance_econometrics        # finance / econometrics / statistical arb
+  - lora_peft_text_only            # LoRA/PEFT for text/reasoning/agentic ONLY
+
+TOPIC_EXCLUDE:
+  - image_or_video                # absolutely excluded
+  - lora_peft_image_video         # excluded within LoRA scope
+
+# ---------------------------------------------------------------------------- #
+# Episode / delivery
+# ---------------------------------------------------------------------------- #
+EPISODE_TARGET_MINUTES: 30        # ~30-min technical summary per episode
+AUDIENCE: "senior staff software engineer"
+TTS_EPISODE_APPROX_SYNTH_MIN: "~35 min CPU (Rosie RTF 1.15)"
+
+# Backfill + nightly schedule (target dates UTC; fill up to 2026-08-23)
+BACKFILL_END_DATE: "2026-08-23"
+BACKFILL_COUNT: 7                 # episodes to backfill in/after 2026-08-17
+CRON_NIGHTLY: "GENERATED_LATER"   # set in `cron` task (nightly, UTC)
+
+# ---------------------------------------------------------------------------- #
+# Publishing (GitHub Pages / RSS) — filled by gh-setup/publish tasks
+# ---------------------------------------------------------------------------- #
+GH_REPO: "PENDING_gh_setup"       # e.g. owner/agent-sora
+GH_PAGES_BRANCH: "gh-pages"
+RSS_TITLE: "Agent-Sora Daily ML Papers Podcast"
+RSS_FEED_PATH: "feed.xml"

@@ -1,0 +1,66 @@
+{
+  "Bella": {
+    "duration_s": 19.575,
+    "synth_s": 20.072,
+    "rtf": 1.025,
+    "speed_mult": 0.975,
+    "wav": "/workspace/podcast/audition/Bella.wav",
+    "mp3": "/workspace/podcast/audition/Bella.mp3"
+  },
+  "Jasper": {
+    "duration_s": 14.1,
+    "synth_s": 17.025,
+    "rtf": 1.207,
+    "speed_mult": 0.828,
+    "wav": "/workspace/podcast/audition/Jasper.wav",
+    "mp3": "/workspace/podcast/audition/Jasper.mp3"
+  },
+  "Luna": {
+    "duration_s": 14.975,
+    "synth_s": 11.312,
+    "rtf": 0.755,
+    "speed_mult": 1.324,
+    "wav": "/workspace/podcast/audition/Luna.wav",
+    "mp3": "/workspace/podcast/audition/Luna.mp3"
+  },
+  "Bruno": {
+    "duration_s": 14.05,
+    "synth_s": 12.861,
+    "rtf": 0.915,
+    "speed_mult": 1.092,
+    "wav": "/workspace/podcast/audition/Bruno.wav",
+    "mp3": "/workspace/podcast/audition/Bruno.mp3"
+  },
+  "Rosie": {
+    "duration_s": 15.375,
+    "synth_s": 17.616,
+    "rtf": 1.146,
+    "speed_mult": 0.873,
+    "wav": "/workspace/podcast/audition/Rosie.wav",
+    "mp3": "/workspace/podcast/audition/Rosie.mp3"
+  },
+  "Hugo": {
+    "duration_s": 14.5,
+    "synth_s": 18.122,
+    "rtf": 1.25,
+    "speed_mult": 0.8,
+    "wav": "/workspace/podcast/audition/Hugo.wav",
+    "mp3": "/workspace/podcast/audition/Hugo.mp3"
+  },
+  "Kiki": {
+    "duration_s": 14.55,
+    "synth_s": 17.791,
+    "rtf": 1.223,
+    "speed_mult": 0.818,
+    "wav": "/workspace/podcast/audition/Kiki.wav",
+    "mp3": "/workspace/podcast/audition/Kiki.mp3"
+  },
+  "Leo": {
+    "duration_s": 18.425,
+    "synth_s": 20.532,
+    "rtf": 1.114,
+    "speed_mult": 0.897,
+    "wav": "/workspace/podcast/audition/Leo.wav",
+    "mp3": "/workspace/podcast/audition/Leo.mp3"
+  }
+}
