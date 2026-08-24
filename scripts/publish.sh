@@ -35,6 +35,11 @@ find "$WORK" -mindepth 1 -maxdepth 2 ! -path "$WORK/.git" ! -path "$WORK/.git/*"
 # copy new site
 cp -r "$SITE_DIR"/. "$WORK"/
 
+# Disable Jekyll processing on Pages: our generated HTML/XML contain
+# Liquid-like sequences ({{ ... }}) from paper abstracts that break the
+# Jekyll build ("Page build failed"). With .nojekyll, files ship verbatim.
+touch "$WORK/.nojekyll"
+
 # episode audio lives outside the site dir; ship it alongside
 mkdir -p "$WORK/episodes"
 count=0
