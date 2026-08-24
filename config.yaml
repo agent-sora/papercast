@@ -2,11 +2,10 @@
 # Decided interactively with the user; source of truth for the nightly job.
 
 # ---- TTS / voice --------------------------------------------------------- #
-# Pick made by the user BY EAR from the 8-voice audition (2026-08-24): ROSIE.
-# Model = biggest available ("we aint that resource constrained").
-TTS_MODEL: "kitten-tts-mini-0.8"   # 80M params, the biggest KittenTTS model
-TTS_VOICE: "Rosie"                 # user's RP pick (audition clips in audition/)
-TTS_ACCENT_ONLY: "RP"              # Received Pronunciation only, per user
+# 2026-08-24 PIVOT (user decision): KittenTTS "Rosie" replaced by kokoro-82M,
+# British voice bf_isabella. Open weights, CPU-friendly.
+TTS_MODEL: "kokoro-82M"            # open-weight TTS (hexgrad), Apache-2.0 weights
+TTS_VOICE: "bf_isabella"           # British female; user pick
 TTS_SAMPLE_RATE: 24000
 TTS_DEVICE: "cpu"
 TTS_ENV: { TMPDIR: "/workspace/.tmp" }  # espeak-ng needs an exec-able dir
@@ -29,11 +28,15 @@ TOPIC_EXCLUDE:
   - lora_peft_image_video         # excluded within LoRA scope
 
 # ---------------------------------------------------------------------------- #
-# Episode / delivery
+# Episode / delivery — 2026-08-24 PIVOT: one episode PER PAPER (not per day).
+# ~10 min each; top-6 papers/day by community upvotes. Style: docs/STYLE_GUIDE.md
 # ---------------------------------------------------------------------------- #
-EPISODE_TARGET_MINUTES: 30        # ~30-min technical summary per episode
+EPISODE_UNIT: "per_paper"          # was: per_day
+EPISODES_PER_DAY_MAX: 6
+EPISODE_TARGET_MINUTES: 10
+EPISODE_TARGET_WORDS: 1500         # ~10 min at Isabella's measured pace
 AUDIENCE: "senior staff software engineer"
-TTS_EPISODE_APPROX_SYNTH_MIN: "~35 min CPU (Rosie RTF 1.15)"
+TTS_EPISODE_APPROX_SYNTH_MIN: "~12 min CPU per episode (Isabella RTF ~1.2)"
 
 # Backfill + nightly schedule (target dates UTC; fill up to 2026-08-23)
 BACKFILL_END_DATE: "2026-08-23"
@@ -47,3 +50,5 @@ GH_REPO: "agent-sora/agent-sora"  # created + Pages enabled (gh-setup DONE)
 GH_PAGES_BRANCH: "gh-pages"
 RSS_TITLE: "Agent-Sora Daily ML Papers Podcast"
 RSS_FEED_PATH: "feed.xml"
+RSS_DESCRIPTION: "One ~10-minute technical deep-dive per paper, for a senior staff software engineer at a frontier lab. Read by Isabella (kokoro-82M, open weights). Dispassionate, implementation-focused."
+RSS_LANGUAGE: "en-gb"

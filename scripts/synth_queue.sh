@@ -14,7 +14,9 @@ for d in 2026-08-14 2026-08-13 2026-08-19 2026-08-18 2026-08-17 2026-08-20; do
     TMPDIR=/workspace/.tmp .venv/bin/python scripts/synthesize.py \
       --transcript "$md" --out "$mp3" || { echo "[queue] SYNTH_FAIL $d"; exit 1; }
   fi
-  echo "[queue] --- publishing after $d ---"
+  echo "[queue] --- rebuilding site + publishing $d ---"
+  TMPDIR=/workspace/.tmp .venv/bin/python scripts/build_rss.py \
+    --episodes-dir episodes --site-dir site || { echo "[queue] BUILD_FAIL $d"; exit 1; }
   bash scripts/publish.sh site || { echo "[queue] PUBLISH_FAIL $d"; exit 1; }
 done
 echo "[queue] QUEUE_DONE"
