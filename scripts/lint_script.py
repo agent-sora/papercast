@@ -55,7 +55,9 @@ def parse(md_path):
     return meta, body
 
 
-def cold_open_ok(body):
+def cold_open_ok(body: str, labs_field: str = ""):
+    """Cold open must name >=3 authors and >=1 lab (keyword list OR the
+    transcript's own Labs front-matter values, so corporate labs count)."""
     paras = [p.strip() for p in body.split("\n\n") if p.strip()
              and not p.strip().startswith("#")]
     if not paras:
@@ -72,7 +74,10 @@ def cold_open_ok(body):
                  "School", "Academy", "Research", "AI", "Google", "DeepMind",
                  "Meta", "Microsoft", "Amazon", "NVIDIA", "MIT", "Stanford",
                  "Berkeley", "Tsinghua", "ETH", "EPFL", "CMU", "KAIST")
-    if not any(w in p for w in lab_words):
+    known_labs = [lab for lab in re.split(r"[;,]", labs_field or "")
+                  if len(lab.strip()) > 2]
+    if not any(w in p for w in lab_words) and \
+            not any(lab.strip() in p for lab in known_labs):
         return False, "cold open lacks any institution mention"
     return True, f"{len(names)} authors named, institutions present"
 
@@ -87,7 +92,7 @@ def check_file(path: str, min_words: int = 1300, max_words: int = 1750):
     wc = len(re.findall(r"[A-Za-z0-9'-]+", body))
     if not (min_words <= wc <= max_words):
         fails.append(f"word count {wc} outside [{min_words},{max_words}]")
-    ok, why = cold_open_ok(body)
+    ok, why = cold_open_ok(body, meta.get("Labs", ""))
     if meta.get("Title") and not ok:
         fails.append(f"cold open: {why}")
     for rx, label in ((LATEX_RE, "LaTeX command"),
