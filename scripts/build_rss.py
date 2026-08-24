@@ -152,6 +152,7 @@ def build_feed(cfg, episodes, base_url):
       <guid isPermaLink="true">{url}</guid>
       <pubDate>{_rfc822(e['day'])}</pubDate>
       <description>{html.escape(desc)}</description>
+      {f"<itunes:duration>{int(e['duration_s'])}</itunes:duration>" if e['duration_s'] else ""}
       <enclosure url="{url}" type="audio/mpeg" length="{e['size']}"/>
     </item>""")
     return f"""<?xml version="1.0" encoding="UTF-8"?>
