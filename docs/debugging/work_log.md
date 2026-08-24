@@ -43,3 +43,6 @@ All timestamps UTC.
 - Legacy 7 daily episodes+mp3s moved to episodes/legacy-per-day/ (out of publish path).
 - agent-sora-episode skill rewritten for the new pipeline; nightly cron e0646a456062
   inherits it (prompt defers to skill).
+- Validated live publish path early with 2 episodes: build_rss -> publish.sh
+  (gh-pages clone/replace/push), feed.xml 200, episode mp3 200 live.
+  Episode runtime spot check: 589s (~10 min) per-paper target hit.
