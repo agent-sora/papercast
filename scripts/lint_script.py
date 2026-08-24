@@ -31,8 +31,9 @@ SCI_RE = re.compile(r"\d(?:\.\d+)?\s*[eE][+-]?\d|\d+\s*[x×]\s*10\s*\^")
 DOLLAR_MATH_RE = re.compile(r"\$\s*[a-zA-Z\\]")
 VIOLENCE_RE = re.compile(
     r"\b(kil[l]|killed|killing|kills|slaughter\w*|massacr\w*|violent\w*|violence|"
-    r"war\b|warfare|battle\w*|destroy\w*|annihilat\w*|weapon\w*|blood\w*|"
-    r"brutal\w*|deadly|lethal|attackers?|kill switch)\b", re.I)
+    r"war\b|warfare|battle\w*|destroy\w*|annihilat\w*|obliterat\w*|weapon\w*|blood\w*|"
+    r"brutal\w*|deadly|lethal|attackers?|kill switch|rubble|shatter\w*|"
+    r"wreck\w*|crush\w*)\b", re.I)
 BANNED_STYLE_RE = re.compile(
     r"\b(game.?changer\w*|revolutioni[sz]\w*|mind.?blow\w*|buckle up|folks|"
     r"let'?s dive|deep dive in|super cool|insane\w*|crazy\w*|magic\w*|"
