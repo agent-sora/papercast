@@ -51,6 +51,13 @@ site/                    # generated static site + feed.xml + audio/
 cron: nightly job        # fetch -> select -> script -> synth -> publish
 ```
 
+## Delivery constraint (user, 2026-08-24)
+
+The user can ONLY listen to the podcast once it is published on GitHub Pages —
+**both** the audio mp3 files **and** the RSS feed must be resolvable at live
+public URLs. Local files / offline mp3s are not a deliverable. Hard acceptance
+criterion for `publish`: episode audio URL **and** feed URL both return 200.
+
 ## Deliverables still to do
 
 1. gh-setup — create repo (agent-sora), enable Pages, verify token scopes.

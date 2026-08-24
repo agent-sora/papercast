@@ -13,5 +13,8 @@ All timestamps UTC.
   `audition/`.
 - **Voice DECISION (user, by ear): ROSIE.** RTF 1.15 (~35 min to synth a 30-min
   episode). Recorded in `config.yaml` (`TTS_VOICE: "Rosie"`).
-- Created `config.yaml`, `docs/DESIGN.md`, this log; initialized git repo.
+- Created `config.yaml`, `docs/DESIGN.md`, this log; initialized git repo
+  (commit 29f717e).
+- User constraint: podcast is consumable ONLY once live on GitHub Pages (mp3 +
+  RSS both resolvable). Recorded as hard acceptance criterion in DESIGN.md.
 - NEXT: `gh-setup` (create agent-sora repo, enable Pages, verify token scopes).
