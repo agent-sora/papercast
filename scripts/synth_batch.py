@@ -19,6 +19,8 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from lint_script import check_file  # noqa: E402
 FNAME_RE = re.compile(r"(\d{4}-\d{2}-\d{2})-(\d{4}\.\d{4,5})\.md$")
 
 
@@ -52,13 +54,22 @@ def main() -> int:
     for i, name in enumerate(md_files, 1):
         stem = name[:-3]
         out_mp3 = os.path.join(args.episodes_dir, stem + ".mp3")
-        if os.path.exists(out_mp3) and os.path.getsize(out_mp3) > 10240:
+        if os.path.exists(out_mp3) and os.path.getsize(out_mp3) > 10240 \
+                and os.path.getmtime(out_mp3) >= os.path.getmtime(
+                    os.path.join(args.episodes_dir, name)):
             skipped += 1
             print(f"[{i}/{len(md_files)}] SKIP {stem} (exists)", flush=True)
             continue
 
         tmp_txt = os.path.join("/workspace/.tmp", stem + ".tts.txt")
         os.makedirs(os.path.dirname(tmp_txt), exist_ok=True)
+        md_path = os.path.join(args.episodes_dir, name)
+        fails, _, wc = check_file(md_path)
+        if fails:
+            print(f"[{i}/{len(md_files)}] LINT-FAIL {stem} ({wc}w): "
+                  f"{fails[0]}", flush=True)
+            failed += 1
+            continue
         with open(tmp_txt, "w", encoding="utf-8") as f:
             f.write(body_without_front_matter(os.path.join(args.episodes_dir, name)))
 

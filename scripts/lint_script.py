@@ -77,6 +77,38 @@ def cold_open_ok(body):
     return True, f"{len(names)} authors named, institutions present"
 
 
+def check_file(path: str, min_words: int = 1300, max_words: int = 1750):
+    """Lint one transcript. Returns (fails, warns, word_count)."""
+    fails, warns = [], []
+    meta, body = parse(path)
+    for fld in REQUIRED_FIELDS:
+        if not meta.get(fld):
+            fails.append(f"front matter missing {fld}")
+    wc = len(re.findall(r"[A-Za-z0-9'-]+", body))
+    if not (min_words <= wc <= max_words):
+        fails.append(f"word count {wc} outside [{min_words},{max_words}]")
+    ok, why = cold_open_ok(body)
+    if meta.get("Title") and not ok:
+        fails.append(f"cold open: {why}")
+    for rx, label in ((LATEX_RE, "LaTeX command"),
+                      (SCI_RE, "scientific notation"),
+                      (DOLLAR_MATH_RE, "$math$")):
+        hits = rx.findall(body)
+        if hits:
+            fails.append(f"{label}: {hits[:3]}")
+    for m in VIOLENCE_RE.finditer(body):
+        ctx = body[max(0, m.start() - 40):m.end() + 40].replace("\n", " ")
+        warns.append(f"violence-word '{m.group(0)}' — verify it is quoted "
+                     f"from the paper or remove: …{ctx}…")
+    bhits = BANNED_STYLE_RE.findall(body)
+    if bhits:
+        warns.append(f"banned style words: {sorted(set(bhits))[:6]}")
+    excl = body.count("!")
+    if excl * 300 > wc:
+        warns.append(f"{excl} exclamation marks (>{wc // 300} allowed)")
+    return fails, warns, wc
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("files", nargs="+")
@@ -86,34 +118,7 @@ def main():
 
     total_fail = 0
     for path in sorted(args.files):
-        fails, warns = [], []
-        meta, body = parse(path)
-        for fld in REQUIRED_FIELDS:
-            if not meta.get(fld):
-                fails.append(f"front matter missing {fld}")
-        wc = len(re.findall(r"[A-Za-z0-9'-]+", body))
-        if not (args.min_words <= wc <= args.max_words):
-            fails.append(f"word count {wc} outside [{args.min_words},{args.max_words}]")
-        ok, why = cold_open_ok(body)
-        if meta.get("Title") and not ok:
-            fails.append(f"cold open: {why}")
-        for rx, label, sev in ((LATEX_RE, "LaTeX command", "FAIL"),
-                               (SCI_RE, "scientific notation", "FAIL"),
-                               (DOLLAR_MATH_RE, "$math$", "FAIL")):
-            hits = rx.findall(body)
-            if hits:
-                (fails if sev == "FAIL" else warns).append(f"{label}: {hits[:3]}")
-        vhits = [(m.group(0), body[max(0, m.start()-40):m.end()+40].replace("\n", " "))
-                 for m in VIOLENCE_RE.finditer(body)]
-        for word, ctx in vhits:
-            warns.append(f"violence-word '{word}' — verify it is quoted from the "
-                         f"paper or remove: …{ctx}…")
-        bhits = BANNED_STYLE_RE.findall(body)
-        if bhits:
-            warns.append(f"banned style words: {sorted(set(bhits))[:6]}")
-        excl = body.count("!")
-        if excl * 300 > wc:
-            warns.append(f"{excl} exclamation marks (>{wc//300} allowed)")
+        fails, warns, wc = check_file(path, args.min_words, args.max_words)
         status = "FAIL" if fails else "ok"
         print(f"== {path}: {wc} words [{status}]")
         for f_ in fails:

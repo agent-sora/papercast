@@ -14,9 +14,15 @@ CHUNK_MAX = 420          # chars per synthesis chunk
 SR = 24000               # kokoro output sample rate
 
 def load_transcript(path):
-    """Return plain spoken text: strip md headings/images/links, keep prose."""
+    """Return plain spoken text: strip YAML front matter, headings, links."""
+    lines = open(path, encoding="utf-8").read().splitlines()
+    if lines and lines[0].strip() == "---":          # YAML front matter block
+        for i in range(1, len(lines)):
+            if lines[i].strip() == "---":
+                lines = lines[i + 1:]
+                break
     out = []
-    for line in open(path, encoding="utf-8"):
+    for line in lines:
         s = line.strip()
         if not s or s.startswith("```"):
             continue
