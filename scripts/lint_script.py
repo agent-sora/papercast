@@ -76,8 +76,11 @@ def cold_open_ok(body: str, labs_field: str = ""):
                  "Berkeley", "Tsinghua", "ETH", "EPFL", "CMU", "KAIST")
     known_labs = [lab for lab in re.split(r"[;,]", labs_field or "")
                   if len(lab.strip()) > 2]
+    # normalize possessives/case so "Tencent's Hy Frontier team" still matches
+    # the Labs field value "Tencent Hy Frontier Team"
+    p_norm = p.lower().replace("'s", "").replace("’s", "")
     if not any(w in p for w in lab_words) and \
-            not any(lab.strip() in p for lab in known_labs):
+            not any(lab.strip().lower() in p_norm for lab in known_labs):
         return False, "cold open lacks any institution mention"
     return True, f"{len(names)} authors named, institutions present"
 
