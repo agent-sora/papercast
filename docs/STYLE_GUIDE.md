@@ -24,8 +24,21 @@ digits are also ok, but not scientific notation).
 
 ## Additional house rules
 
+- FILE FORMAT CONTRACT: every transcript .md starts with YAML front matter,
+  then the spoken prose. Fields (values come from
+  episodes/feed/meta/<arxiv_id>.json):
+      ---
+      Title: <paper title>
+      Authors: <first author, second author, third author>
+      Labs: <affiliation 1; affiliation 2; ...>
+      Arxiv: <arxiv id like 2608.12036>
+      Day: <YYYY-MM-DD of the HF daily list>
+      Upvotes: <integer upvotes from meta json>
+      Link: <https://arxiv.org/abs/<arxiv id>>
+      ---
+  The RSS builder parses these fields; missing fields break publication.
 - One episode = one paper. Target ~10 minutes of speech (~9,500 characters of
-  prose; acceptable window 8,500–10,500).
+  prose; acceptable window 8,500–10,500, i.e. roughly 1,300–1,750 words).
 - Cold open (first paragraph, before anything else): the paper title, the first
   three authors, and the labs/universities/companies the authors are affiliated
   with (from the PDF's first page). Say affiliations as spoken names
