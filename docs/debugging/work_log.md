@@ -18,3 +18,8 @@ All timestamps UTC.
 - User constraint: podcast is consumable ONLY once live on GitHub Pages (mp3 +
   RSS both resolvable). Recorded as hard acceptance criterion in DESIGN.md.
 - NEXT: `gh-setup` (create agent-sora repo, enable Pages, verify token scopes).
+## 2026-08-24 13:40 UTC — first publish + e2e fixes
+- build_rss.py: fixed missing `import sys`; cover.png now prefers real artwork from assets/cover.png.
+- Generated proper 1400x1400 cover art (Pillow installed into .venv via uv).
+- publish.sh: now also copies episodes/*.mp3 into the deploy tree (audio previously would have 404'd).
+- Built site from ep1 (2026-08-21.mp3, 14.9 MB), pushed gh-pages commit 8041b38; raw.githubusercontent confirms all files present; awaiting Pages CDN rebuild for github.io URLs.
