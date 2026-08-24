@@ -46,3 +46,8 @@ All timestamps UTC.
 - Validated live publish path early with 2 episodes: build_rss -> publish.sh
   (gh-pages clone/replace/push), feed.xml 200, episode mp3 200 live.
   Episode runtime spot check: 589s (~10 min) per-paper target hit.
+- All 42 transcripts lint-clean. Two writer agents had to be respawned for
+  missed papers (day 14 x4, day 18 x1) plus a day-20 length-repair pass;
+  steering + lint-gate caught every violation before TTS.
+- Linter false-positive class fixed: lab-name matching now tolerates
+  possessive/case variants ("Tencent's Hy Frontier team").
