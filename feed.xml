@@ -109,6 +109,15 @@
       <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-19-2608.12313.mp3" type="audio/mpeg" length="7928108"/>
     </item>
     <item>
+      <title>Agent Lightning v1.0: Towards Harnessed Agentic RL</title>
+      <link>https://arxiv.org/abs/2608.17528</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-19-2608.17528.mp3</guid>
+      <pubDate>Wed, 19 Aug 2026 06:00:00 +0000</pubDate>
+      <description>By Zhiyuan He, Siwei Zhang, Zhiwen Zhou (Microsoft; Fudan University; Zhejiang University; University of Edinburgh) Agent Lightning v1.0: Towards Harnessed Agentic RL. First authors Zhiyuan He, Siwei Zhang, and Zhiwen Zhou, from Microsoft, Fudan University, Zhejiang University, and the University of Edinburgh. This paper does two things: it names and systematically characterizes a failure-prone regime—reinforcement learning on agents that run inside their own deployment harnesses—and it ships a roughly 3,500-line framework fixing the identified problems, with a coding-agent result that deserves scrutiny: Qwen3.5-9B improving on SWE-bench Verified from 41.8 to 56.4 percent using reinforcement learning alone on about 6,000 examples. Terminology first. Traditional agentic RL puts the environment loop inside the trainer: prompt tokens, action tokens, observation tokens concatenate into one Markov chain—prompt at step t equals the previous prompt plus the previous action plus the tokenized observation—one training sample per rollout. Harnessed agentic RL means the deploy-time harness—mini-SWE-agent, OpenHands, OpenCode, Claude Code, Codex, OpenClaw, Hermes—owns context construction, tool execution, and control flow, while the training engine observes only LLM request-response pairs crossing an API boundary. Both regimes fit partially observable Markov decision processes, but the latent state now includes harness state, and the policy sees separately constructed prompts per call. The proxy-based disaggregation came from the original Agent Lightning; verl Uni-Agent, AReaL 2.0, slime v0.3.0, and Polar have since adopted it. The contribution here is showing that this paradigm silently breaks four assumptions every standard trainer makes.</description>
+      <itunes:duration>0</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-19-2608.17528.mp3" type="audio/mpeg" length="3805"/>
+    </item>
+    <item>
       <title>StateM: Reaching 95.3% Raw Accuracy, or a $15 Frontier Run, on Terminal-Bench 2.1 via Harness Scaling</title>
       <link>https://arxiv.org/abs/2608.15089</link>
       <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-18-2608.15089.mp3</guid>
