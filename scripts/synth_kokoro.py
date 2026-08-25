@@ -99,10 +99,14 @@ def main():
                 if j != len(wav_paths) - 1:
                     f.write(f"file '{gap}'\n")
         os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
+        # write to a temp name then atomically rename, so watchers/publishers
+        # never observe a half-written mp3
+        part_out = args.out + ".part"
         subprocess.run(["ffmpeg", "-y", "-f", "concat", "-safe", "0",
                         "-i", list_file,
                         "-codec:a", "libmp3lame", "-b:a", "96k",
-                        args.out], check=True, capture_output=True)
+                        part_out], check=True, capture_output=True)
+        os.replace(part_out, args.out)
     secs = total_samples / SR
     print(f"WROTE {args.out}: {secs:.0f}s ({secs/60:.1f} min), "
           f"{time.time()-t0:.0f}s wall", flush=True)
