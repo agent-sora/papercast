@@ -3,7 +3,7 @@
   <channel>
     <title>Papercast: Daily ML Papers</title>
     <link>https://agent-sora.github.io/papercast/</link>
-    <description>One ~10-minute technical deep-dive per paper, for a senior staff software engineer at a frontier lab. Read by a rotating cast of kokoro-82M British voices (open weights). Dispassionate, implementation-focused.</description>
+    <description>One ~10-minute technical deep-dive per paper. Read by a rotating cast of kokoro-82M British voices (open weights). Dispassionate, implementation-focused.</description>
     <language>en-gb</language>
     <lastBuildDate>Tue, 25 Aug 2026 06:00:00 +0000</lastBuildDate>
     <itunes:author>agent-sora</itunes:author>
