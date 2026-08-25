@@ -148,10 +148,11 @@ def main():
         sf.write(wav_all, full, SR)
         os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
         # write to a temp name then atomically rename, so watchers/publishers
-        # never observe a half-written mp3
-        part_out = args.out + ".part"
+        # never observe a half-written mp3. NB: keep a known audio extension
+        # (ffmpeg picks the muxer from it) AND pass -f explicitly.
+        part_out = args.out + ".part.mp3"
         try:
-            subprocess.run(["ffmpeg", "-y", "-i", wav_all,
+            subprocess.run(["ffmpeg", "-y", "-f", "mp3", "-i", wav_all,
                             "-codec:a", "libmp3lame", "-b:a", "96k",
                             part_out], check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
