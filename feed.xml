@@ -217,6 +217,15 @@
       <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-14-2608.13489.mp3" type="audio/mpeg" length="7269164"/>
     </item>
     <item>
+      <title>How Can Rhetoric Reward-Hack AI Reviewers? Dissecting Rhetorical Sensitivity in AI-Based Peer Review</title>
+      <link>https://arxiv.org/abs/2608.08975</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-14-2608.08975.mp3</guid>
+      <pubDate>Fri, 14 Aug 2026 06:00:00 +0000</pubDate>
+      <description>By Ming Li, Chenguang Wang, Xirui Li (University of Maryland; Virginia Tech; MBZUAI; University of Waterloo) How Can Rhetoric Reward-Hack AI Reviewers? Dissecting Rhetorical Sensitivity in AI-Based Peer Review, by Ming Li, Chenguang Wang, Xirui Li, Xinyue Zeng, and colleagues at the University of Maryland, Virginia Tech, MBZUAI, and the University of Waterloo. The question is precise: when the reported science is held fixed and only the rhetoric moves, which rhetorical dimensions shift AI reviewer scores, in which direction, and under what conditions. This matters to anyone wiring LLMs into review pipelines, because authors already use LLMs to revise manuscripts and venues are experimenting with LLM reviewers, and the two uses meet in one pipeline. Prior work showed presentation-only edits can raise AI review scores; this paper maps the structure of that vulnerability instead of just demonstrating it exists. The experimental machine is substantial. From OpenReview, the authors sampled 120 anonymized ICLR 2026 submissions, twenty from each of six human-rating bands spanning one to eight point five, matched them to public arXiv LaTeX sources using token-based cosine similarity and five-gram Jaccard similarity to pick the right version, ran an agentic anonymization pass removing author names, affiliations, acknowledgments, status statements, and identity-bearing links with manual verification of both source and compiled PDF, and treated each verified project as a common baseline. Two rewriting agents, GPT-5.5 through Codex CLI and Opus 4.8 through Claude Code, then applied six prespecified rhetorical dimensions, each in opposing directions: novelty stance, assertive versus cautious claim framing; scope framing, broader versus narrower generalization claims; evidence framing, greater versus lesser emphasis on reported comparisons; contribution salience, foregrounded versu</description>
+      <itunes:duration>0</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-14-2608.08975.mp3" type="audio/mpeg" length="1772"/>
+    </item>
+    <item>
       <title>Spark-to-Paper: End-to-End Research Paper Generation as a Composable Skill</title>
       <link>https://arxiv.org/abs/2608.11924</link>
       <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-13-2608.11924.mp3</guid>
