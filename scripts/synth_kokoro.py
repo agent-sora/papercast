@@ -132,7 +132,7 @@ def main():
             if i % 10 == 0 or i == len(chunks):
                 done = total_samples / SR
                 rate = done / (time.time() - t0)
-                print(f"  {i}/{len(chunks)}  {done/60:.1f}s audio "
+                print(f"  {i}/{len(chunks)}  {done/60:.1f} min audio "
                       f"({rate:.2f}x realtime)", flush=True)
         # join PCM in-process and encode once from a single wav (the concat
         # demuxer intermittently fails on long file lists in this sandbox)
@@ -152,7 +152,7 @@ def main():
         # (ffmpeg picks the muxer from it) AND pass -f explicitly.
         part_out = args.out + ".part.mp3"
         try:
-            subprocess.run(["ffmpeg", "-y", "-f", "mp3", "-i", wav_all,
+            subprocess.run(["ffmpeg", "-y", "-i", wav_all,
                             "-codec:a", "libmp3lame", "-b:a", "96k",
                             part_out], check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
