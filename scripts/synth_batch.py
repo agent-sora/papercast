@@ -14,6 +14,7 @@ Prints one PROGRESS line per episode and SYNTH_BATCH_DONE <n> at the end.
 """
 import argparse
 import os
+import random
 import re
 import subprocess
 import sys
@@ -39,6 +40,8 @@ def main() -> int:
     ap.add_argument("--episodes-dir", default="episodes")
     ap.add_argument("--only-prefix", default=None,
                     help="e.g. 2026-08-13 to synthesize just that day")
+    ap.add_argument("--seed", type=int, default=None,
+                    help="reproducible voice draws (default: true random)")
     args = ap.parse_args()
 
     md_files = sorted(
@@ -51,6 +54,8 @@ def main() -> int:
         return 1
 
     done = failed = skipped = 0
+    rng = random.Random(args.seed)
+    from synth_kokoro import VOICES
     for i, name in enumerate(md_files, 1):
         stem = name[:-3]
         out_mp3 = os.path.join(args.episodes_dir, stem + ".mp3")
@@ -70,11 +75,24 @@ def main() -> int:
                   f"{fails[0]}", flush=True)
             failed += 1
             continue
+        # one uniform-random UK voice per episode (re-drawn only on re-synth)
+        voice = rng.choice(VOICES)
+        with open(md_path, encoding="utf-8") as f:
+            md_text = f.read()
+        m = re.match(r"^---\n(.*?\n)---\n", md_text, re.S)
+        if m and not re.search(r"^Voice:", m.group(1), re.M):
+            fm_new = re.sub(r"\n---\n$", f"\nVoice: {voice}\n---\n",
+                            m.group(0))
+            with open(md_path, "w", encoding="utf-8") as f:
+                f.write(fm_new + md_text[len(m.group(0)):])
+        elif not m:
+            voice = "bf_isabella"  # no front matter; keep legacy default
         with open(tmp_txt, "w", encoding="utf-8") as f:
-            f.write(body_without_front_matter(os.path.join(args.episodes_dir, name)))
+            f.write(body_without_front_matter(md_path))
 
         cmd = [sys.executable, os.path.join(HERE, "synth_kokoro.py"),
-               "--transcript", tmp_txt, "--out", out_mp3]
+               "--transcript", tmp_txt, "--out", out_mp3,
+               "--voice", voice]
         env = dict(os.environ, TMPDIR="/workspace/.tmp", OMP_NUM_THREADS="1")
         try:
             r = subprocess.run(cmd, capture_output=True, text=True,

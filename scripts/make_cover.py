@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the podcast cover art: a nerdy hugging-face-style robot.
+"""Generate the podcast cover art: a nerdy hugging-face-style robot (Papercast).
 
 Draws a 3000x3000 px square (Apple/iTunes podcast-art spec range) with PIL:
 dark slate backdrop, faint circuit traces, a warm yellow badge, and a friendly
@@ -112,10 +112,11 @@ def main():
 
     f_big = font(300)
     f_small = font(150)
-    d.text((W // 2, 330), "AGENT SORA", anchor="mm", fill=YELLOW, font=f_big)
-    d.text((W // 2, 2830), "DAILY  PAPERS", anchor="mm", fill=WHITE,
+    d.text((W // 2, 330), "P A P E R C A S T", anchor="mm", fill=YELLOW,
+           font=f_big)
+    d.text((W // 2 - 330, 2830), "DAILY", anchor="mm", fill=WHITE,
            font=f_small)
-    d.text((W // 2, 2830), "DAILY  PAPERS", anchor="mm",
+    d.text((W // 2 + 330, 2830), "PAPERS", anchor="mm",
            fill=(255, 157, 0), font=f_small)
 
     out = os.path.join(os.path.dirname(os.path.dirname(

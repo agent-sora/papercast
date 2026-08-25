@@ -13,6 +13,11 @@ import argparse, os, re, subprocess, sys, tempfile, time
 CHUNK_MAX = 420          # chars per synthesis chunk
 SR = 24000               # kokoro output sample rate
 
+# UK-English voice cast (user-selected 2026-08-24); one picked uniformly at
+# random PER EPISODE
+VOICES = ("bf_alice", "bf_emma", "bf_isabella", "bf_lily",
+          "bm_daniel", "bm_fable", "bm_george", "bm_lewis")
+
 def load_transcript(path):
     """Return plain spoken text: strip YAML front matter, headings, links."""
     lines = open(path, encoding="utf-8").read().splitlines()
@@ -58,12 +63,17 @@ def main():
     ap.add_argument("--transcript", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--speed", type=float, default=1.0)
+    ap.add_argument("--voice", default=None,
+                    help="override; else uniform random UK voice")
     args = ap.parse_args()
 
     import torch
     torch.set_num_threads(4)
     from kokoro import KPipeline
     pipe = KPipeline(lang_code="a")                      # American English
+    # per-episode voice: explicit --voice wins, else uniform random from cast
+    voice = args.voice or random.Random().choice(VOICES)
+    print(f"# voice: {voice}", flush=True)
     text = load_transcript(args.transcript)
     chunks = split_chunks(text)
     print(f"# {len(chunks)} chunks ({len(text)} chars)", flush=True)
@@ -76,7 +86,7 @@ def main():
         wav_paths = []
         for i, ch in enumerate(chunks, 1):
             try:
-                gen = list(pipe(ch, voice="bf_isabella", speed=args.speed))
+                gen = list(pipe(ch, voice=voice, speed=args.speed))
                 audio = np.concatenate([g.audio for g in gen if g.audio is not None])
             except Exception as e:
                 print(f"[warn] chunk {i} failed ({e}); skipping", flush=True)

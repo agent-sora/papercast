@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Publish the generated static site (index.html, feed.xml, episodes/*.mp3,
 # cover.png) to the `gh-pages` branch, which GitHub Pages serves at
-# https://agent-sora.github.io/agent-sora/
+# https://agent-sora.github.io/papercast/
 #
 # Stateless: clones gh-pages into a temp dir, replaces site files, commits,
 # pushes. Keeps the token out of URLs/.git/config via the askpass helper.
