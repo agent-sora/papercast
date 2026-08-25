@@ -81,9 +81,17 @@ def main() -> int:
                                timeout=3600, env=env)
             ok = r.returncode == 0 and os.path.exists(out_mp3) \
                 and os.path.getsize(out_mp3) > 10240
-            tail = (r.stdout or "").strip().splitlines()[-1:] or [""]
+            out_lines = [l for l in (r.stdout or "").splitlines()
+                         if l.strip()]
+            tail = out_lines[-1:] or [""]
+            warns = [l for l in out_lines if "[warn]" in l][:3]
             print(f"[{i}/{len(md_files)}] {'OK ' if ok else 'FAIL'} {stem} "
                   f"{tail[0][:80]}", flush=True)
+            for w in warns:
+                print(f"    {w[:160]}", flush=True)
+            if not ok and r.stderr:
+                print(f"    stderr: {r.stderr.strip().splitlines()[-1][:200]}",
+                      flush=True)
             done += ok
             failed += not ok
         except subprocess.TimeoutExpired:

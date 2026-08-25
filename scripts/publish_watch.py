@@ -60,41 +60,33 @@ def main():
 
     ep_dir = os.path.join(ROOT, args.episodes_dir)
     known = snapshot(ep_dir)
+    prev = dict(known)
+    last_change = None
     print(f"[watch] start: {len(known)} mp3 present", flush=True)
 
     while True:
         time.sleep(10)
         cur = snapshot(ep_dir)
-        changed = {f for f in cur
-                   if f not in known or cur[f][1] != known[f][1]}
-        disappeared = set(known) - set(cur)
-        if not changed and not disappeared:
+        if cur != prev:
+            prev = cur
+            last_change = time.time()
             if args.once:
-                print("[watch] nothing to do", flush=True)
-                return 0
+                break
             continue
-        # wait until the burst settles (synthesis writes one file at a time)
-        quiet_for = 0
-        while quiet_for < args.settle:
-            time.sleep(15)
-            quiet_for += 15
-            cur2 = snapshot(ep_dir)
-            new_changed = {f for f in cur2
-                           if f not in known or cur2[f][1] != known[f][1]}
-            if new_changed:
-                changed |= new_changed
-                quiet_for = 0
+        # state stable since last poll: publish if there is anything new and
+        # it has stayed quiet for --settle seconds
+        if last_change and time.time() - last_change >= args.settle:
+            changed = {f for f in cur
+                       if f not in known or cur[f][1] != known[f][1]}
+            print(f"[watch] publishing after {len(changed)} new mp3(s)", flush=True)
+            if build_and_publish():
+                known = dict(cur)
             else:
-                cur = cur2
-        print(f"[watch] publishing after {len(changed)} new mp3(s): "
-              f"{sorted(changed)[:3]}{'…' if len(changed) > 3 else ''}",
-              flush=True)
-        if build_and_publish():
-            known = cur
-        else:
-            known = cur  # don't hot-loop on a failing push; next event retries
+                known = dict(cur)  # next event retries; don't hot-loop here
+            last_change = None
         if args.once:
-            return 0
+            break
+    return 0
 
 
 if __name__ == "__main__":
