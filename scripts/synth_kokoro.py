@@ -134,21 +134,23 @@ def main():
                 rate = done / (time.time() - t0)
                 print(f"  {i}/{len(chunks)}  {done/60:.1f}s audio "
                       f"({rate:.2f}x realtime)", flush=True)
-        # concat with small silence between chunks for natural pacing
-        list_file = os.path.join(td, "list.txt")
-        gap = os.path.join(td, "gap.wav")
-        sf.write(gap, np.zeros(int(SR * 0.25), dtype=np.float32), SR)
-        with open(list_file, "w") as f:
-            for j, p in enumerate(wav_paths):
-                f.write(f"file '{p}'\n")
-                if j != len(wav_paths) - 1:
-                    f.write(f"file '{gap}'\n")
+        # join PCM in-process and encode once from a single wav (the concat
+        # demuxer intermittently fails on long file lists in this sandbox)
+        gap = np.zeros(int(SR * 0.25), dtype=np.float32)
+        joined = []
+        for j, p in enumerate(wav_paths):
+            a, _ = sf.read(p, dtype=np.float32)
+            joined.append(a)
+            if j != len(wav_paths) - 1:
+                joined.append(gap)
+        full = np.concatenate(joined)
+        wav_all = os.path.join(td, "all.wav")
+        sf.write(wav_all, full, SR)
         os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
         # write to a temp name then atomically rename, so watchers/publishers
         # never observe a half-written mp3
         part_out = args.out + ".part"
-        subprocess.run(["ffmpeg", "-y", "-f", "concat", "-safe", "0",
-                        "-i", list_file,
+        subprocess.run(["ffmpeg", "-y", "-i", wav_all,
                         "-codec:a", "libmp3lame", "-b:a", "96k",
                         part_out], check=True, capture_output=True)
         os.replace(part_out, args.out)
