@@ -59,10 +59,21 @@ def main() -> int:
     for i, name in enumerate(md_files, 1):
         stem = name[:-3]
         out_mp3 = os.path.join(args.episodes_dir, stem + ".mp3")
-        if os.path.exists(out_mp3) and os.path.getsize(out_mp3) > 10240 \
-                and os.path.getmtime(out_mp3) >= os.path.getmtime(
-                    os.path.join(args.episodes_dir, name)):
-            skipped += 1
+        md_path = os.path.join(args.episodes_dir, name)
+        # skip only genuinely valid audio: >10 KB AND >= 300 s by ffprobe
+        # (broken-era stubs can be recent-mtime but seconds long)
+        if os.path.exists(out_mp3) and os.path.getsize(out_mp3) > 10240:
+            try:
+                pr = subprocess.run(
+                    ["ffprobe", "-v", "error", "-show_entries",
+                     "format=duration", "-of", "csv=p=0", out_mp3],
+                    capture_output=True, text=True)
+                dur = float(pr.stdout.strip() or 0)
+            except (ValueError, subprocess.SubprocessError):
+                dur = 0.0
+            if dur >= 300 and os.path.getmtime(out_mp3) >= \
+                    os.path.getmtime(md_path):
+                skipped += 1
             print(f"[{i}/{len(md_files)}] SKIP {stem} (exists)", flush=True)
             continue
 
