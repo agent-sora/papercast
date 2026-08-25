@@ -107,9 +107,12 @@ def main() -> int:
                   f"{tail[0][:80]}", flush=True)
             for w in warns:
                 print(f"    {w[:160]}", flush=True)
-            if not ok and r.stderr:
-                print(f"    stderr: {r.stderr.strip().splitlines()[-1][:200]}",
-                      flush=True)
+            if not ok:
+                for l in out_lines[-8:]:
+                    print(f"    | {l[:150]}", flush=True)
+                if r.stderr:
+                    print(f"    stderr: {r.stderr.strip().splitlines()[-1][:200]}",
+                          flush=True)
             done += ok
             failed += not ok
         except subprocess.TimeoutExpired:
