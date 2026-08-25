@@ -244,6 +244,15 @@
       <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-14-2608.13552.mp3" type="audio/mpeg" length="4119"/>
     </item>
     <item>
+      <title>AutoDesign: Meta-Harness Optimization for Long-Horizon Agentic Design</title>
+      <link>https://arxiv.org/abs/2608.13560</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-14-2608.13560.mp3</guid>
+      <pubDate>Fri, 14 Aug 2026 06:00:00 +0000</pubDate>
+      <description>By Yaxin Luo, Haobin Jiang, Jialv Zou (Meituan; MBZUAI; Huazhong University of Science and Technology; Peking University; Tsinghua University; The Chinese University of Hong Kong; Shanghai Jiao Tong University) AutoDesign: Meta-Harness Optimization for Long-Horizon Agentic Design, by Yaxin Luo, Haobin Jiang, Jialv Zou, and colleagues, a fourteen-author collaboration spanning Meituan, MBZUAI, Huazhong University of Science and Technology, Peking University, Tsinghua University, The Chinese University of Hong Kong, and Shanghai Jiao Tong University. The paper&#x27;s premise is that the harness around a language model, the prompts, tools, runtime, and evaluation loop that turn a source document into a finished artifact, should be an optimization target in its own right, distinct from model weights. Rather than hand-tuning that scaffold, AutoDesign runs a meta-level optimizer: a coding agent recursively rewrites the design harness itself based on rollout feedback, under an acceptance gate that blocks regressions. The team instantiates this on academic paper-to-poster generation and ships two artifacts worth your attention: DesignHarness, the evolved poster-generation system, and PosterBench, a frozen hundred-paper evaluation protocol with controlled tracks. The formulation is clean. A design harness H is the system surrounding a fixed model that maps a multimodal source x and context c to a human-facing artifact y through an execution trajectory. The objective is the expected quality of produced artifacts under an evaluator R meta, and the meta-harness searches for the harness that maximizes it while model parameters stay fixed throughout. H is decomposed into five functional components: context and memory, meaning source management, prompts, skills, reusable assets, and persistent state; tools and specifications covering editable artifact specs for layout, typography, and pro</description>
+      <itunes:duration>0</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-14-2608.13560.mp3" type="audio/mpeg" length="1924"/>
+    </item>
+    <item>
       <title>Spark-to-Paper: End-to-End Research Paper Generation as a Composable Skill</title>
       <link>https://arxiv.org/abs/2608.11924</link>
       <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-13-2608.11924.mp3</guid>
