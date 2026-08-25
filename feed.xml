@@ -64,6 +64,15 @@
       <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-21-2607.21596.mp3" type="audio/mpeg" length="7570988"/>
     </item>
     <item>
+      <title>Zetta ζ: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence</title>
+      <link>https://arxiv.org/abs/2608.16590</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-20-2608.16590.mp3</guid>
+      <pubDate>Thu, 20 Aug 2026 06:00:00 +0000</pubDate>
+      <description>By Xin Ding, Liang Mi, Mingzhe Huang (Institute for AI Industry Research (AIR), Tsinghua University; Z-Trans AI) The paper is &quot;Zetta Zeta: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence.&quot; Yes, the Greek letter zeta is genuinely in the title. The first three authors are Xin Ding, Liang Mi, and Mingzhe Huang, leading a fourteen-person list from the Institute for AI Industry Research at Tsinghua University — AIR for short — together with Z-Trans AI. It sits at the top of the day&#x27;s daily list with 145 upvotes, so a lot of people want this story to be true. Whether it holds up is a fair question, and we will get there. The problem is familiar to anyone who has shipped a robot policy. Vision-language-action models keep failing once they leave the curated evaluation suite, because the things that made training work — dense supervision, verifiable rewards, clean resets — stop existing at deployment time. The usual response is to freeze everything at ship date and route observed failures back to the vendor for the next release cycle, which means every fix waits months and every regression risks undoing old ones. The authors argue the mistake is treating the whole stack as one frozen object. Their split is cleaner: the base policy stays frozen, and the harness around it — runtime critics, recovery routines, rollout plumbing — becomes the part that evolves, using nothing but the stream of episodes the robot already produces during ordinary operation. No new labels, no human-in-the-loop repair queue, no fine-tuning runs that could destabilize the skills the policy already has.</description>
+      <itunes:duration>0</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-20-2608.16590.mp3" type="audio/mpeg" length="3805"/>
+    </item>
+    <item>
       <title>OmniScientist: An Omni-Modal Omni-Discipline AI Scientist</title>
       <link>https://arxiv.org/abs/2608.13558</link>
       <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-20-2608.13558.mp3</guid>
