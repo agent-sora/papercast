@@ -35,6 +35,7 @@ digits are also ok, but not scientific notation).
       Day: <YYYY-MM-DD of the HF daily list>
       Upvotes: <integer upvotes from meta json>
       Link: <https://arxiv.org/abs/<arxiv id>>
+      Voice: <kokoro voice id, stamped automatically by scripts/synth_batch.py>
       ---
   The RSS builder parses these fields; missing fields break publication.
 - One episode = one paper. Target ~10 minutes of speech (~9,500 characters of
