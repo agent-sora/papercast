@@ -73,6 +73,15 @@
       <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-20-2608.16590.mp3" type="audio/mpeg" length="2865"/>
     </item>
     <item>
+      <title>Co-RL: Unsupervised Reasoning Emerges from Diverse Cohort in Multi-agent RL</title>
+      <link>https://www.arxiv.org/abs/2608.17253</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-20-2608.17253.mp3</guid>
+      <pubDate>Thu, 20 Aug 2026 06:00:00 +0000</pubDate>
+      <description>By Yunhao Yang, Yuexin Bian, Yunjie Tian (Johns Hopkins University; UC San Diego; University of Exeter) The paper is &quot;Co-RL: Unsupervised Reasoning Emerges from Diverse Cohort in Multi-agent RL.&quot; The first three authors are Yunhao Yang, Yuexin Bian, and Yunjie Tian, leading a nine-author group spread across Johns Hopkins University, UC San Diego, and the University of Exeter, with a couple of independent researchers mixed in. At 92 upvotes it sits third on the day, and its promise is the one everybody wants: reasoning improvements from reinforcement learning with zero ground-truth labels. To see the problem, start from the standard recipe. Reinforcement learning with verifiable rewards trains models on problems with checkable answers — math with known solutions, code with known outputs — and it works embarrassingly well. The catch is that verifiable answers require humans to have produced them, and as capabilities advance past what people can reliably evaluate, the supervision supply line thins exactly where you want to push. Self-rewarding methods respond by letting the model grade its own completions, no labels needed. The trouble, documented repeatedly, is what happens when a student grades its own exam: the model drifts toward confidently rewarding its own errors, and training collapses into elaborate self-flattery. The most-cited cautionary example is TTRL, which leans on majority voting over the model&#x27;s own samples — workable early, but as training progresses the votes simply ratify whatever the model already believes, so the pseudo-labels freeze around the model&#x27;s initial competence instead of stretching it. Every label-free scheme has to answer the same uncomfortable question: where does genuinely new corrective signal enter the system? If the only source of judgment is the model being judged, the honest answer is nowhere.</description>
+      <itunes:duration>0</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-20-2608.17253.mp3" type="audio/mpeg" length="3788"/>
+    </item>
+    <item>
       <title>OmniScientist: An Omni-Modal Omni-Discipline AI Scientist</title>
       <link>https://arxiv.org/abs/2608.13558</link>
       <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-20-2608.13558.mp3</guid>
