@@ -51,3 +51,38 @@ All timestamps UTC.
   steering + lint-gate caught every violation before TTS.
 - Linter false-positive class fixed: lab-name matching now tolerates
   possessive/case variants ("Tencent's Hy Frontier team").
+
+## 2026-08-25 evening EDT — day-21 daily run (manual re-run; cron paused)
+- Manual end-to-end run for 2026-08-25 while cron e0646a456062 is paused
+  (machine move). Top-6 picked by TRUE HF upvotes: 161/51/33/31/23/14;
+  picks JSON re-stamped from the HF API before writing front matter.
+- Six parallel writer subagents: four passed the linter first try, two hit
+  provider timeouts/503s and were re-dispatched; final state 6/6 lint-clean
+  (total FAILs: 0), bodies 1,332–1,682 words, upvotes match picks file.
+- New quality gate used alongside the linter: numeric fact spot-check of
+  every distinctive figure against the extracted paper text. Caught a real
+  fabrication in the TLive-Omni (2608.20958) episode — invented DocVQA 94.9,
+  ChartQA 87.5, OCRBench 851 and a nonexistent "G-score 68.8"; product
+  grounding AP also misquoted. Verified against arXiv HTML v1 tables and
+  rewrote both passages with true figures (OCRBench 90.3, MMMU 73.4,
+  MathVista 81.9, product AP 89.96/91.45 vs peers 28–65, temporal mIoU 81.5,
+  live-commerce ASR CER 6.46, VideoMMMU 73.9 vs 72.8).
+- Extraction gotchas worth remembering: this PDF pipeline drops leading
+  zeros in table cells (".669") and fragments numbers across newlines, so
+  collapse whitespace and check ".NNN" forms before calling a number
+  unmatched. arXiv HTML (/html/<id>v1) is the better table source when PDF
+  extraction is ambiguous.
+- Serial kokoro synthesis ran as two passes (pass 2 only saw late files):
+  6/6 OK, episodes 8.9–12.9 min, mean volume −25 to −29 dB (no silent
+  degradation), single-flight lock respected throughout.
+- build_rss dry-run produced exactly 48 items (42 live + 6 new) with all six
+  new enclosures present before publishing.
+- Publish incident: first gh-pages push died with HTTP 408 mid send-pack
+  (~50 MB of new mp3s pushes git into chunked upload, which this path
+  handles badly). Fixed WITHOUT editing publish.sh by injecting
+  GIT_CONFIG_COUNT=1 / GIT_CONFIG_KEY_0=http.postBuffer /
+  GIT_CONFIG_VALUE_0=524288000 into the environment; retry pushed cleanly
+  (gh-pages commit a78f522, 6/6 mp3s visible via git ls-tree).
+- Live-feed HTTP checks immediately after push still showed 42 items /
+  404s on new mp3s — known Pages CDN lag pattern from earlier days;
+  git-level truth on origin/gh-pages already correct at publish time.
