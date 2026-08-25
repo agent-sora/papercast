@@ -136,6 +136,15 @@
       <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-18-2608.16859.mp3" type="audio/mpeg" length="6670412"/>
     </item>
     <item>
+      <title>UI-Mate: A Self-Evolving Companion for Computer-Use Agents</title>
+      <link>https://huggingface.co/papers/2608.15930</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-18-2608.15930.mp3</guid>
+      <pubDate>Tue, 18 Aug 2026 06:00:00 +0000</pubDate>
+      <description>By Zihan Ding, Longxu Dou, Qi Gao, et al. (Tencent Hy Frontier Team) Today&#x27;s paper is &quot;UI-Mate: A Self-Evolving Companion for Computer-Use Agents,&quot; by Zihan Ding, Longxu Dou, Qi Gao, and twenty-six colleagues spanning Tencent&#x27;s Hy Frontier team — twenty-nine authors in all. The pitch matches the name: rather than train yet another larger computer-use model, they built a companion that rides along with one, watches it operate, steps in the moment it stalls, and remembers every rescue so the next episode starts smarter. The headline claims are striking — 77.0 percent on OSWorld-Verified, reportedly the best open-weight result going, and a single demonstration doubling an agent&#x27;s odds on tasks it currently fails. Both deserve scrutiny, so let&#x27;s take them apart. A computer-use agent is a language model driving a graphical interface the way you do: it reads a screenshot of the screen, decides what to do next, and then clicks, types, or scrolls. Benchmarks such as OSWorld and WindowsAgentArena grade these systems on genuine office work — editing spreadsheets, filing mail, changing system settings — inside live operating systems rather than toy replicas. Scores keep climbing, but the failure signature in the traces is remarkably stable: the agent behaves competently for twenty steps, then loops on the same wrong click, wanders off-target, or quits partway through, and it essentially never recovers by itself. Restarting the task from scratch throws away every correct step already taken — and each retry re-rolls every downstream decision, so a long task can burn attempt after attempt failing somewhere new each time. The usual responses are more parameters, longer chains of reasoning, and heavier orchestration around the model. This paper starts somewhere else: a stuck agent typically needs exactly one corrective nudge — a demonstration of the right move — after which it can fi</description>
+      <itunes:duration>0</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-08-18-2608.15930.mp3" type="audio/mpeg" length="2636"/>
+    </item>
+    <item>
       <title>ClawGym II: Exploring Black-Box RL on Agent Harness</title>
       <link>https://huggingface.co/papers/2608.16798</link>
       <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-08-18-2608.16798.mp3</guid>
