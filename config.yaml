@@ -50,5 +50,5 @@ GH_REPO: "agent-sora/papercast"  # created + Pages enabled (gh-setup DONE)
 GH_PAGES_BRANCH: "gh-pages"
 RSS_TITLE: "Papercast: Daily ML Papers"
 RSS_FEED_PATH: "feed.xml"
-RSS_DESCRIPTION: "One ~10-minute technical deep-dive per paper, for a senior staff software engineer at a frontier lab. Read by a rotating cast of kokoro-82M British voices (open weights). Dispassionate, implementation-focused."
+RSS_DESCRIPTION: "One ~10-minute technical deep-dive per paper. Read by a rotating cast of kokoro-82M British voices (open weights). Dispassionate, implementation-focused."
 RSS_LANGUAGE: "en-gb"
