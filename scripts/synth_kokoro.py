@@ -71,6 +71,7 @@ def main():
     import numpy as np, soundfile as sf
     t0 = time.time()
     pieces, total_samples = [], 0
+    chunk_failures = 0
     with tempfile.TemporaryDirectory(dir=os.environ.get("TMPDIR", "/tmp")) as td:
         wav_paths = []
         for i, ch in enumerate(chunks, 1):
@@ -79,6 +80,7 @@ def main():
                 audio = np.concatenate([g.audio for g in gen if g.audio is not None])
             except Exception as e:
                 print(f"[warn] chunk {i} failed ({e}); skipping", flush=True)
+                chunk_failures += 1
                 audio = np.zeros(int(SR * 0.4), dtype=np.float32)   # breath gap
             p = os.path.join(td, f"{i:04d}.wav")
             sf.write(p, audio, SR)
@@ -108,6 +110,12 @@ def main():
                         part_out], check=True, capture_output=True)
         os.replace(part_out, args.out)
     secs = total_samples / SR
+    if chunk_failures > max(1, len(chunks) // 3) or secs < 60:
+        # degenerate run (e.g. GPU/CPU pressure): refuse to ship a mostly-silent
+        # episode — the batch driver will report FAIL and a later pass retries
+        print(f"ABORT: {chunk_failures}/{len(chunks)} chunks failed, only "
+              f"{secs:.0f}s audio produced", flush=True)
+        return 2
     print(f"WROTE {args.out}: {secs:.0f}s ({secs/60:.1f} min), "
           f"{time.time()-t0:.0f}s wall", flush=True)
 
