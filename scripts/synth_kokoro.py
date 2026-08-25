@@ -150,9 +150,15 @@ def main():
         # write to a temp name then atomically rename, so watchers/publishers
         # never observe a half-written mp3
         part_out = args.out + ".part"
-        subprocess.run(["ffmpeg", "-y", "-i", wav_all,
-                        "-codec:a", "libmp3lame", "-b:a", "96k",
-                        part_out], check=True, capture_output=True)
+        try:
+            subprocess.run(["ffmpeg", "-y", "-i", wav_all,
+                            "-codec:a", "libmp3lame", "-b:a", "96k",
+                            part_out], check=True, capture_output=True)
+        except subprocess.CalledProcessError as e:
+            err = (e.stderr or b"").decode(errors="replace")
+            print(f"[ffmpeg] rc={e.returncode} stderr tail:\n"
+                  f"{err[-1200:]}", flush=True)
+            raise
         os.replace(part_out, args.out)
     secs = total_samples / SR
     if chunk_failures > max(1, len(chunks) // 3) or secs < 60:
