@@ -67,6 +67,32 @@ def main():
                     help="override; else uniform random UK voice")
     args = ap.parse_args()
 
+    # single-flight lock: concurrent kokoro runs contend/OOM on this box and
+    # degrade to silent empty generations; second run must fail fast instead
+    lock_path = "/workspace/.tmp/kokoro.lock"
+    if os.path.exists(lock_path):
+        try:
+            pid = int(open(lock_path).read().strip() or "0")
+            alive = bool(pid) and os.path.exists(f"/proc/{pid}")
+        except ValueError:
+            alive = False
+        if alive:
+            print(f"ABORT: another kokoro run is active (pid {pid})",
+                  flush=True)
+            return 3
+    os.makedirs(os.path.dirname(lock_path), exist_ok=True)
+    with open(lock_path, "w") as f:
+        f.write(str(os.getpid()))
+
+    def _release():
+        try:
+            if open(lock_path).read().strip() == str(os.getpid()):
+                os.remove(lock_path)
+        except OSError:
+            pass
+    import atexit
+    atexit.register(_release)
+
     import torch
     torch.set_num_threads(4)
     from kokoro import KPipeline
@@ -87,9 +113,16 @@ def main():
         for i, ch in enumerate(chunks, 1):
             try:
                 gen = list(pipe(ch, voice=voice, speed=args.speed))
-                audio = np.concatenate([g.audio for g in gen if g.audio is not None])
+                lens = [0 if g.audio is None else len(g.audio)
+                        for g in gen]
+                audio = np.concatenate([g.audio for g in gen
+                                        if g.audio is not None]) \
+                    if any(l for l in lens) else np.zeros(0, np.float32)
+                if i <= 2 or not len(audio):
+                    print(f"[dbg] chunk {i}: {len(gen)} segments, "
+                          f"audio lens {lens[:4]}", flush=True)
             except Exception as e:
-                print(f"[warn] chunk {i} failed ({e}); skipping", flush=True)
+                print(f"[warn] chunk {i} failed: {e!r}; skipping", flush=True)
                 chunk_failures += 1
                 audio = np.zeros(int(SR * 0.4), dtype=np.float32)   # breath gap
             p = os.path.join(td, f"{i:04d}.wav")
