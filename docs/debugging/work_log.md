@@ -86,3 +86,7 @@ All timestamps UTC.
 - Live-feed HTTP checks immediately after push still showed 42 items /
   404s on new mp3s — known Pages CDN lag pattern from earlier days;
   git-level truth on origin/gh-pages already correct at publish time.
+
+## Day-22 addition (2026-08-26)
+- New standing rule (user): FM tech reports always get an episode.
+- Applied today: GigaBrain-0.7 + WeMM-Embedding already in top-6. DREAM Technical Report (2608.09408) checked and EXCLUDED: agentic control layer over Taobao recommender pipelines, no new base model. Slate stays 6.

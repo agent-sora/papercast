@@ -40,6 +40,14 @@ digits are also ok, but not scientific notation).
   The RSS builder parses these fields; missing fields break publication.
 - One episode = one paper. Target ~10 minutes of speech (~9,500 characters of
   prose; acceptable window 8,500–10,500, i.e. roughly 1,300–1,750 words).
+- FOUNDATION-MODEL TECHNICAL REPORTS: if the day's papers include a technical
+  report introducing a NEW foundation model (language, multimodal/embedding,
+  embodied/VLA, world model, or similar base-model release), ALWAYS produce an
+  episode for it — even when its true upvotes would not make the top-N cut.
+  Qualifier check runs AFTER vetoes. A title containing "Technical Report" is
+  not sufficient by itself: control/orchestration layers atop existing systems
+  and method papers that merely fine-tune or use existing models do NOT
+  qualify. Upvote ranking otherwise unchanged.
 - Cold open (first paragraph, before anything else): the paper title, the first
   three authors, and the labs/universities/companies the authors are affiliated
   with (from the PDF's first page). Say affiliations as spoken names
