@@ -90,3 +90,15 @@ All timestamps UTC.
 ## Day-22 addition (2026-08-26)
 - New standing rule (user): FM tech reports always get an episode.
 - Applied today: GigaBrain-0.7 + WeMM-Embedding already in top-6. DREAM Technical Report (2608.09408) checked and EXCLUDED: agentic control layer over Taobao recommender pipelines, no new base model. Slate stays 6.
+
+## 2026-08-26 — Day-22 makeup instance (manual; morning cron died mid-flight)
+- 12:xx UTC: Confirmed zero 2026-08-26 artifacts from nightly cron e0646a456062; morning firing (~06:20) died in sandbox restart after shortlisting candidates. Manual day-22 instance started.
+- Fetched HF daily_papers fresh: 25 entries cached. select_papers.py -> 18 kept (3 topic vetoes incl. Annotations as Rollouts).
+- Upvotes were 0 in cache snapshot; re-pulled true upvotes per-paper from HF API. Slate: GigaBrain-0.7 (91), WeMM-Embedding (56), AutoSaddler (49), SecOPD (36), CyberFactory (28), Recuris (20).
+- paper_meta.py for all six; PDFs in meta/, full-text extracted via venv PyMuPDF into feed/text/. All affiliations verified from PDF page-1 (GigaAI; Tencent WeChat Vision; POSTECH/KAIST/SUSTech/Microsoft; UC Berkeley; Beihang/ELLIS/IQuest/SMU; NUS/Stanford/Oxford/Princeton).
+- NEW STANDING RULE (user): always cover new foundation-model technical reports even below top-N cut. Added to STYLE_GUIDE.md (commit b65bd19). DREAM Technical Report checked and excluded: control layer, no new base model.
+- Wrote six transcripts; lint iterations fixed word-count floors and removed non-quoted violence-pattern words (destroy/wreck->neutral verbs; attacker->adversary where not quoted).
+- lint_script.py final: total FAILs: 0, all 1305-1336 words, warnings 0.
+- Numeric spot-check: every digit token in transcripts verified present in source text (only false flag: "3.5" inside model name Qwen3.5).
+- Noted paper defect: AutoSaddler section 5.2 prose misstates SWE-Bench Pro delta (+8.4 vs table 9.6) and TB2 margin (+6.2 vs table 4.4); transcript flags this against the paper's own tables/abstract.
+- Committed transcripts 1a26b87; serial kokoro synth launched under flock (proc_fd74077fa695); publish pending on synth completion.
