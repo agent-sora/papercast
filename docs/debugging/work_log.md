@@ -119,3 +119,13 @@ All timestamps UTC.
 2026-08-27 14:40 UTC SPOT-CHECK sweep: 37 regex patterns vs transcripts -> 4 gaps closed: VM 134ms/430tok explicit, 49.8% emergent share explicit, EverMemOS/MemOS values inserted, WS '211 dimensions'. Fuzzy-patch caution logged: two patch anchor misses corrupted adjacent text mid-edit (caught+fixed same turn by reading back diffs).
 - LINT FINAL: all six total FAILs: 0; words: G2 1309, WarpSAC 1323, FC 1308, D3 1362, JIT 1381, VoiceMem 1519.
 2026-08-27 14:45 UTC COMMITTED batch; serial kokoro synth started (flock kokoro.lock, only-prefix 2026-08-27, log .tmp/synth27.log).
+
+## 2026-08-27 day-23 closeout (synth → publish → live verify)
+
+- SYNTH RUN 1: completed done=6 failed=0 — but ALL voice stamps silently skipped. ROOT CAUSE: I had prefilled 'Voice: pending' in front matter; synth_batch only stamps when no Voice: line exists, and 'pending' matched, so random draws went unrecorded while audio used them anyway. Deleted placeholders, deleted MP3s, re-ran (run 2: done=6 failed=0, 8.6-10.2 min). PITFALL RECORDED: never leave Voice: placeholder lines in new transcripts; omit the field entirely and let synth stamp it.
+- Voice draw (run 2): bf_emma (VoiceMem), bf_isabella (FC), bf_lily (WarpSAC), bm_daniel (Agent-G2), bm_daniel (JIT), bf_isabella (D3-MOPD). Stamps committed be15832.
+- build_rss.py needs explicit --episodes-dir episodes --site-dir site --config config.yaml (no defaults); publish.sh takes site-dir arg. Chain: build_rss OK 60 eps; publish OK, pushed gh-pages.
+- ANOMALY: /workspace/.gh_token vanished between publish (which succeeded via askpass plumbing) and the Pages-builds API poll (401s). Public verification doesn't need it: ls-remote confirms remote gh-pages=4f8ae34; live feed poll1 already 60 items (propagation <25s).
+- LIVE VERIFY: feed.xml 60 items (54+6); six 2026-08-27-*.mp3 all HTTP 200 (6.26-7.44 MB); site root 200; .nojekyll present in origin/gh-pages tree. Day-23 CLOSED end-to-end.
+- NOTE: local origin/gh-pages ref was stale (d13dc14) after publish.sh's separate gh-pages checkout push; git fetch fixed view. Don't trust local remote-tracking refs post-publish.
+- Cron e0646a456062 still enabled; next fire 2026-08-28 03:00 ET. Watch: if tomorrow also errors at startup, inspect job persistence/config.
