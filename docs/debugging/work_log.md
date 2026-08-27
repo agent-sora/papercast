@@ -106,3 +106,16 @@ All timestamps UTC.
 - ~03:00 UTC: build_rss + publish.sh OK (postBuffer guard, TMPDIR); Pages build "built" after ~1 min.
 - ~03:02 UTC: VERIFIED LIVE — feed.xml + all six episode MP3s HTTP 200; feed=54 items; .nojekyll present in gh-pages tree.
 - Day-22 (2026-08-26) makeup CLOSED. Next auto-fire: cron e0646a456062, 07:00 UTC (03:00 ET) -> Aug-27 batch.
+
+## 2026-08-27 (day-23 manual makeup — Aug-27 cron died at startup)
+
+2026-08-27 11:20 UTC CRON ANSWER: scheduler shows job e0646a456062 fired 03:08 ET, status=error; no session transcript exists (unlike Aug-25/26 runs); disk confirms zero artifacts — no papers-2026-08-27 cache, no selected-2026-08-27.json, no episodes. Third failure mode in three days. Started manual makeup.
+2026-08-27 11:40 UTC SELECTOR AUDIT: select_papers.py had TWO silent gaps — (1) include-flavor fragments too narrow, so VoiceMem (101 up, #1 of day!) never matched any lane and was dropped WITHOUT a log line; (2) 'dropped' status never printed → 4 invisible drops. Fixed: broader agent/memory/conversation/coding fragments; word-boundary \bface\b veto (was 'face ' substring, killed papers containing 'interface'); DROP lines now always printed. Re-run kept=18 vetoed=7 dropped=3, total=28 accounted.
+- Merit rulings: VoiceMem IN (#1); Handoff Tax / Code World Model / Rubrics-as-Visual-Repair out on rank (<cut); Video-IFBench & Real-TurnTurk out-of-lane. FM-tech-report sweep over all 28 abstracts: none introduce a new foundation model → rule adds nothing today.
+- SLATE (true upvotes): VoiceMem 2608.26005 (101), FrontierChallenge 2608.24979 (99), WarpSAC 2608.24479 (85), JIT-Agent 2608.25593 (42), D3-MOPD 2608.24987 (18), Agent-G2 2608.23318 (17).
+2026-08-27 12:05 UTC META/PDFs: paper_meta.py --cache-dir episodes/feed/meta OK 6/6; page-1 text extracts to episodes/feed/text/*.txt (pymupdf; grep needs -a flag, files contain control chars).
+2026-08-27 13:30 UTC MINING: full read-through x6 → verified-facts blocks /workspace/.tmp/day23_facts*.md. Notable catches: FrontierChallenge has NO individual authors ('Apodex Team' byline; cold-open handled without fabricating names) and true subtitle 'Evaluating Scientific Workflow Completion', 12 models not 11; WarpSAC affil line-2 leaked body text in meta JSON (use line 1); JIT AgentIF-Oneday naming confirmed; VoiceMem Ze An is NUS not Tsinghua (superscript mapping checked before finalizing cold open).
+2026-08-27 14:10 UTC DRAFTING: 6 transcripts written direct-to-lint-loop; iterative word-count top-ups (1300 floor) and accuracy fixes. lint_script catches that mattered: violence-word 'Killing'->'Removing' (D3-MOPD); cold-open parser counts Title-cased pairs incl paper title words (AllSpark/Apodex team-only papers pass via title case - documented behavior).
+2026-08-27 14:40 UTC SPOT-CHECK sweep: 37 regex patterns vs transcripts -> 4 gaps closed: VM 134ms/430tok explicit, 49.8% emergent share explicit, EverMemOS/MemOS values inserted, WS '211 dimensions'. Fuzzy-patch caution logged: two patch anchor misses corrupted adjacent text mid-edit (caught+fixed same turn by reading back diffs).
+- LINT FINAL: all six total FAILs: 0; words: G2 1309, WarpSAC 1323, FC 1308, D3 1362, JIT 1381, VoiceMem 1519.
+2026-08-27 14:45 UTC COMMITTED batch; serial kokoro synth started (flock kokoro.lock, only-prefix 2026-08-27, log .tmp/synth27.log).
