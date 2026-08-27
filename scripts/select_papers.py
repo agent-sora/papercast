@@ -39,10 +39,12 @@ FLAVORS = {
         r"\bon-policy", r"multi-agent reinfor",
     ],
     "agent_self_improvement": [
-        r"self-improv", r"self-improv", r"self-correct", r"reflexion",
+        r"self-improv", r"self-correct", r"reflexion",
         r"self-refin", r"self-train", r"self-play", r"agent", r"tool use",
         r"tool-use", r"iterative", r"planning", r"world model", r"reasoning agent",
-        r"code agent", r"LLM agent",
+        r"code agent", r"coding agents?", r"LLM agents?", r"AI agents?",
+        r"memory architecture", r"memory system", r"conversational agent",
+        r"digital human", r"persona", r"\bSLM\b",
     ],
     "ai_music_generation": [
         r"music", r"audio generation", r"musicgen", r"melody", r"instrumental",
@@ -66,7 +68,7 @@ IMAGE_VIDEO_VETO = [
     r"text-to-video", r"image diffusion", r"GAN", r"image-to", r"3d generation",
     r"inpainting", r"outpainting", r"super.?resolution", r"object detection",
     r"segmentation", r"vision foundation model", r"multimodal vision",
-    r"image editing", r"face ", r"facial", r"photo", r"camera", r"render",
+    r"image editing", r"\bface\b", r"\bfacial\b", r"photo", r"camera", r"render",
     r"3d reconstruction", r"point cloud", r"lidar", r"depth estimation",
 ]
 
@@ -181,6 +183,20 @@ def main() -> int:
             json.dump(shortlist, f, indent=2, ensure_ascii=False)
     else:
         print(json.dumps(shortlist, indent=2, ensure_ascii=False))
+
+    # Visibility: print silently-dropped papers too, so out-of-scope calls
+    # are auditable in the log instead of vanishing without a trace.
+    n_dropped = 0
+    for p in feed["papers"]:
+        if p.get("_status") == "dropped":
+            print(f"  DROP  {p['_reasons'][0]}  {p['title'][:70]}", file=sys.stderr)
+            n_dropped += 1
+    n_veto = sum(1 for p in feed["papers"] if p.get("_status") == "vetoed")
+    print(
+        f"# kept={len(shortlist)} vetoed={n_veto} dropped={n_dropped} "
+        f"total={len(feed['papers'])}",
+        file=sys.stderr,
+    )
     return 0
 
 
