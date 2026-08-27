@@ -92,7 +92,7 @@ All timestamps UTC.
 - Applied today: GigaBrain-0.7 + WeMM-Embedding already in top-6. DREAM Technical Report (2608.09408) checked and EXCLUDED: agentic control layer over Taobao recommender pipelines, no new base model. Slate stays 6.
 
 ## 2026-08-26 — Day-22 makeup instance (manual; morning cron died mid-flight)
-- 12:xx UTC: Confirmed zero 2026-08-26 artifacts from nightly cron e0646a456062; morning firing (~06:20) died in sandbox restart after shortlisting candidates. Manual day-22 instance started.
+- 2026-08-27 ~01:40 UTC (session span ~01:30-02:25): Confirmed zero 2026-08-26 artifacts from nightly cron e0646a456062; morning firing (~06:20) died in sandbox restart after shortlisting candidates. Manual day-22 instance started.
 - Fetched HF daily_papers fresh: 25 entries cached. select_papers.py -> 18 kept (3 topic vetoes incl. Annotations as Rollouts).
 - Upvotes were 0 in cache snapshot; re-pulled true upvotes per-paper from HF API. Slate: GigaBrain-0.7 (91), WeMM-Embedding (56), AutoSaddler (49), SecOPD (36), CyberFactory (28), Recuris (20).
 - paper_meta.py for all six; PDFs in meta/, full-text extracted via venv PyMuPDF into feed/text/. All affiliations verified from PDF page-1 (GigaAI; Tencent WeChat Vision; POSTECH/KAIST/SUSTech/Microsoft; UC Berkeley; Beihang/ELLIS/IQuest/SMU; NUS/Stanford/Oxford/Princeton).
