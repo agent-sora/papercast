@@ -8,7 +8,8 @@ TTS_MODEL: "kokoro-82M"            # open-weight TTS (hexgrad), Apache-2.0 weigh
 TTS_VOICE: "bf_isabella"           # British female; user pick
 TTS_SAMPLE_RATE: 24000
 TTS_DEVICE: "cpu"
-TTS_ENV: { TMPDIR: "/workspace/.tmp" }  # espeak-ng needs an exec-able dir
+# TTS_ENV: legacy note (nothing reads this key). espeak-ng needs an exec-able
+# TMPDIR: export TMPDIR="$PC/.tmp" when running synthesis (see MIGRATION.md).
 
 # ---------------------------------------------------------------------------- #
 # Paper topic selection rules (scoped by user; text/agentic + audio GEN only).

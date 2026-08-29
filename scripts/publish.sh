@@ -13,7 +13,7 @@ set -euo pipefail
 SITE_DIR="${1:?usage: publish.sh <site-dir>}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TOKEN_FILE="$ROOT/.gh_token"
-ASKPASS="/workspace/.git_askpass.sh"
+ASKPASS="${GIT_ASKPASS:-$ROOT/.git_askpass.sh}"
 REPO="https://github.com/$(sed -n 's/^GH_REPO: *"\(.*\)".*/\1/p' "$ROOT/config.yaml").git"
 BRANCH="gh-pages"
 

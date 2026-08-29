@@ -12,4 +12,4 @@ site/
 audition/
 __pycache__/
 *.wav
-*.tmp.*episodes/*.mp3
+*.tmp.*

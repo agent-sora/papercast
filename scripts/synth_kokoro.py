@@ -69,7 +69,7 @@ def main():
 
     # single-flight lock: concurrent kokoro runs contend/OOM on this box and
     # degrade to silent empty generations; second run must fail fast instead
-    lock_path = "/workspace/.tmp/kokoro.lock"
+    lock_path = os.path.join(tempfile.gettempdir(), "kokoro.lock")
     if os.path.exists(lock_path):
         try:
             pid = int(open(lock_path).read().strip() or "0")

@@ -18,6 +18,7 @@ import random
 import re
 import subprocess
 import sys
+import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -77,7 +78,7 @@ def main() -> int:
             print(f"[{i}/{len(md_files)}] SKIP {stem} (exists)", flush=True)
             continue
 
-        tmp_txt = os.path.join("/workspace/.tmp", stem + ".tts.txt")
+        tmp_txt = os.path.join(tempfile.gettempdir(), stem + ".tts.txt")
         os.makedirs(os.path.dirname(tmp_txt), exist_ok=True)
         md_path = os.path.join(args.episodes_dir, name)
         fails, _, wc = check_file(md_path)
@@ -104,7 +105,7 @@ def main() -> int:
         cmd = [sys.executable, os.path.join(HERE, "synth_kokoro.py"),
                "--transcript", tmp_txt, "--out", out_mp3,
                "--voice", voice]
-        env = dict(os.environ, TMPDIR="/workspace/.tmp", OMP_NUM_THREADS="1")
+        env = dict(os.environ, TMPDIR=tempfile.gettempdir(), OMP_NUM_THREADS="1")
         try:
             r = subprocess.run(cmd, capture_output=True, text=True,
                                timeout=3600, env=env)

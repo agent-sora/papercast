@@ -129,3 +129,23 @@ All timestamps UTC.
 - LIVE VERIFY: feed.xml 60 items (54+6); six 2026-08-27-*.mp3 all HTTP 200 (6.26-7.44 MB); site root 200; .nojekyll present in origin/gh-pages tree. Day-23 CLOSED end-to-end.
 - NOTE: local origin/gh-pages ref was stale (d13dc14) after publish.sh's separate gh-pages checkout push; git fetch fixed view. Don't trust local remote-tracking refs post-publish.
 - Cron e0646a456062 still enabled; next fire 2026-08-28 03:00 ET. Watch: if tomorrow also errors at startup, inspect job persistence/config.
+
+## 2026-08-29 22:28 UTC migration handover prepared
+
+- Audited live install for migration: python 3.11.15 venv (uv 0.11.1), kokoro 0.9.4 /
+  misaki 0.9.4 / torch 2.13.0 (+cu130, TTS on CPU) / pymupdf 1.28.2 / pillow 12.3.0 /
+  kittentts 0.8.1; espeak-ng + ffmpeg 7.1.5 system deps.
+- Wrote requirements.txt (exact pins); wrote docs/MIGRATION.md (canonical migration +
+  ops handover: STEP 0 dependency self-check, clone, venv, own credentials, MP3 restore
+  from gh-pages, smoke tests, backfill, cron re-registration, carry-over rules).
+- Migration-specific finding: cron missed Aug 28 AND Aug 29, but 08-29 is a Saturday and
+  HF daily-papers snaps weekend requests back to the previous papers-day -> net backfill
+  is exactly ONE slate, papers-day 2026-08-28. Duplicate-prevention rule documented.
+- Portability fixes pushed so the new machine can run at any path: synth_kokoro.py +
+  synth_batch.py now use tempfile.gettempdir(); publish.sh askpass defaults to repo root;
+  config.yaml TTS_ENV demoted to a comment (no consumers); synth_queue.sh de-hardcoded;
+  .gitignore mangled line repaired. Added scripts/nightly_prep.sh (unattended
+  fetch+select for cron).
+- Credential note: repo-root .gh_token (41 bytes, mode 600) is present and gitignored;
+  the /workspace/.gh_token copy vanished on 08-27. New machine creates its OWN token +
+  askpass (template in MIGRATION.md); values never transcribed.
