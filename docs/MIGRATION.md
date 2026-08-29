@@ -198,6 +198,11 @@ If all four pass, the migration is functionally complete. Do NOT run
 
 ## STEP 6 — Backfill the missed nights
 
+> **BEFORE BACKFILLING: get the old machine's cron paused or removed** (it is
+> still registered: `cron_e0646a456062`, 03:00 ET). If it fires mid-backfill it
+> will fetch "today" → snap back to the very papers-day you are covering and
+> publish a duplicate slate. `patrick` pauses it on the old box.
+
 The old cron died on the nights of **Aug 28 and Aug 29** (`last_status: error`,
 no artifacts). But the HF daily-papers feed is not a calendar: a request for a
 date with no new papers (weekends) **snaps back to the previous real
@@ -337,9 +342,9 @@ STEP 6 rather than waiting for it to self-heal.
 
 ## STEP 8 — Retirement of the old machine
 
-Once your first full night fires clean and the backfill is live: the old cron
-(`cron_e0646a456062`, 03:00 ET) still exists on the old box and should be
-paused/removed there, and the old `/workspace` copy is then a backup, not the
+The old cron (`cron_e0646a456062`, 03:00 ET) should already be paused (STEP 6
+warning). Once your first full night fires clean and the backfill is live, it
+can be removed there, and the old `/workspace` copy becomes a backup, not the
 source of truth. `patrick` handles the old box.
 
 ---
