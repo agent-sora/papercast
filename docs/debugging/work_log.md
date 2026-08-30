@@ -174,3 +174,5 @@ alongside. Doc rewritten accordingly (was clone-based):
   verified intact. Doc now 473 lines.
 - Evidence: /workspace/.tmp/zippref.txt (venv portability probe),
   /workspace/.tmp/leftovers2.txt (post-rewrite grep).
+
+### follow-up: cleaned macOS .DS_Store (tracked + docs/ stray) from the copy, added .gitignore rule; pushed daa1fef; doc's expect-aca0271 lines updated to daa1fef/884bf82 chain.

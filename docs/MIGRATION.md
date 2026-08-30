@@ -16,7 +16,7 @@ voice pool), and publish RSS + site to GitHub Pages.
 - Site: `https://agent-sora.github.io/papercast/`
 - Feed: `https://agent-sora.github.io/papercast/feed.xml` (60 items as of handover)
 - Audio URLs: `https://agent-sora.github.io/papercast/episodes/YYYY-MM-DD-<arxiv_id>.mp3`
-- State at handover: `main` pushed at `aca0271`; gh-pages `4f8ae340`; day-23 (2026-08-27) batch fully live-verified. The zip was cut after `aca0271`.
+- State at handover: `main` pushed at `daa1fef`; gh-pages `4f8ae340`; day-23 (2026-08-27) batch fully live-verified. The zip was cut after `aca0271` (two doc/chore commits followed: `884bf82`, `daa1fef` — expect those on top, not `aca0271`).
 
 The old machine is a **Docker sandbox**. Yours is not — paths differ, some
 dependencies may already exist, and you run as a normal user. Work **only under
@@ -82,7 +82,7 @@ There is **nothing to clone or download in STEP 1**. Verify what landed:
 ```bash
 export PC="$HOME/papercast"        # = /home/patrick/papercast
 cd "$PC"
-git log --oneline -3               # expect aca0271 ("MIGRATION.md: pause old cron…") on top
+git log --oneline -3               # expect daa1fef on top (then 884bf82, aca0271)
 git status --porcelain | wc -l     # expect 0 — worktree clean
 ls scripts/ | wc -l                # expect 14 scripts incl. nightly_prep.sh, publish.sh
 ls episodes/*.md | wc -l           # expect 60 transcripts
