@@ -149,3 +149,28 @@ All timestamps UTC.
 - Credential note: repo-root .gh_token (41 bytes, mode 600) is present and gitignored;
   the /workspace/.gh_token copy vanished on 08-27. New machine creates its OWN token +
   askpass (template in MIGRATION.md); values never transcribed.
+
+## 2026-08-29 (late) — HANDOVER rewritten for zip-based transfer (user decision)
+
+User made a full copy of the papercast dir INCLUDING .git and .venv, will zip it
+and unpack at /home/patrick/papercast on the new machine; handover.md copied
+alongside. Doc rewritten accordingly (was clone-based):
+
+- STEP 1: clone instructions -> "nothing to clone; verify what landed" checklist
+  (git status, git log aca0271, .venv present, .gh_token present, 60 MP3s).
+- Space table re-framed: everything traveled; table explains bulk + what is
+  disposable after settling (feed caches re-download, legacy-per-day optional).
+- STEP 2: test-first venv guidance. Traveled .venv is uv-made, symlinked to
+  sandbox python 3.11 (/usr/local/bin/python3.11), old box is aarch64 -> if new
+  box differs, native wheels (torch/onnxruntime/numpy) are wrong-arch. Expected
+  path: `uv venv --python 3.11 .venv --clear && uv pip install -r requirements.txt`.
+  requirements.txt pins travel in the zip.
+- STEP 3: .gh_token TRAVELED (inside repo dir); recommend rotation by patrick.
+  .git_askpass.sh did NOT travel (lived outside repo) -> recreate at repo root.
+- STEP 4: MP3s TRAVELED -> verify (60 files, ~461M) instead of download; offline
+  fallback = git archive origin/gh-pages episodes (gh-pages history is in the
+  traveled .git); network fetch only as last resort.
+- Rules #8 + file map annotations updated. Cron-pause warning + retirement step
+  verified intact. Doc now 473 lines.
+- Evidence: /workspace/.tmp/zippref.txt (venv portability probe),
+  /workspace/.tmp/leftovers2.txt (post-rewrite grep).

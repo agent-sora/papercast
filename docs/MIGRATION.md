@@ -2,7 +2,10 @@
 
 **For:** the Hermes agent taking over on the new machine (user: `patrick`, home `/home/patrick`).
 **Written:** 2026-08-29, from a live audit of the working install. Every command below was verified on the old box.
-**Canonical copies:** `/workspace/HANDOVER.md` (old machine) and `docs/MIGRATION.md` inside the repo (identical).
+**Transfer medium:** patrick zipped the whole old project directory (including
+`.git/`, `.venv/`, and all 60 published MP3s) and unzipped it at
+`/home/patrick/papercast`. This doc rides along as `HANDOVER.md` and as
+`docs/MIGRATION.md` inside the repo (identical content).
 
 Papercast is a nightly ML-papers podcast: fetch the Hugging Face daily-papers
 feed, select the top 6 papers by **true upvotes**, write one ~10-minute
@@ -13,13 +16,13 @@ voice pool), and publish RSS + site to GitHub Pages.
 - Site: `https://agent-sora.github.io/papercast/`
 - Feed: `https://agent-sora.github.io/papercast/feed.xml` (60 items as of handover)
 - Audio URLs: `https://agent-sora.github.io/papercast/episodes/YYYY-MM-DD-<arxiv_id>.mp3`
-- State at handover: `main` pushed at `cb9beb0`; gh-pages `4f8ae340`; day-23 (2026-08-27) batch fully live-verified.
+- State at handover: `main` pushed at `aca0271`; gh-pages `4f8ae340`; day-23 (2026-08-27) batch fully live-verified. The zip was cut after `aca0271`.
 
 The old machine is a **Docker sandbox**. Yours is not — paths differ, some
 dependencies may already exist, and you run as a normal user. Work **only under
-`/home/patrick/...`** (suggested `$PC=/home/patrick/papercast`). NEVER set up in
-`/` or system directories. Package installs that need `sudo` are fine, nothing
-else is.
+`/home/patrick/...`** — `$PC=/home/patrick/papercast` throughout this document.
+NEVER set up in `/` or system directories. Package installs that need `sudo`
+are fine, nothing else is.
 
 ---
 
@@ -70,27 +73,78 @@ Decision rules from the audit:
 | < ~7 GB free in `$HOME` | warn user (venv ≈ 5 GB, MP3s ≈ 0.5 GB, HF model cache ≈ 1 GB) |
 | synth needs ~2 GB free RAM, serial only | two concurrent TTS jobs OOM → silent audio |
 
-## STEP 1 — Clone the repo
+## STEP 1 — You already have the code: the unzipped directory
+
+Patrick zipped the **whole** old project directory — code, `.git/`, `.venv/`,
+all 60 published MP3s, caches, everything — and unzipped it at `$HOME/papercast`.
+There is **nothing to clone or download in STEP 1**. Verify what landed:
 
 ```bash
-git clone https://github.com/agent-sora/papercast "$HOME/papercast"
-cd "$HOME/papercast"   # this is $PC
-git log --oneline -3   # expect top: work-log closeout commit, cb9beb0 or newer
-ls scripts/            # 14 scripts incl. nightly_prep.sh, publish.sh
+export PC="$HOME/papercast"        # = /home/patrick/papercast
+cd "$PC"
+git log --oneline -3               # expect aca0271 ("MIGRATION.md: pause old cron…") on top
+git status --porcelain | wc -l     # expect 0 — worktree clean
+ls scripts/ | wc -l                # expect 14 scripts incl. nightly_prep.sh, publish.sh
+ls episodes/*.md | wc -l           # expect 60 transcripts
+ls episodes/*.mp3 2>/dev/null | wc -l   # 60 if MP3s survived, 0 if not (see STEP 3)
+ls -d .venv .git .gh_token models 2>/dev/null
 ```
 
-The clone carries all 60 transcripts (`episodes/*.md`), `docs/STYLE_GUIDE.md`,
-`docs/MIGRATION.md`, all scripts, `config.yaml`, `requirements.txt`.
-It does **NOT** carry MP3s (they live on `gh-pages` only) or `.venv/`.
+The last line tells you which heavy or hidden pieces survived the zip. Three
+notes on what they mean:
 
-## STEP 2 — Python environment
+- `.venv` present → the old Python environment traveled too. It is hardwired to
+  the old sandbox (its `bin/python*` symlinks point into `/usr/local/bin`, and
+  the old box was **aarch64**), so it will almost certainly **not** run on your
+  machine. Treat it as a file inventory only and rebuild in STEP 2; delete it
+  first (`rm -rf .venv`) if disk is tight.
+- `.gh_token` present → the old credential traveled inside the repo dir. Same
+  GitHub account, so it may still work — but prefer a fresh token (STEP 3).
+- `episodes/*.mp3` count is 0 → MP3s were gitignored and did not survive;
+  STEP 3 restores them from the `.git` history that traveled with you.
+
+### What was taking the space on the old box (measured 2026-08-29)
+
+The old directory was **6.5 GB** — that's why the zip is so large. Everything
+below traveled; this table just explains the bulk and what is disposable now
+that you have it:
+
+| Path | Size | Verdict |
+|---|---|---|
+| `.venv/` | **5.0 GB** | Old torch+kokoro stack, hardwired to the old box. **Delete after STEP 2 rebuild.** |
+| `.git/` | **589 MB** | **Keep.** History holds every MP3 ever published — STEP 4 extracts from here offline. |
+| `episodes/feed/meta/` | **319 MB** | HF download cache (paper PDFs); re-fetches on demand. Deletable. |
+| `episodes/*.mp3` | 460 MB | **Keep** if they survived the zip (check in STEP 1). |
+| `models/` | 78 MB | Voice-pack data, needed. |
+| `episodes/legacy-per-day/` | 70 MB | Optional. Old per-day RSS era. |
+| `episodes/feed/text/` | 7 MB | Text cache; rebuilds from PDFs. Deletable. |
+| everything else | < 10 MB | Needed. |
+
+## STEP 2 — Python environment (test the traveled `.venv`, expect to rebuild)
+
+The zip includes the old `.venv/` (5 GB). It was created with `uv` inside a
+Docker sandbox and is hardwired to that box: every script in `.venv/bin/` has a
+shebang and symlinks pointing at the old interpreter, and `.venv/pyvenv.cfg`
+points `home` at the sandbox's Python 3.11. It may be broken or even
+wrong-architecture. Try it first — it costs 30 seconds:
 
 ```bash
 cd "$PC"
-python3 -m venv .venv                      # or: uv venv
-.venv/bin/pip install -r requirements.txt  # exact pins audited from the old box
-.venv/bin/pip install pip -U               # only if pip is ancient
+.venv/bin/python -c "import sys, torch, kokoro; print(sys.version); print('venv OK')"
 ```
+
+- **Works?** Great, skip to the sanity check below.
+- **Fails** (bad interpreter, missing module, `Exec format error` = wrong
+  CPU arch): move it aside and rebuild from the audited pins:
+
+```bash
+mv .venv .venv-old                     # keep until the new one passes
+python3 -m venv .venv                  # or: uv venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/pip install pip -U           # only if pip is ancient
+```
+
+Delete `.venv-old/` once the rebuild passes the sanity check — it's 5 GB.
 
 `requirements.txt` pins: `kokoro==0.9.4 misaki==0.9.4 kittentts==0.8.1
 torch==2.13.0 numpy==2.4.6 onnxruntime==1.29.0 pymupdf==1.28.2 pyyaml==6.0.3
@@ -113,20 +167,20 @@ Sanity check (safe, no publish):
 .venv/bin/python -c "from kokoro import KPipeline; import pymupdf, yaml, PIL; print('imports OK')"
 ```
 
-## STEP 3 — Credentials (create your OWN — never copy old ones)
+## STEP 3 — Credentials (the token traveled; the askpass helper did NOT)
 
-The old token's value was never exposed and must stay that way. You need:
+Two pieces live on the old box:
 
-1. **A fresh GitHub token** — ask `patrick` to create one (classic, `repo`
-   scope) or use `gh auth token` if `gh` is logged in.
-2. Store it at **repo root** as `.gh_token` (mode 600, already gitignored):
+- `$PC/.gh_token` — repo root, mode 600, gitignored. It was inside the project
+  dir, so **it traveled in the zip**. Recommended: ask patrick to rotate it
+  (revoke the old one on GitHub, mint a fresh classic `repo`-scope token) since
+  the zip crossed machines — then overwrite the file. If patrick prefers to
+  keep using the traveled token, that is his call; it is his own account.
 
-```bash
-printf '%s' 'TOKEN' > "$PC/.gh_token" && chmod 600 "$PC/.gh_token"
-```
-
-3. Recreate the askpass helper at **repo root** as `.git_askpass.sh` (it is NOT
-   in the repo). Minimal shape — fill in the token yourself, never echo it:
+- `$PC/.git_askpass.sh` — it lived **outside** the repo on the old box, so it
+  did NOT travel. Recreate it at repo root (`publish.sh` looks for
+  `$ROOT/.git_askpass.sh`). Minimal shape — fill in the token yourself, never
+  echo it:
 
 ```bash
 cat > "$PC/.git_askpass.sh" <<'SH'
@@ -144,25 +198,37 @@ chmod 700 "$PC/.git_askpass.sh"
 root — both resolve automatically to your layout. The token must never appear
 in command output, logs, or git remotes.)
 
-4. Set a git identity for `main` commits: `git config user.name` /
-   `user.email` — agree on one with `patrick`.
+Then set a git identity for `main` commits: `git config user.name` /
+`user.email` — agree on one with `patrick`.
 
-## STEP 4 — Restore the audio (CRITICAL, do before any publish)
+## STEP 4 — Verify the audio (MP3s should have traveled too)
 
-MP3s exist only on the `gh-pages` branch. `publish.sh` copies **every**
-`episodes/*.mp3` in your clone to the site — if you skip this step, your first
-publish **wipes the feed down to just the new episodes** (from 60 items to ~6).
+The 60 published MP3s lived in `episodes/` (gitignored but present on disk), so
+they **traveled in the zip**. `publish.sh` copies **every** `episodes/*.mp3` to
+the site — if they ever go missing, your first publish **wipes the feed down to
+just the new episodes** (from 60 items to ~6). So verify before anything else:
 
 ```bash
 cd "$PC"
-git fetch origin gh-pages
-rm -rf .tmp/ghp && git clone -q -b gh-pages --single-branch origin .tmp/ghp
+ls episodes/*.mp3 | wc -l                        # expect 60
+du -ch episodes/*.mp3 | tail -1                  # expect ~461M total
+```
+
+**If fewer than 60:** the zip or the copy step dropped them. Extract from the
+`.git` history that traveled with you (gh-pages branch, offline):
+
+```bash
+rm -rf .tmp/ghp && mkdir -p .tmp/ghp
+git archive origin/gh-pages episodes | tar -x -C .tmp/ghp
 cp -n .tmp/ghp/episodes/*.mp3 episodes/          # 60 files, ~460 MB
 ls episodes/*.mp3 | wc -l                        # expect 60
 rm -rf .tmp/ghp
 ```
 
-Verify against the live feed count:
+(If `origin/gh-pages` is missing from the traveled `.git` too, fall back to the
+network: `git fetch origin gh-pages` first, then repeat the two commands.)
+
+Cross-check against the live feed count:
 `curl -s https://agent-sora.github.io/papercast/feed.xml | grep -c '<item>'` → 60.
 
 ## STEP 5 — Smoke tests (all read-only for the live site)
@@ -365,7 +431,7 @@ source of truth. `patrick` handles the old box.
    episodes that carry a placeholder, and you'll ship a voiceless episode.
 7. Serial TTS only (`flock .tmp/kokoro.lock`); concurrent Kokoro OOMs into
    silent audio. Check the audio peak if in doubt.
-8. Never publish without the audio restore (STEP 4) on a fresh clone.
+8. Never publish without first verifying the audio inventory (STEP 4).
 9. After every publish, `git fetch origin gh-pages` before inspecting it.
 10. Record every incident in `docs/debugging/work_log.md` — it is the project's
     memory across machines.
@@ -390,10 +456,10 @@ source of truth. `patrick` handles the old box.
 $PC/
 ├── config.yaml              # GH_REPO, voice pool, selector config (TTS_ENV is a legacy note)
 ├── requirements.txt         # exact audited pins
-├── .gh_token                # YOUR token (mode 600, gitignored)   [create]
+├── .gh_token                # traveled in zip; rotate via patrick (mode 600)
 ├── .git_askpass.sh          # YOUR askpass (mode 700, not in repo)  [create]
 ├── .tmp/                    # locks, logs, evidence dir
-├── episodes/                # YYYY-MM-DD-<arxiv_id>.md + .mp3 (60 mp3 restored in STEP 4)
+├── episodes/                # YYYY-MM-DD-<arxiv_id>.md + .mp3 (60 mp3 traveled; verify STEP 4)
 │   └── feed/                # papers-<d>.json, selected-<d>.json, picks/ids-<d>.txt,
 │                            #   meta/<id>.json+.pdf, text/<id>.txt
 ├── site/                    # generated by build_rss.py (gitignored)
