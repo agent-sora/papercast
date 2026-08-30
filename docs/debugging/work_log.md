@@ -239,3 +239,19 @@ All timestamps UTC.
   03:00 ET fire. New-machine duplicate guard: the nightly prompt's stop condition
   (episodes/<papers_date>-*.mp3 already exists) makes this machine skip, so worst
   case after tonight is only the old box duplicating, not both.
+
+## 2026-08-30 04:15-04:30 UTC — day-24 backfill CLOSED (synth -> publish -> live verify)
+
+- SYNTH: serial flock run, done=6 failed=0 skipped=0; durations 8.4-10.6 min
+  (user-adjacent target ~10 min); wall ~14 min TOTAL on this machine (~4x
+  realtime, ~10x faster than the old box's 2.5x-RTF; OMP_NUM_THREADS=1 kept).
+  Voice stamps auto-recorded by synth_batch (no placeholder Voice: lines were
+  present, so stamps applied). Mean volume -24.7 to -27.7 dB across all six:
+  no silent-audio degradation (ffprobe/ffmpeg volumedetect spot-check).
+- BUILD+PUBLISH: build_rss.py with explicit flags -> 66 items; publish.sh with
+  postBuffer=500MB pushed gh-pages cleanly on first attempt.
+- LIVE VERIFY: feed.xml polls 60,60,60,66 (CDN propagation ~2-3 min); all six
+  2026-08-28-*.mp3 HTTP 200; .nojekyll present in origin/gh-pages tree
+  (git fetch before ls-tree — tracking ref was stale as documented).
+- Day-24 (papers-day 2026-08-28) CLOSED end-to-end. Feed now 66 items.
+- Remaining: push main (credentials verified); patrick to pause old-box cron.
