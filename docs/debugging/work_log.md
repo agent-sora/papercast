@@ -263,6 +263,29 @@ All timestamps UTC.
   the old /workspace copy is now a backup, not a source of truth. This machine's
   papercast-nightly (16fe9a62f8df, 03:00 ET) is the sole pipeline. No open items.
 
+## 2026-08-30 09:00-09:15 UTC — "Last updated" status banner on the site (user request)
+
+- Request: index.html must show a "last updated" timestamp + how many episodes
+  were added, refreshed by EVERY cron run AND every manual run.
+- Design: build_rss.py emits `<p class="status" id="last-updated"></p>` placeholder
+  (plus .status CSS); publish.sh fills it at DEPLOY time — the single choke point
+  both cron and manual runs pass through — so the stamp is the deploy moment and
+  the count is measured against the LIVE feed (curl feed.xml, grep -c '<item>'),
+  not a guess: "Last updated <ET> — added N new episodes (M total)." or
+  "... — no new episodes (M total)."
+- Hardening while in publish.sh: (1) deploy-tree wipe changed to -maxdepth 1 so
+  dotfiles (.nojekyll) can never be wiped — a .nojekyll wipe would 404 feed.xml
+  via Jekyll; (2) empty NEW-count guard; (3) LIVE_URL defined before first use.
+- DEPLOYED and live-verified: banner reads "Last updated 2026-08-30 09:10 EDT —
+  no new episodes (66 total)." (correct: this deploy added zero, live feed was
+  already 66).
+- Cron prompt updated (16fe9a62f8df): on skip-nights (duplicate slate / empty
+  shortlist) the agent now still runs build+publish so the banner reflects the
+  run; on fetch failure it still publishes nothing. Full-batch path verifies the
+  banner text live as part of step 9.
+- Convention for manual runs: any manual publish now reports status automatically;
+  no extra step needed.
+
 ## 2026-08-30 (nightly cron, ET) — STOP: duplicate day, no action
 
 - `nightly_prep.sh` fetched feed; papers-day = 2026-08-28, shortlist at

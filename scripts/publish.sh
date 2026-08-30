@@ -16,6 +16,7 @@ TOKEN_FILE="$ROOT/.gh_token"
 ASKPASS="${GIT_ASKPASS:-$ROOT/.git_askpass.sh}"
 REPO="https://github.com/$(sed -n 's/^GH_REPO: *"\(.*\)".*/\1/p' "$ROOT/config.yaml").git"
 BRANCH="gh-pages"
+LIVE_URL="https://$(sed -n 's/^GH_REPO: *"\([^/]*\)\/\(.*\)".*/\1.github.io\/\2\//p' "$ROOT/config.yaml")"
 
 [ -s "$TOKEN_FILE" ] || { echo "!! no token at $TOKEN_FILE" >&2; exit 1; }
 [ -f "$ASKPASS" ] || { echo "!! no askpass at $ASKPASS" >&2; exit 1; }
@@ -28,12 +29,40 @@ export GIT_ASKPASS="$ASKPASS"
 echo ">> cloning $BRANCH to temp..." >&2
 git clone -q -b "$BRANCH" "$REPO" "$WORK"
 
-# clear existing site files (keep .git)
-find "$WORK" -mindepth 1 -maxdepth 2 ! -path "$WORK/.git" ! -path "$WORK/.git/*" \
-  -exec rm -rf {} + 2>/dev/null || true
+# clear existing site files (keep .git). -mindepth 1 -maxdepth 1: do NOT delete
+# dotfiles (e.g. .nojekyll) inside the deploy tree — a wipe of .nojekyll would
+# 404 feed.xml via Jekyll. build_rss.py does not emit dotfiles, so nothing
+# stale can survive (all current filenames are literal).
+find "$WORK" -mindepth 1 -maxdepth 1 ! -path "$WORK/.git" -exec rm -rf {} + 2>/dev/null || true
 
 # copy new site
 cp -r "$SITE_DIR"/. "$WORK"/
+
+# ---------------------------------------------------------------- status line
+# "Last updated" banner on index.html: filled here at DEPLOY time (the single
+# choke point for every run — nightly cron or manual), so the timestamp is the
+# deploy moment and the count is measured against the LIVE feed, not a guess.
+# build_rss.py emits <p class="status" id="last-updated"></p> as placeholder.
+NEW=$(grep -c '<item>' "$SITE_DIR/feed.xml" || true)
+[ -n "$NEW" ] || NEW=0
+OLD=$(curl -fsS --max-time 20 "$LIVE_URL/feed.xml" | grep -c '<item>' || true)
+[ -n "$OLD" ] && [ "$OLD" -gt 0 ] 2>/dev/null || OLD=0
+DIFF=$((NEW - OLD)); [ "$DIFF" -lt 0 ] && DIFF=0
+STAMP=$(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z')
+if [ "$DIFF" -gt 0 ]; then
+  MSG="Last updated $STAMP — added $DIFF new episode$([ "$DIFF" -eq 1 ] || echo s) ($NEW total)."
+else
+  MSG="Last updated $STAMP — no new episodes ($NEW total)."
+fi
+python3 - "$WORK/index.html" "$MSG" <<'PY'
+import sys
+path, msg = sys.argv[1], sys.argv[2]
+s = open(path, encoding="utf-8").read()
+old = '<p class="status" id="last-updated"></p>'
+assert old in s, "status placeholder missing from index.html"
+open(path, "w", encoding="utf-8").write(s.replace(old, f'<p class="status" id="last-updated">{msg}</p>'))
+PY
+echo ">> status: $MSG" >&2
 
 # Disable Jekyll processing on Pages: our generated HTML/XML contain
 # Liquid-like sequences ({{ ... }}) from paper abstracts that break the
@@ -58,6 +87,5 @@ git -C "$WORK" push -q origin "$BRANCH"
 echo ">> pushed $BRANCH" >&2
 echo "OK"
 
-LIVE="https://$(sed -n 's/^GH_REPO: *"\([^/]*\)\/\(.*\)".*/\1.github.io\/\2\//p' "$ROOT/config.yaml")"
-echo ">> live base: $LIVE" >&2
-echo "$LIVE"
+echo ">> live base: $LIVE_URL" >&2
+echo "$LIVE_URL"

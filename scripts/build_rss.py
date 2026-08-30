@@ -203,12 +203,15 @@ def build_index(cfg, episodes, base_url):
   a.play:hover {{ color:#7aa2ff; }}
   .meta {{ color:#9aa2b1; font-size:.82rem; }}
   .meta a, .sub a {{ color:#7aa2ff; text-decoration:none; }}
+  p.status {{ color:#7aa2ff; font-size:.85rem; border:1px solid #22262e;
+              border-radius:6px; padding:.5rem .75rem; margin:1rem 0; }}
 </style>
 </head>
 <body>
   <h1>🎙 {html.escape(cfg['RSS_TITLE'])}</h1>
   <p class="sub">{html.escape(cfg.get('RSS_DESCRIPTION', ''))}<br/>
      Subscribe: <a href="{base_url}feed.xml">feed.xml</a></p>
+  <p class="status" id="last-updated"></p>
   <ul>
 {chr(10).join(rows)}
   </ul>
