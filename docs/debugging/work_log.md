@@ -176,3 +176,4 @@ alongside. Doc rewritten accordingly (was clone-based):
   /workspace/.tmp/leftovers2.txt (post-rewrite grep).
 
 ### follow-up: cleaned macOS .DS_Store (tracked + docs/ stray) from the copy, added .gitignore rule; pushed daa1fef; doc's expect-aca0271 lines updated to daa1fef/884bf82 chain.
+Doc expectation switched to chain-based (git log -5 contains aca0271) instead of exact top SHA, since further doc fixes would shift the top SHA again.
