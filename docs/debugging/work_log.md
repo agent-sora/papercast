@@ -179,3 +179,63 @@ All timestamps UTC.
     inline phoneme overrides, (c) both. DESIGN.md updated with all of this.
 - NEXT: git_askpass.sh + git identity; MP3 inventory check (60 expected); smoke
   tests; backfill papers-day 2026-08-28; register nightly cron.
+
+## 2026-08-30 01:30-04:00 UTC — STEP 3/4/5 complete; day-24 backfill drafted
+
+- STEP 3: .git_askpass.sh created at repo root (mode 700, reads .gh_token; token
+  never echoed). ls-remote verified working via askpass. Git identity set to
+  agent-sora <agent-sora@users.noreply.github.com> (7/8 prior commits); my first
+  commit amended to that author.
+- STEP 4: 60/60 episodes/*.mp3 present (426 MB) — matches live feed count 60.
+  No gh-pages restore needed.
+- STEP 5 smoke tests: (1) fetch --date 2026-08-29 snaps to papers-day 2026-08-28,
+  23 papers cached; (2) lint on 2026-08-27 VoiceMem transcript: total FAILs: 0;
+  (3) TTS end-to-end: the phoneme_override_test doubles as this — peak 0.63;
+  (4) build_rss with explicit flags: 60 items in preview feed. All four pass.
+- Clarify timed out (user AFK). Proceeded on defaults: keep espeak fallback as-is
+  (documented in DESIGN.md), old-cron pausing flagged for patrick (cannot reach
+  the old box from here).
+- SLATE day-24 (papers-day 2026-08-28, true upvotes re-pulled from HF API):
+  2608.25518 Agentic Game Dev/RLHEV (134), 2608.27456 UrbanGround (72),
+  2608.27448 TTPO (69), 2608.26872 Self-OPD (69), 2608.27260 ACE survey (59),
+  2608.15763 TaoLive HAT tech report (44). All 13 kept-candidate abstracts
+  checked for the FM standing rule: none introduces a new foundation model
+  (TaoLive is a deployed-system report, explicitly briefed as such).
+- Meta+PDFs 6/6; text extracted pages 0-7 AND 8-15 per id (<id>.txt, <id>-more.txt):
+  first-8-pages-only would have missed every benchmark section.
+- INCIDENT — subagent writers all died: dispatched 6 parallel writer subagents;
+  every one hit "Non-streaming API call timed out after 180s with no response"
+  x3 retries on the long single-turn writing step; exit_reason=max_iterations,
+  zero files written. Provider limitation (glm-5.3-flash via OpenCode Go), not a
+  prompt problem. Fallback: wrote all six transcripts myself in this session.
+  nightly cron prompt updated to forbid subagent long-form writing.
+- Drafts iterated to lint "total FAILs: 0" x6 (word counts 1306-1538). Learned:
+  FrontierChallenge precedent says team-byline + individual authors is honest
+  (used for TaoLive: "TaoLive AIGC LLM Team, Yuhan Sun, Wenhao Lin"); UrbanGround
+  PDF page 1 lists Meituan as affiliation 3 — fixed Labs field vs stale HF data.
+- Built debugging/numeric_spotcheck.py: converts spoken number words back to
+  digits and checks each against the paper text corpus (PDF extraction drops
+  superscripts so "one trillion" matches "10^12" stored as 1012). Found+fixed
+  its own decimal bug ("six five" must concatenate to 65, not sum to 11).
+  All six transcripts: total unexplained: 0 (5 hand-verified ALLOWED artifacts:
+  billions/trillions vs exponent forms, hyphenated "two-hundred-example",
+  "810" spelled "eight hundred ten").
+- Zip-carried working-tree regressions discarded: .gitignore and docs/MIGRATION.md
+  held STALE pre-rewrite copies (their committed origin versions are newer and
+  describe the actual zip transfer). .gitignore now also excludes .git_askpass.sh
+  and .tmp/.
+- Committed 59e503d: 6 transcripts + picks + requirements-resolved.txt
+  (kittentts==0.8.1 unpinned: does not exist on PyPI; legacy-only dep).
+- CRON registered: papercast-nightly (16fe9a62f8df), 03:00 America/New_York
+  (host IS on EDT so schedule is literal), deliver=local. NOTE: this is a
+  LOCAL-ONLY cron (CLI session): output saved but not delivered to any chat.
+  It will fire unattended at 03:00 ET nightly. Prompt encodes: true-upvote
+  re-pull, FM standing rule, 16-page text extraction, write-in-session (no
+  subagent long-form), both gates, commit-before-synth, serial flock synth,
+  explicit-flag build+publish, live curl verification, work log.
+- OLD-BOX CRON (cron_e0646a456062, 03:00 ET): NOT verifiable from here. If it
+  still fires, it will fetch "today" -> papers-day 2026-08-28 and try to publish
+  a duplicate slate. PATRICK MUST pause/remove it on the old box before its next
+  03:00 ET fire. New-machine duplicate guard: the nightly prompt's stop condition
+  (episodes/<papers_date>-*.mp3 already exists) makes this machine skip, so worst
+  case after tonight is only the old box duplicating, not both.
