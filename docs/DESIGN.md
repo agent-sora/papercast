@@ -1,7 +1,7 @@
 # Agent-Sora Podcast — Design Document
 
 Status: OPERATIONAL (per-paper pipeline live; nightly cron armed)
-Last updated: 2026-08-24
+Last updated: 2026-08-30 (new-machine migration; G2P/phoneme notes)
 
 ## Purpose
 
@@ -38,6 +38,26 @@ Dispassionate, implementation-focused; editorial contract in
   `scripts/synth_batch.py` walks transcripts serially in a subprocess per
   episode, skips fresh mp3s (mtime vs transcript mtime), and refuses any
   transcript that fails `lint_script.py` (no wasted CPU on soon-to-change text).
+
+### G2P / phonemes (verified 2026-08-29 on new machine)
+
+- misaki English G2P has three tiers: curated lexicon → **inline overrides** →
+  espeak fallback. Inline override syntax in transcript text:
+  `[Word](/ipa ˈphoːnɪmz/)` — misaki honors the IPA verbatim (rating 5, never
+  re-derived). This is the lever for fixing mispronounced terms: an LLM can
+  write the phonemes directly into the transcript instead of trusting G2P.
+- espeak is NOT a system dependency: `misaki.espeak.EspeakFallback` goes
+  through `phonemizer` + `espeakng_loader`, and `espeakng_loader` BUNDLES
+  `libespeak-ng.so` inside the venv. Verified working on a host with no
+  espeak-ng installed (see `debugging/phoneme_override_test.py`, RESULT: PASS).
+  If the fallback ever failed, KPipeline would degrade to silently DROPPING
+  out-of-dictionary words (unk='') — that is the real failure mode to watch.
+- `lint_script.py` does not flag the override syntax (no `\`, no `$`, no sci-
+  notation), so overrides can live in transcripts without lint changes.
+- NOTE for writers: overrides are markdown-link-shaped, so
+  `synth_kokoro.py`'s link-stripping regex (`\[...\]\(...\)` → inner text)
+  would eat them. If we adopt overrides in transcripts, the synth loader must
+  pass them through (strip only non-phoneme links, or pre-resolve overrides).
 
 ## Pipeline
 

@@ -150,30 +150,32 @@ All timestamps UTC.
   the /workspace/.gh_token copy vanished on 08-27. New machine creates its OWN token +
   askpass (template in MIGRATION.md); values never transcribed.
 
-## 2026-08-29 (late) — HANDOVER rewritten for zip-based transfer (user decision)
+## 2026-08-30 01:00-01:25 UTC — new-machine migration: env rebuilt + espeak-ng question resolved
 
-User made a full copy of the papercast dir INCLUDING .git and .venv, will zip it
-and unpack at /home/patrick/papercast on the new machine; handover.md copied
-alongside. Doc rewritten accordingly (was clone-based):
-
-- STEP 1: clone instructions -> "nothing to clone; verify what landed" checklist
-  (git status, git log aca0271, .venv present, .gh_token present, 60 MP3s).
-- Space table re-framed: everything traveled; table explains bulk + what is
-  disposable after settling (feed caches re-download, legacy-per-day optional).
-- STEP 2: test-first venv guidance. Traveled .venv is uv-made, symlinked to
-  sandbox python 3.11 (/usr/local/bin/python3.11), old box is aarch64 -> if new
-  box differs, native wheels (torch/onnxruntime/numpy) are wrong-arch. Expected
-  path: `uv venv --python 3.11 .venv --clear && uv pip install -r requirements.txt`.
-  requirements.txt pins travel in the zip.
-- STEP 3: .gh_token TRAVELED (inside repo dir); recommend rotation by patrick.
-  .git_askpass.sh did NOT travel (lived outside repo) -> recreate at repo root.
-- STEP 4: MP3s TRAVELED -> verify (60 files, ~461M) instead of download; offline
-  fallback = git archive origin/gh-pages episodes (gh-pages history is in the
-  traveled .git); network fetch only as last resort.
-- Rules #8 + file map annotations updated. Cron-pause warning + retirement step
-  verified intact. Doc now 473 lines.
-- Evidence: /workspace/.tmp/zippref.txt (venv portability probe),
-  /workspace/.tmp/leftovers2.txt (post-rewrite grep).
-
-### follow-up: cleaned macOS .DS_Store (tracked + docs/ stray) from the copy, added .gitignore rule; pushed daa1fef; doc's expect-aca0271 lines updated to daa1fef/884bf82 chain.
-Doc expectation switched to chain-based (git log -5 contains aca0271) instead of exact top SHA, since further doc fixes would shift the top SHA again.
+- Audit (STEP 0) saved to ~/papercast-setup/.tmp/audit.txt: python3 3.12.3, ffmpeg 6.1.1,
+  32 cores, 62 GiB RAM, 446 GB free, host tz = EDT. espeak-ng ABSENT; no passwordless
+  sudo (user constraint: no sudo for this project).
+- Zip landed WITHOUT `.git/` and `.venv/`. Restored `.git/` from a fresh network clone
+  of agent-sora/papercast (top: 78f08d8; chain contains aca0271 as expected).
+- Rebuilt venv with uv (python 3.12). `kittentts==0.8.1` does not exist on PyPI ->
+  installed everything else from requirements.txt (legacy audition tools only lose
+  kittentts, per handover note). Sanity imports OK (kokoro/pymupdf/yaml/PIL/misaki).
+- RESEARCH (user asked: can kokoro run without espeak-ng; can the LLM supply phonemes?):
+  - misaki EN G2P tiers: curated lexicon -> inline overrides `[Word](/ipa/)` ->
+    espeak fallback. Overrides are honored verbatim (rating 5) — confirmed in
+    misaki/en.py source AND end-to-end synthesis test.
+  - espeakng_loader (pip dep of misaki[en]) bundles libespeak-ng.so IN THE VENV;
+    EspeakFallback works on this host with NO system espeak-ng. KPipeline only
+    drops OOD words if the fallback construction fails (pipeline.py try/except).
+  - Wrote debugging/phoneme_override_test.py (docstring'd, re-runnable): asserts
+    override IPA present in phoneme stream, OOD 'gptq' gets espeak phonemes,
+    audio peak > 0.1. RESULT: PASS (peak 0.63, 9.8 s).
+  - lint_script.py is compatible with the override syntax (no LaTeX/$/sci-notation
+    patterns match it).
+  - CAVEAT found: synth_kokoro.py's link-strip regex would delete override links
+    before they reach G2P — must be fixed before adopting overrides in transcripts.
+  - Decision pending with user: (a) keep espeak fallback as-is (no system pkg needed),
+    (b) add a writer-side step where the LLM annotates known-tricky terms with
+    inline phoneme overrides, (c) both. DESIGN.md updated with all of this.
+- NEXT: git_askpass.sh + git identity; MP3 inventory check (60 expected); smoke
+  tests; backfill papers-day 2026-08-28; register nightly cron.
