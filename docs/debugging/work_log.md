@@ -262,3 +262,20 @@ All timestamps UTC.
   risk eliminated; MIGRATION.md STEP 8 (old-machine retirement) is satisfied —
   the old /workspace copy is now a backup, not a source of truth. This machine's
   papercast-nightly (16fe9a62f8df, 03:00 ET) is the sole pipeline. No open items.
+
+## 2026-08-30 (nightly cron, ET) — STOP: duplicate day, no action
+
+- `nightly_prep.sh` fetched feed; papers-day = 2026-08-28, shortlist at
+  `episodes/feed/selected-2026-08-28.json` (12 candidates, all upvotes=0 in feed JSON).
+- STOP condition hit: all six `episodes/2026-08-28-*.mp3` already exist
+  (2608.15763, 2608.25518, 2608.26872, 2608.27260, 2608.27448, 2608.27456),
+  matching `episodes/feed/picks/ids-2026-08-28.txt`.
+- Already published: commit a2f08d2 "day-24 closeout: 6/6 synthesized healthy,
+  published, live-verified (feed 66 items)". Live check this run:
+  feed.xml item count = 66; spot-check
+  https://agent-sora.github.io/papercast/episodes/2026-08-28-2608.27448.mp3 → HTTP 200.
+- No transcripts re-drafted, no re-synthesis, no re-publish, no push. Stopping.
+- Note for future runs: when the nightly fires but the current papers-day was
+  already handled (e.g. weekend catch-up or a previous run of this job), the
+  prep script still selects the same day; the mp3-existence check is what
+  prevents double-publishing.
