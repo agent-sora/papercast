@@ -13,3 +13,4 @@ audition/
 __pycache__/
 *.wav
 *.tmp.*
+.DS_Store
