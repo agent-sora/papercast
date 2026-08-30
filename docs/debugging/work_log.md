@@ -255,3 +255,10 @@ All timestamps UTC.
   (git fetch before ls-tree — tracking ref was stale as documented).
 - Day-24 (papers-day 2026-08-28) CLOSED end-to-end. Feed now 66 items.
 - Remaining: push main (credentials verified); patrick to pause old-box cron.
+
+## 2026-08-30 05:00 UTC — old-box cron confirmed removed (user)
+
+- User confirmed cron_e0646a456062 is removed on the old machine. Duplicate-slate
+  risk eliminated; MIGRATION.md STEP 8 (old-machine retirement) is satisfied —
+  the old /workspace copy is now a backup, not a source of truth. This machine's
+  papercast-nightly (16fe9a62f8df, 03:00 ET) is the sole pipeline. No open items.
