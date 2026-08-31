@@ -28,6 +28,11 @@ trap 'rm -rf "$WORK"' EXIT
 export GIT_ASKPASS="$ASKPASS"
 echo ">> cloning $BRANCH to temp..." >&2
 git clone -q -b "$BRANCH" "$REPO" "$WORK"
+# Large pushes (~45 MB of new mp3s) fail with HTTP 408 inside GitHub's chunked
+# upload path unless the http post buffer is raised (documented 2026-08-25 and
+# hit again 2026-08-31). Set it inside the deploy clone so every push is safe
+# without relying on the caller's environment.
+git -C "$WORK" config http.postBuffer 524288000
 
 # clear existing site files (keep .git). -mindepth 1 -maxdepth 1: do NOT delete
 # dotfiles (e.g. .nojekyll) inside the deploy tree — a wipe of .nojekyll would

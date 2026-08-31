@@ -342,7 +342,3 @@ All timestamps UTC.
   matter + first paragraph, then append one paragraph per tool call, every
   call's generated text under ~400 words) so no single generation hits the
   180s non-streaming timeout; reiterate no subagents; pick-audit step added.
-- Note for future runs: when the nightly fires but the current papers-day was
-  already handled (e.g. weekend catch-up or a previous run of this job), the
-  prep script still selects the same day; the mp3-existence check is what
-  prevents double-publishing.
