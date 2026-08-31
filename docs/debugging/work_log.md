@@ -302,3 +302,47 @@ All timestamps UTC.
   already handled (e.g. weekend catch-up or a previous run of this job), the
   prep script still selects the same day; the mp3-existence check is what
   prevents double-publishing.
+
+## 2026-08-31 08:30-09:30 UTC — day-25: cron run died mid-drafting (provider timeout); manual completion, published, live-verified
+
+- NIGHTLY CRON FAILURE ANALYSIS: cron 16fe9a62f8df fired 03:00 ET, ran 43 min,
+  last_status=error. Session dump ends: "RuntimeError: Non-streaming API call
+  timed out after 180s with no response (threshold: 180s)" — the same provider
+  limitation that killed all 6 subagent writers on 08-30, this time inside the
+  cron session itself, during the long single-turn transcript drafting. What the
+  cron DID complete: prep fetch (20 papers, papers-day 2026-08-31), selection
+  (9 kept), picks file, meta downloads for 5 of 6, a custom extraction script,
+  and numeric_spotcheck improvements (day-agnostic paths). Zero transcripts.
+- PICK AUDIT: cron's picks had a ranking error — DART-SD (2608.18524, TRUE 58
+  upvotes, #1 of day) was omitted, presumably because the stored upvotes field
+  is 0/stale and its re-pull missed it; it included 2608.27906 (4 upvotes)
+  instead. Corrected picks file to: DART-SD 58, J-Zero 33, ElephantBench 15,
+  StepGuard 14, EASEL 13, PonderPounce 10. FM standing rule: none of the 9 kept
+  abstracts introduces a new foundation model. Cron prompt now says DOUBLE-CHECK
+  the #1 candidate is in the picks.
+- MANUAL COMPLETION: paper_meta for the added DART-SD (other 5 cached); text
+  extracted (0-7 + 8-15 pages); drafted all six transcripts in this session;
+  lint total FAILs: 0 x6 (word counts 1281-1393 after top-ups); numeric
+  spot-check total unexplained: 0 — AND IT CAUGHT A REAL ERROR: I had written
+  DART-SD's general-capability SFT baseline as 46.09; Table 5 says 44.18.
+  Fixed. Spotcheck tool upgraded: TEENS + hyphenated number words
+  ("forty-six"), general scale-word -> k/m-suffix matching ("440 thousand" =
+  440k), case-insensitive SI units; decimal fraction now requires all-spoken
+  digits (prevents "six five" style misparses).
+- Commit 765122d (6 transcripts + tools) pushed to main before synthesis.
+- SYNTH: done=6 failed=0, 8.3-10.6 min per episode.
+- PUBLISH INCIDENT (known pattern): first push HTTP 408 mid send-pack (~44 MB of
+  new mp3s, postBuffer guard not exported in my shell); retried with
+  postBuffer=524288000 and pushed cleanly. Consider baking postBuffer into
+  publish.sh itself — TODO next session.
+- LIVE VERIFY: feed 66 -> 72 (4 polls, ~3 min CDN lag); banner now reads
+  "Last updated 2026-08-31 09:23 EDT — added 6 new episodes (72 total).";
+  all six 2026-08-31-*.mp3 HTTP 200; .nojekyll present.
+- CRON PROMPT HARDENED for tonight: draft transcripts INCREMENTALLY (front
+  matter + first paragraph, then append one paragraph per tool call, every
+  call's generated text under ~400 words) so no single generation hits the
+  180s non-streaming timeout; reiterate no subagents; pick-audit step added.
+- Note for future runs: when the nightly fires but the current papers-day was
+  already handled (e.g. weekend catch-up or a previous run of this job), the
+  prep script still selects the same day; the mp3-existence check is what
+  prevents double-publishing.
