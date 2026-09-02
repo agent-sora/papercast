@@ -8,6 +8,9 @@ The user's rules (encoded as TOPIC_INCLUDE_FLAVORS / TOPIC_EXCLUDE):
     - ai_music_generation         audio / music generation (audio, not video)
     - ai_finance_econometrics     finance / econometrics / statistical arb
     - lora_peft_text_only         LoRA/PEFT for text / reasoning / agentic ONLY
+    - reasoning_model_topology    topological changes to reasoning LMs: looping,
+                                  recurrent depth, alternative attention
+                                  (user standing rule 2026-09-02)
   EXCLUDE (hard):
     - image_or_video              any paper substantially about vision/video/media
     - lora_peft_image_video       LoRA/PEFT applied to image/video
@@ -59,6 +62,18 @@ FLAVORS = {
     "lora_peft_text_only": [
         r"LoRA", r"low-rank", r"PEFT", r"adapter", r"parameter-efficient",
         r"efficient fine-tun", r"fine-tun",
+    ],
+    # User standing rule (2026-09-02): topological/architectural changes to
+    # reasoning language models — looping, recurrent depth, alternative
+    # attention. These are KEEP-on-match lanes (see STYLE_GUIDE.md).
+    "reasoning_model_topology": [
+        r"looped transformer", r"looped language model", r"recurrent depth",
+        r"depth.recurren", r"weight.tying", r"weight.tied", r"layer sharing",
+        r"shared layer", r"adaptive computation", r"adaptive depth",
+        r"early exit", r"linear attention", r"fast weight",
+        r"state.space model", r"\bSSM\b", r"\bMamba\b", r"attention variant",
+        r"latent reasoning", r"continuous chain.of.thought", r"recurrent memory",
+        r"universal transformer", r"iterative refinement of hidden",
     ],
 }
 

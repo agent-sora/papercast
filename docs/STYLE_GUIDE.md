@@ -48,6 +48,15 @@ digits are also ok, but not scientific notation).
   not sufficient by itself: control/orchestration layers atop existing systems
   and method papers that merely fine-tune or use existing models do NOT
   qualify. Upvote ranking otherwise unchanged.
+- REASONING-MODEL TOPOLOGY (standing rule, user 2026-09-02): ALWAYS include
+  papers on topological/architectural changes to reasoning language models —
+  looping / recurrent depth / weight-tied or shared-layer iteration, adaptive
+  computation, alternative attention mechanisms (linear attention, fast-weight
+  / state-space update rules), latent or continuous chain-of-thought — even
+  when their true upvotes would not make the top-N cut, and even if that means
+  more than 6 episodes in a day. Feedback "loops" (closed-loop agents,
+  human-in-the-loop, control loops) do NOT qualify; the criterion is model
+  architecture topology, not workflow loops. More than 6 per day is fine.
 - Cold open (first paragraph, before anything else): the paper title, the first
   three authors, and the labs/universities/companies the authors are affiliated
   with (from the PDF's first page). Say affiliations as spoken names

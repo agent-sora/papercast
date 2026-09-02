@@ -46,6 +46,7 @@ ALLOWED = {
     ("2608.25518", "hundred"),
     ("2608.27448", "eight billion"),
     ("2608.27456", "eight hundred"),
+    ("2608.24979", "twenty three thousand"),  # paper: "23.1 thousand output tokens"
 }
 
 
@@ -87,7 +88,7 @@ def check(pid: str, day: str):
     md = (root / f"episodes/{day}-{pid}.md").read_text()
     body = md.split("---", 2)[2] if md.startswith("---") else md
     corpus = ""
-    for suffix in ["", "-more", "-discussion"]:
+    for suffix in ["", "-more", "-discussion", "-experiments"]:
         p = root / f"episodes/feed/text/{pid}{suffix}.txt"
         if p.exists():
             corpus += p.read_text()

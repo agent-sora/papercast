@@ -23,6 +23,9 @@ TOPIC_INCLUDE_FLAVORS:
   - ai_music_generation            # audio/music gen (audio model, not video)
   - ai_finance_econometrics        # finance / econometrics / statistical arb
   - lora_peft_text_only            # LoRA/PEFT for text/reasoning/agentic ONLY
+  - reasoning_model_topology       # looping/recurrent depth/attention variants
+                                   # (user standing rule 2026-09-02: always
+                                   # cover topological changes to reasoning LMs)
 
 TOPIC_EXCLUDE:
   - image_or_video                # absolutely excluded
