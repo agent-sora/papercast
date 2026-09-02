@@ -342,3 +342,37 @@ All timestamps UTC.
   matter + first paragraph, then append one paragraph per tool call, every
   call's generated text under ~400 words) so no single generation hits the
   180s non-streaming timeout; reiterate no subagents; pick-audit step added.
+
+## 2026-09-02 08:26-08:35 EDT — day-26/27 back-to-back publishes completed by operator
+
+- FINDING: the nightly cron DID run Sep 1 (03:00-04:22, ok) and Sep 2
+  (03:00-04:23, ok) and the incremental-drafting fix WORKED — both slates
+  fully drafted, gated, committed, and synthesized (done=6 failed=0 x2,
+  durations ~8-10.6 min; 12 MP3s on disk, commits 0150961 + c9fe242 on main).
+  What failed: the cron session hit its TOOL-ITERATION LIMIT before the
+  publish step both nights; the Sep-2 output file ends with an explicit
+  handoff: "Status: INCOMPLETE — synthesis done, publish NOT yet performed".
+  So the live site stayed at 72 items / Aug-31 banner while two days of audio
+  sat unpublished on disk — status=ok on the job is misleading when the
+  pipeline is only partway through.
+- Root cause chain now complete: night 1 (08-31) died on the 180s
+  non-streaming API timeout during long single-turn drafting; nights 2-3
+  survived that via incremental drafting but exhausted the iteration budget
+  (~6 transcripts x ~8 paragraph calls each + gates + synth + verify ≈ far
+  more tool calls than one session's cap). The workaround for one failure
+  mode consumed the budget needed to finish the job.
+- OPERATOR COMPLETION (this session): build_rss 84 items; publish.sh (with
+  baked-in postBuffer) pushed first try; LIVE VERIFY: feed 72 -> 84 after 3
+  polls; banner "Last updated 2026-09-02 08:29 EDT — added 12 new episodes
+  (84 total)"; all 12 new mp3s HTTP 200 (zero failures); .nojekyll present.
+- FIXES:
+  1. publish.sh postBuffer was already baked in (0780ab9) and worked.
+  2. Reduce the cron's per-batch tool-call burn: draft with FEWER, larger
+     appends (2-3 paragraphs per call, target <=6 appends per transcript),
+     lint/spotcheck once for the whole batch instead of per-transcript, and
+     put the publish+verify steps EARLY in priority order so an iteration
+     cutoff lands after publish rather than before it. Also: if the session
+     is near its limit, SKIP the work-log push (step 10) rather than skipping
+     publish (step 8) — publishing is the user-visible deliverable.
+  3. Consider splitting the batch across two scheduled runs (03:00 ET draft,
+     05:00 ET publish) if the single-session cap keeps binding.
