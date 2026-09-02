@@ -376,3 +376,39 @@ All timestamps UTC.
      publish (step 8) — publishing is the user-visible deliverable.
   3. Consider splitting the batch across two scheduled runs (03:00 ET draft,
      05:00 ET publish) if the single-session cap keeps binding.
+
+## 2026-09-02 09:00-09:55 EDT — topology addendum: SMELT + 2 more; new standing rule
+
+- NEW STANDING RULE (user): always cover papers on topological/architectural
+  changes to reasoning LMs — looping/recurrent depth, weight tying, adaptive
+  computation, alternative attention (linear/fast-weight/SSM), latent CoT —
+  even below the top-6 cut; more than 6/day is fine. Feedback "loops"
+  (closed-loop agents, human-in-the-loop) do NOT qualify — architecture
+  topology, not workflow loops. Recorded in STYLE_GUIDE.md; implemented as a
+  new selector flavor `reasoning_model_topology` in select_papers.py FLAVORS +
+  config.yaml TOPIC_INCLUDE_FLAVORS (verified: SMELT kept for 09-02, Fast
+  Weight Attention kept for 08-31 on re-selection).
+- USER FLAGGED: SMELT (2609.01343, HF 59 upvotes) missing from the 09-02 slate
+  — it was NOT in the day's feed cache the cron fetched (published to HF daily
+  after the 03:00 snapshot). Added manually.
+- 7-DAY TOPOLOGY SCAN over all cached papers-*.json (65 regex hits, mostly
+  false positives on "closed-loop" agent papers): 3 genuine in-window matches,
+  all added: SMELT (09-02, 59 up), Fast Weight Attention for Continual
+  Learning (08-31, 29 up — Falcon-1/2/3 normalized fast-weight updates),
+  Gated Recurrent Transformers (08-27, 10 up — GRU-style gating over depth).
+  OUT-OF-WINDOW but on-topic, flagged for patrick: "Looped Language Models
+  Improve Compositional Tool Calling" (2608.18171, Aug 20, 21 up) — not added
+  per the 7-day scope; say the word and it gets an episode too.
+- Three transcripts drafted (1,315-1,335 words), lint 0 FAILs x3, numeric
+  spot-check 0 unexplained. Spotcheck tooling: added "-experiments" text
+  suffix (27763's benchmark tables live on PDF pages 24-28, past the 8-15
+  window) and a verified ALLOWED entry (24979 "twenty-three thousand" = paper's
+  "23.1 thousand"). PITFALL: synth_batch.py --only-prefix is single-value
+  argparse; passing it three times only synthesized the last — run one
+  invocation per prefix (did so; 3/3 OK, 8.5-9.7 min).
+- PUBLISHED: feed 84 -> 87; banner "Last updated 2026-09-02 09:53 EDT — added
+  3 new episodes (87 total)"; all three mp3s HTTP 200.
+- NOTE for future slates: papers published to HF after the 03:00 ET snapshot
+  are invisible to that night's run; if patrick flags a missing paper, the
+  fetch --force re-pull plus a manual add is the remedy. The new selector lane
+  keeps topology papers from being dropped by topic filters going forward.
