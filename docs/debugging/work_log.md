@@ -412,3 +412,33 @@ All timestamps UTC.
   are invisible to that night's run; if patrick flags a missing paper, the
   fetch --force re-pull plus a manual add is the remedy. The new selector lane
   keeps topology papers from being dropped by topic filters going forward.
+
+## 2026-09-04 04:30 EDT — nightly batch (6 episodes), published feed 87 -> 93
+
+- SLATE: ranked the FULL 21-paper feed by TRUE upvotes (select_papers.py scores by
+  topic flavor, not upvotes, so the 8-paper shortlist was NOT the upvote leader).
+  True top-6 = 2609.03796 LLaDA-Image (72), 2609.01507 LatentPress (52),
+  2609.04098 Gated-DeltaNet NVFP4 quant (51), 2609.03430 Random Attention (50),
+  2609.04172 On-Policy Distillation II (42), 2609.04196 Puffin-World (24).
+  Standing rules: LLaDA-Image + Puffin-World are foundation-model releases and both
+  already fall in the true top-6, so no extra add-ons needed. Random Attention
+  (2609.03430) = KV-cache eviction (serving), NOT a new attention architecture ->
+  does not qualify under the topology rule, but it was in the top-6 anyway.
+- NEW TOOLING: debugging/pull_true_upvotes.py + debugging/rank_full_feed.py
+  (re-pull HF API upvotes for the shortlist / full feed; write top-6 to picks).
+- All 6 transcripts drafted in-session (no subagents), 1306-1344 words, lint
+  0 FAILs, numeric_spotcheck 0 unexplained. No Voice: lines in drafts (stamped
+  by synth_batch: bf_alice x2, bm_daniel, bm_george x2, bm_lewis).
+- Synth: single synth_batch.py --only-prefix 2026-09-04 under flock, 6/6 OK
+  (7.6-9.3 min audio each).
+- PUBLISH: build_rss -> 93 episodes; publish.sh pushed gh-pages.
+  PITFALL (this run): $PC was EMPTY in the shell, so TMPDIR=/.tmp broke mktemp and
+  publish.sh failed silently on the first attempt; the build_rss step had already
+  succeeded. Fixed by exporting PC=/home/patrick/papercast explicitly.
+- LIVE VERIFY: feed 87 -> 93 (after ~80s propagation); banner "Last updated
+  2026-09-04 04:26 EDT — added 6 new episodes (93 total)"; all 6 new mp3s HTTP 200;
+  .nojekyll HTTP 200.
+- FLAG FOR PATRICK: NO episodes exist for 2026-09-03 (gap) — ids-2026-09-03.txt
+  (8 ids) is present in picks/ but no 2026-09-03-*.md / .mp3 were ever drafted or
+  synth'd, and the live site jumped 09-02 (87) -> 09-04 (93) with no 09-03 day.
+  Likely the 09-03 nightly died before drafting. Backfill on request.
