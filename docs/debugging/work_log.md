@@ -442,3 +442,21 @@ All timestamps UTC.
   (8 ids) is present in picks/ but no 2026-09-03-*.md / .mp3 were ever drafted or
   synth'd, and the live site jumped 09-02 (87) -> 09-04 (93) with no 09-03 day.
   Likely the 09-03 nightly died before drafting. Backfill on request.
+
+## 2026-09-05 03:03 EDT — DUPLICATE GUARD: no new batch, banner refreshed
+
+- nightly_prep resolved papers-day = 2026-09-04 (Saturday -> snaps back one
+  day). All 6 episodes for 2026-09-04 (2609.03796, 2609.01507, 2609.04098,
+  2609.03430, 2609.04172, 2609.04196) already exist as .md AND .mp3 — published
+  by last night's run (feed 87 -> 93, banner 2026-09-04 04:26 EDT).
+- STOP CONDITION hit (episodes/<papers_date>-*.mp3 EXIST): did NOT draft or
+  synth. Refreshed banner via build_rss.py --episodes-dir episodes --site-dir
+  site --config config.yaml && bash scripts/publish.sh site.
+- PITFALL REPEAT: export TMPDIR=$PC/.tmp on a SEPARATE line after export PC=...
+  — combining `export PC=... TMPDIR=$PC/.tmp` on one line expands $PC empty
+  (TMPDIR=/.tmp), so mktemp fails and publish.sh errors. Fixed by splitting
+  exports. Publish then succeeded: gh-pages pushed, banner now reads
+  "Last updated 2026-09-05 03:02 EDT — no new episodes (93 total)".
+- NOTE: the 2026-09-03 gap (flagged 09-04) is still unfilled — ids-2026-09-03.txt
+  has 8 candidates, no transcripts or audio. Backfill only on Patrick's request;
+  not re-run here (would need fresh upvote ranking + full drafting).
