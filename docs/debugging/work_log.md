@@ -530,3 +530,11 @@ All timestamps UTC.
 - Refreshed banner only: `scripts/build_rss.py --episodes-dir episodes --site-dir site --config config.yaml` (121 episodes) + `bash scripts/publish.sh site` -> banner "Last updated 2026-09-12 03:04 EDT — no new episodes (121 total).", 121 mp3s copied, gh-pages pushed.
 - Live verify: feed.xml 121 items; 2026-09-11-2609.10715.mp3 HTTP 200; origin/gh-pages (after fetch) has .nojekyll. (Live index.html banner still showed the 09-11 "added 6" text at check time = normal GitHub Pages CDN propagation lag for the just-pushed new banner; the pushed branch is correct.)
 - Untracked leftover debug scripts from 09-10 run (debugging/*_2026_09_10.py) left in place, not part of this run.
+
+## 2026-09-13 03:05 UTC — nightly run: DUPLICATE GUARD (no new episodes)
+
+- Sunday run. nightly_prep.sh fetched feed for 2026-09-13; weekend snap-back resolved papers-day = **2026-09-11** (no new HF daily batch since the 09-11 batch).
+- Duplicate guard fired: `episodes/2026-09-11-*.mp3` already present (6 episodes, synthesized + published by the 09-11 run — 121 total). No draft/synth per STOP CONDITIONS.
+- Re-pulled true HF upvotes via debugging/rank_upvotes.py for the record: #1 = 2609.10715 (NCP-ArchPreview, 249 up), then SenseNova-U1.5 (203), SpatialBlock (111) — all six already published 09-11; upvotes simply grew (NCP 98->249). Standing-rule scans: NCP (latent-space LM) + SenseNova-U1.5 (unified visual foundation model) both already covered; CARDEA "ssm" match is a false positive (no state-space attention in that paper). No new add-ons.
+- Refreshed banner only: `scripts/build_rss.py --episodes-dir episodes --site-dir site --config config.yaml` (121 episodes) + `bash scripts/publish.sh site` -> banner "Last updated 2026-09-13 03:03 EDT — no new episodes (121 total).", 121 mp3s copied, gh-pages pushed.
+- Live verify: feed.xml 121 items; 2026-09-11-2609.10715.mp3 HTTP 200; origin/gh-pages (after fetch) has .nojekyll. Live index.html banner still showed the 09-12 text at check time = normal GitHub Pages CDN propagation lag; pushed branch is correct.
