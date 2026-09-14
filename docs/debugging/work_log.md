@@ -538,3 +538,18 @@ All timestamps UTC.
 - Re-pulled true HF upvotes via debugging/rank_upvotes.py for the record: #1 = 2609.10715 (NCP-ArchPreview, 249 up), then SenseNova-U1.5 (203), SpatialBlock (111) — all six already published 09-11; upvotes simply grew (NCP 98->249). Standing-rule scans: NCP (latent-space LM) + SenseNova-U1.5 (unified visual foundation model) both already covered; CARDEA "ssm" match is a false positive (no state-space attention in that paper). No new add-ons.
 - Refreshed banner only: `scripts/build_rss.py --episodes-dir episodes --site-dir site --config config.yaml` (121 episodes) + `bash scripts/publish.sh site` -> banner "Last updated 2026-09-13 03:03 EDT — no new episodes (121 total).", 121 mp3s copied, gh-pages pushed.
 - Live verify: feed.xml 121 items; 2026-09-11-2609.10715.mp3 HTTP 200; origin/gh-pages (after fetch) has .nojekyll. Live index.html banner still showed the 09-12 text at check time = normal GitHub Pages CDN propagation lag; pushed branch is correct.
+
+
+## 2026-09-14 08:07 UTC — nightly run: FULL BATCH (6 episodes)
+
+- Tuesday run. nightly_prep.sh fetched feed for 2026-09-14 (7 papers in full feed, 5 in shortlist). No duplicate guard (no 2026-09-14-*.mp3 present).
+- TRUE upvotes re-pulled via debugging/pull_true_upvotes_all.py (full feed, not shortlist): top-6 = 2609.11115 Benchmark Radar (38), 2609.12641 LIT (35), 2609.13141 SAS (32), 2608.30597 PLC-DPO (21), 2609.11682 COBRA-Skills (22), 2609.08418 Feyospace-v1 (11). #1 true-upvote paper (Benchmark Radar) confirmed in picks. Excluded by top-6 cut: 2609.13146 SNAP3D (1).
+- Standing rules re-scanned full 7-paper feed: NO new foundation-model release (Feyospace-v1 = post-training/SFT on existing open-weight bases Qwen3.6-35B-A3B / Qwen3.8-27B — control/post-training layer, does NOT qualify). SAS (2609.13141) IS a qualifying reasoning-model-topology paper (learned gated block-ranking sparsification of attention) but is already in top-6 — no add-on. No other topology patterns outside main prefix. Single synth prefix 2026-09-14.
+- Metadata: scripts/paper_meta.py (authors+affiliations only — feed upvotes stale/zero, used true re-pull values). Text extracted via pymupdf (NOT fitz) to episodes/feed/text/ for all 6 picks (main/more/experiments).
+- Drafted 6 transcripts (no subagents), style per docs/STYLE_GUIDE.md. Word counts: PLC-DPO 1433, Feyospace 1328 (expanded from 1258), Benchmark Radar 1300, COBRA-Skills 1318, LIT 1325, SAS 1444. All in [1300,1750].
+- Gates (ONE call): lint_script.py -> total FAILs: 0; numeric_spotcheck.py -> total unexplained: 0 (all numbers verified against paper text; no whitelisting needed).
+- Commit BEFORE synth: 80a3380.
+- Synth: 6/6 OK, 0 failed, under flock (serial). Durations: PLC-DPO 569s (143s wall), Feyospace 453s (109s), Benchmark Radar 519s (129s), COBRA-Skills 467s (112s), LIT 549s (144s), SAS 595s (154s).
+- Publish: scripts/build_rss.py --episodes-dir episodes --site-dir site --config config.yaml && bash scripts/publish.sh site -> 127 episodes, gh-pages pushed, banner "Last updated 2026-09-14 04:02 EDT — added 6 new episodes (127 total)."
+- Live verify: initial 90s check = CDN lag (feed 121, mp3s 404). After ~4 min total: feed.xml 127 items, all 6 mp3s HTTP 200, banner "added 6 new episodes (127 total)", origin/gh-pages (after fetch) has .nojekyll.
+- Debug scripts added: debugging/pull_true_upvotes_all.py (full-feed true-upvote re-puller), debugging/show_summaries.py, debugging/dump_feed.py, debugging/extract_texts.py.
