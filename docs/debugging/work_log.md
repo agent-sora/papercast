@@ -553,3 +553,13 @@ All timestamps UTC.
 - Publish: scripts/build_rss.py --episodes-dir episodes --site-dir site --config config.yaml && bash scripts/publish.sh site -> 127 episodes, gh-pages pushed, banner "Last updated 2026-09-14 04:02 EDT — added 6 new episodes (127 total)."
 - Live verify: initial 90s check = CDN lag (feed 121, mp3s 404). After ~4 min total: feed.xml 127 items, all 6 mp3s HTTP 200, banner "added 6 new episodes (127 total)", origin/gh-pages (after fetch) has .nojekyll.
 - Debug scripts added: debugging/pull_true_upvotes_all.py (full-feed true-upvote re-puller), debugging/show_summaries.py, debugging/dump_feed.py, debugging/extract_texts.py.
+
+## 2026-09-15 nightly run (2026-09-15 08:19 UTC)
+- Feed: 20 papers fetched for papers_date 2026-09-15; 11-candidate shortlist from selector.
+- True upvotes re-pulled per paper (selected-*.json values stale): 15818=135, 11638=108, 13356=94, 14973=57, 15973=18, 15364=12. #1 true-upvote paper (Atria Dawn, 135) confirmed in picks.
+- Picks (6): 2609.15818 Atria Dawn (Fudan), 2609.11638 Vidu S2 (Tsinghua/Shengshu), 2609.13356 ZGCM-1 (Zhongguancun; hybrid gated sliding-window+full attention = topology lane), 2609.14973 PhysBrain 1.5 (DeepCybo; new embodied foundation model), 2609.15973 Discovery FM (position+system, Zetema/GALILEO), 2609.15364 RSIAgent (Aether AI/UCSD/UIC; training-free, no topology). No additional topology add-ons beyond the 6.
+- Drafts: all 6 written in-session (no subagents). Lint total FAILs: 0; numeric spotcheck total unexplained: 0.
+- Corrections made during drafting: Vidu S2 results from StreamAV-Bench table (not fabricated OpenVE numbers); PhysBrain byline/28-benchmark table numbers verified from Table 4 (72.5 avg, 87.9 BLINK, 90.0 CV-Bench, MindCube 39.2->86.2 base vs 1.5); DFM: removed fabricated "held-out set confirmed the pattern" claim, used paper's actual validator/evaluation language; RSIAgent: fixed bylines (Sibo Zhu, Shicheng Fan, Xinyue Wang), ALE = Agents' Last Exam (not Atari), added Kimi-K3/GLM-5.3 vs GPT-6/Claude Opus 5 headline and four-task ablation detail.
+- Synth: 6/6 OK via single synth_batch.py --only-prefix 2026-09-15 (all share prefix), 7.8-9.4 min audio each.
+- Publish: build_rss (133 episodes) + publish.sh OK; banner "Last updated 2026-09-15 04:16 EDT — added 6 new episodes (133 total)"; all 6 mp3s present on origin/gh-pages; .nojekyll present.
+- Note: live agent-sora.github.io still served the 2026-09-14 deployment (127 items / old banner) ~3 min after push — GitHub Pages propagation lag; branch state verified correct.
