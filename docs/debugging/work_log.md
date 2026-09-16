@@ -563,3 +563,13 @@ All timestamps UTC.
 - Synth: 6/6 OK via single synth_batch.py --only-prefix 2026-09-15 (all share prefix), 7.8-9.4 min audio each.
 - Publish: build_rss (133 episodes) + publish.sh OK; banner "Last updated 2026-09-15 04:16 EDT — added 6 new episodes (133 total)"; all 6 mp3s present on origin/gh-pages; .nojekyll present.
 - Note: live agent-sora.github.io still served the 2026-09-14 deployment (127 items / old banner) ~3 min after push — GitHub Pages propagation lag; branch state verified correct.
+
+## 2026-09-16 08:35 UTC — Nightly run (cron 16fe9a62f8df), 6 episodes
+- Fetch OK: 15 papers in feed-2026-09-16.json. True-upvote repull (debugging/repull_upvotes.py): 06986=271, 11873=83, 16679=59, 14005=21, 16034=18, 17523=16 → top-6 picks, #1 (06986) verified in picks.
+- Standing-rule scan of full feed: no topology/foundation-model add-ons beyond picks (StepAudio "loop" is the realtime model, already picked).
+- Meta + text extraction OK (pymupdf). 2609.16034 -experiments = 0 chars (PDF too short; fine).
+- Drafted 6 transcripts in-session (no subagents). Lint: 2 FAILs (word count 1278/1277 < 1300 for 11873, 16679) fixed by extending verdicts; final lint total FAILs: 0. numeric_spotcheck: 0 unexplained.
+- Committed transcripts (aad5b9c) BEFORE synth. Serial synth under flock, 6/6 OK (7.8–9.7 min each).
+- build_rss (139 episodes) + publish.sh: pushed gh-pages commit 5389d78, banner "2026-09-16 03:59 EDT — added 6 (139 total)".
+- Live verify: CDN served stale state for ~2.5 min post-push (feed=133, mp3s 404); re-verified after propagation: feed=139, all 6 mp3s HTTP 200, banner fresh, .nojekyll present in origin/gh-pages.
+- Note: paper 1 (06986) base-model name not found in extracted pages — referred to generically; labs for 17523 taken from paper org list (PhAI Labs + Fudan et al.), not the mis-parsed abstract fragments in meta json.
