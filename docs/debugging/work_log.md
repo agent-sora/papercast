@@ -573,3 +573,13 @@ All timestamps UTC.
 - build_rss (139 episodes) + publish.sh: pushed gh-pages commit 5389d78, banner "2026-09-16 03:59 EDT — added 6 (139 total)".
 - Live verify: CDN served stale state for ~2.5 min post-push (feed=133, mp3s 404); re-verified after propagation: feed=139, all 6 mp3s HTTP 200, banner fresh, .nojekyll present in origin/gh-pages.
 - Note: paper 1 (06986) base-model name not found in extracted pages — referred to generically; labs for 17523 taken from paper org list (PhAI Labs + Fudan et al.), not the mis-parsed abstract fragments in meta json.
+
+## 2026-09-17 03:00 UTC — Nightly run (cron 16fe9a62f8df), 7 episodes
+- Fetch OK: 14 papers in papers-2026-09-17.json. True-upvote re-pull (debugging/repull_true_upvotes.py): 19134=53, 18805=31, 17708=24, 18094=20, 18708=16, 17632=15, 17909=13, 15938=12, 14320=11. Top-6 by upvotes + 14320 SpectralShift (reasoning-model topology standing rule: Gated DeltaNet / linear-attention context extension). #1 (19134) verified in picks.
+- Standing-rule scan of full 14-paper feed: no new foundation-model tech reports; 14320 is the only topology add-on (linear-attention decay-spectrum reparameterization).
+- Meta + text extraction OK via debugging/extract_paper_text.py (pymupdf). 18094 & 18708 -experiments = 0 chars (no tables past p15; fine).
+- Drafted 7 transcripts in-session (no subagents). Lint first pass: 5 word-count FAILs (1030–1275) fixed by extending method/skeptical paragraphs; final lint total FAILs: 0 (all 7 in 1300–1750). numeric_spotcheck: 0 unexplained.
+- Committed transcripts (a0e422c) BEFORE synth. Serial synth under flock, 7/7 OK (7.7–9.8 min each, 0 failed).
+- build_rss (146 episodes) + publish.sh: pushed gh-pages, banner "2026-09-17 03:51 EDT — added 7 new episodes (146 total)".
+- Live verify: CDN served stale state ~3 min post-push (feed=139, mp3s 404, banner "added 6"); re-verified after propagation: feed=146, all 7 mp3s HTTP 200, banner fresh, .nojekyll present in origin/gh-pages.
+- Note: ScienceIDE (19134) numbered affiliation footnotes not cleanly extractable — labs line uses visible byline entities AItonomy Foundation; PhAI-Labs. TMPDIR must be exported in every fresh shell for publish.sh (mktemp fails without it).
