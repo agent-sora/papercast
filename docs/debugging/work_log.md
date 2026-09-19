@@ -593,3 +593,11 @@ All timestamps UTC.
 - Committed transcripts (2ac193e) BEFORE synth. Serial synth under flock, 6/6 OK (8.3–9.2 min each, 0 failed, 0 skipped).
 - build_rss (152 episodes) + publish.sh: pushed gh-pages, banner "2026-09-18 03:32 EDT — added 6 new episodes (152 total)".
 - Live verify: CDN served stale 2026-09-17 state ~2.5 min post-push (feed=146, mp3s 404); re-verified after propagation: feed=152, all 6 mp3s HTTP 200, banner fresh "added 6 (152 total)", .nojekyll present in origin/gh-pages.
+
+## 2026-09-19 07:31 UTC — nightly run: DUPLICATE GUARD / SKIP (banner refresh only)
+
+- Saturday run. nightly_prep.sh fetched feed for 2026-09-19; weekend snap-back resolved papers-day = **2026-09-18** (no new HF daily batch since the 09-18 batch).
+- Duplicate guard fired: `episodes/2026-09-18-*.mp3` already present (6 episodes: 16900, 19969, 20519, 20784, 20800, 20804 — synthesized + published by the 09-18 run; 152 total). No draft/synth per STOP CONDITIONS.
+- Re-pulled true HF upvotes for the record (debugging/upvotes_2026_09_19.py): #1 = 2609.19969 DeepSeek-V4.1-Flash (66), then SoL-Pi 20519 (52), Harness Design 20804 (40), JEPA-Anything 20800 (23), RiskChainBench 16900 (17), RetireOPD 20784 (15). All six already published 09-18; upvotes simply grew since that run. Saved to episodes/feed/true_upvotes-2026-09-18.json.
+- Standing-rule re-scan of the full 15-paper feed (debugging/feed_titles_2026_09_19.py): NO qualifying add-ons. (a) No new foundation-model tech report — DeepSeek-V4.1-Flash already covered 09-18. (b) No reasoning-model-topology paper outside the published six: 2609.20744 "Video DeltaNet" (hybrid/linear attention) is for **livestream video generation**, not a reasoning LM — does NOT qualify; 2609.19671 "When2Think" is difficulty-aware length control (a routing policy, not a topological change). #1 true-upvote (19969) confirmed already in the published set.
+- Refreshed banner only: `scripts/build_rss.py --episodes-dir episodes --site-dir site --config config.yaml` (152 episodes) + `bash scripts/publish.sh site` -> banner "Last updated 2026-09-19 03:03 EDT — no new episodes (152 total).", 152 mp3s copied, gh-pages pushed. (First attempt failed: $PC unset in fresh shell, TMPDIR resolved to /.tmp, mktemp failed; re-ran with TMPDIR=/home/patrick/papercast/.tmp absolute path.)
