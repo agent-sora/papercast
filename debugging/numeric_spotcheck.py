@@ -47,6 +47,10 @@ ALLOWED = {
     ("2608.27448", "eight billion"),
     ("2608.27456", "eight hundred"),
     ("2608.24979", "twenty three thousand"),  # paper: "23.1 thousand output tokens"
+    # 2609.20807 (arXiv-only, no HF picks file): all verified against appendix
+    ("2609.20807", "fifty thousand"),        # "152K" vocab (spoken "hundred and fifty thousand")
+    ("2609.20807", "six thousand one hundred"),  # paper: 6,180 H100-hours (rounded)
+    ("2609.20807", "five hundred"),          # "512" tokens
 }
 
 
