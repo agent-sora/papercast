@@ -627,3 +627,41 @@ All timestamps UTC.
   total)", .nojekyll intact.
 - Cron model note: provider now unsloth/Qwen3.8-27B-GGUF (localhost) — the
   180s provider-timeout and tool-cap history above was the deepinfra era.
+
+## 2026-09-20 ~12:00-14:30 EDT — user: episodes must be dated by PUBLICATION date; new coverage process (arXiv fallback + HF backfill)
+
+- ROOT CAUSE of "no new episode on site": Score Centering was filed under
+  papers-day 2026-09-17 (arXiv date). Feed item existed (153, newest pubDate
+  verified live, cache-busted), but the podcast PLAYER groups/sorts by date and
+  skips reloads when the newest item isn't newer than what it already has —
+  an "old-dated" item looks like nothing changed to it.
+- FIX: rename to publication date — episodes/2026-09-20-2609.20807.{md,mp3},
+  Day: 2026-09-20, picks ids-2026-09-20.txt. Live: new MP3 200, old URL 404,
+  feed 153, banner "added 1 new episode (153 total)". Also hardened
+  publish.sh banner: compares live vs new item URL sets (not just count) so
+  a same-count republish (rename) still announces "N updated".
+- USER RULES (coverage): (1) if HF daily doesn't pass enough topic filters,
+  search arXiv AI sections (cs.AI/LG/CL/CV, q-fin, eess) for that day's
+  window; (2) backfill OLDER HF papers when recent days lack filter-passing
+  topics; (3) process must specifically re-check new HF papers.
+- NEW SCRIPTS: scripts/arxiv_search.py (per-flavor paced queries — one big
+  OR-query gets HTTP 406 from arXiv; per-flavor + 3s pace works; dedupe vs
+  HF cache arxiv_ids + published ids; note: http:// redirects to https, use
+  https directly), scripts/backfill.py (prior-days candidates passing
+  select_papers filters, upvote-ordered, --emit writes picks files). Both
+  wired into cron prompt 16fe9a62f8df (steps 1b/1c).
+- BUGS FOUND+FIXED: HF cache schema is "arxiv_id" (not paperId) — both new
+  scripts initially read the wrong key (0 kept); paper_meta.py never captured
+  title (HF-sourced metas have it via cache, arXiv-only didn't) — now scraped
+  from abs page; debugging/fill_meta_titles.py backfills existing metas.
+- BACKFILL RUN (today): eligible uncovered keepers from 09-16 (2: 2609.15938
+  HypoEvolve, 2609.19745 Vision-RL2), 09-17 (2: 2609.17653 Reflect-Revise-
+  Reuse, 2609.20612 AMPLE/OPSD), 09-18 (1: 2609.19671 When2Think). 09-18
+  also had 2609.17909 Zing-0.5 (SeedLeap.ai 5B world-model tech report,
+  234 upvotes) — EXCLUDED per standing foundation-model-technical-report rule
+  (not that day's top paper). 5 episodes drafted (1300-1470 words), lint 0
+  FAILs, numeric spotcheck 0 unexplained (all numbers trace to paper text —
+  no allowlist needed). Synthesis running in background (serial ~9-11 min
+  each). Publish after synth completes.
+- debugging/verify_live.sh: cache-busted live check (feed count, newest
+  item, HTML presence, banner, MP3 status).

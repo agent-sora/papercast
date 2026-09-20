@@ -13,19 +13,41 @@ Dispassionate, implementation-focused; editorial contract in
 
 ## Source & selection scope (user-defined)
 
-- Feed: `https://huggingface.co/papers` (HF daily papers).
-- Topic rules (`config.yaml`: `TOPIC_INCLUDE_FLAVORS` / `TOPIC_EXCLUDE`):
-  RL-for-text/agentic work, agent self-improvement, AI music generation,
-  AI finance/econometrics, LoRA/PEFT for text/reasoning/agentic only;
-  exclude image/video papers.
-- **Episode granularity (2026-08-24 pivot): one episode PER PAPER.** Each day
-  contributes up to 6 episodes: the rule-passing papers ranked by true HF
-  upvote count (via `https://huggingface.co/api/papers/<id>`; HTML scraping
-  returned zeros and was replaced).
-- Rationale for the top-6 cap: the user's original framing ("same length as
-  current podcasts, split per paper") implies the prior ~6/day curation scale.
-  Rule passes alone run 13–19/day. The full pass list is preserved in
-  `episodes/feed/selected-*.json`; raising the cap is a one-line change.
+- Feed: `https://huggingface.co/papers` (HF daily papers); arXiv fallback +
+  HF backfill per the coverage process above.
+- Topic rules (`config.yaml`): RL-for-text/agentic work, agent self-
+  improvement, AI music generation, AI finance/econometrics, LoRA/PEFT for
+  text/reasoning/agentic only; exclude image/video papers.
+- Standing rules: foundation-model technical reports covered only when the
+  day's top paper; topological-changes papers (looping, weight tying,
+  adaptive computation, linear/fast-weight/SSM attention, latent CoT) always
+  covered (2026-09-02).
+
+## Episode granularity & dating (2026-09-20, user rules)
+
+- **One episode PER PAPER.** Days may carry any number of episodes (cap was
+  removed 2026-09-20: "having more than 6 per day is fine"; episodes are
+  NEVER deleted).
+- **Episodes are dated by PUBLICATION date, not paper date.** Filename
+  `episodes/YYYY-MM-DD-<arxiv_id>.md`, front matter `Day:`, and the RSS
+  `pubDate` all use the date the episode is published. Podcast players group
+  by date and skip reloads when the newest item isn't newer — an old-dated
+  item looks like "nothing changed" even though the feed changed. Backfilled
+  papers therefore take the current publication date (e.g. 09-18 papers
+  published 09-20 get `Day: 2026-09-20`); the paper's own date is not used
+  for `Day:`.
+- **Coverage process (2026-09-20, user rules):**
+  1. HF daily re-check is the primary source (`fetch_papers.py` +
+     `select_papers.py`); a day is "eligible" when its filter-passing
+     papers (see config flavors + topology standing rule) are covered.
+  2. **arXiv fallback**: if the HF daily doesn't yield enough filter-passing
+     papers, `scripts/arxiv_search.py` searches arXiv AI sections
+     (cs.AI/LG/CL/CV + q-fin + eess) over the same day window, per-flavor
+     paced queries, deduped against HF cache ids and already-published ids.
+  3. **HF backfill**: if recent days lack filter-passing topics,
+     `scripts/backfill.py` walks prior papers-days (up to `--max-days`) and
+     emits picks files for uncovered, filter-passing papers, upvote-ordered.
+  All three run in the nightly cron prompt (steps 1a/1b/1c).
 
 ## Voice / TTS
 
@@ -106,7 +128,7 @@ backfill rollout.
   per-paper episodes of equal length instead.
 - KittenTTS Rosie: replaced by kokoro bf_isabella (user decision, same day).
 - Cloud TTS: no new subscriptions (user constraint).
-- Uncapped per-day episodes (13–19/day): exceeds the implied curation scale;
-  documented cap at 6 with full lists retained for easy expansion.
+- Uncapped per-day episodes (13–19/day): initially capped at 6; cap removed
+  2026-09-20 (user: "having more than 6 per day is fine").
 - LLM API for script generation: none available keyless; writer subagents +
   mechanical linter gate achieve the same contract enforcement.
