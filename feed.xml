@@ -127,6 +127,15 @@
       <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-09-17-2609.14320.mp3" type="audio/mpeg" length="6225453"/>
     </item>
     <item>
+      <title>Score Centering Stabilizes Off-policy Reinforcement Learning</title>
+      <link>https://arxiv.org/abs/2609.20807</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-09-17-2609.20807.mp3</guid>
+      <pubDate>Thu, 17 Sep 2026 06:00:00 +0000</pubDate>
+      <description>By Martin Marek, Max Ryabinin (Together AI) Score Centering Stabilizes Off-policy Reinforcement Learning, by Martin Marek and Max Ryabinin of Together AI. If you train language models with reinforcement learning today, you live with an uncomfortable secret: the policy gradient identity that justifies your entire loss only holds if the engine that generates your rollouts and the engine that computes your gradients produce bit-identical outputs. In practice they never do. Training clusters roll out samples on quantized, continuously batched inference engines running asynchronous checkpoints, while gradients flow through a trainer in a different precision with different kernel orderings. Every one of these small differences between the sampler and the trainer is collectively called the training-inference mismatch, and under enough of it, RL runs collapse outright. The standard playbook is importance sampling: reweight every token by the ratio between what the trainer believes and what the sampler believed, usually clipped or masked because raw ratios explode on rare tokens. This paper argues that most of that machinery is aimed at the wrong target. The instability is driven by drift, a bias term in the update that accumulates step after step exactly because the sampler is a moving biased copy of the trainer, and it can be canceled with an additive correction that involves no ratios, no clipping, and no masking.</description>
+      <itunes:duration>674</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-09-17-2609.20807.mp3" type="audio/mpeg" length="8096301"/>
+    </item>
+    <item>
       <title>Continual Learning Mechanisms Compose for Long-Horizon Memorization</title>
       <link>https://arxiv.org/abs/2609.06986</link>
       <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-09-16-2609.06986.mp3</guid>
