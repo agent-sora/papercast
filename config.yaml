@@ -33,10 +33,20 @@ TOPIC_EXCLUDE:
 
 # ---------------------------------------------------------------------------- #
 # Episode / delivery — 2026-08-24 PIVOT: one episode PER PAPER (not per day).
-# ~10 min each; top-6 papers/day by community upvotes. Style: docs/STYLE_GUIDE.md
+# ~10 min each. Style: docs/STYLE_GUIDE.md
+# 2026-09-20 user decision: COVERAGE RULES —
+#   1. Episodes are dated when they are PUBLISHED (today), not when the HF
+#      paper was published. Players use pubDate to detect new episodes.
+#   2. If the HF daily feed doesn't yield enough filter-passing papers,
+#      search arXiv AI listings directly (scripts/arxiv_search.py).
+#   3. If recent days lack qualifying topics, backfill from older cached
+#      HF days (scripts/backfill.py).
+#   4. Standing: check HF for new papers every night; add interesting ones
+#      even if they missed the daily snapshot (e.g. arXiv-only papers).
 # ---------------------------------------------------------------------------- #
 EPISODE_UNIT: "per_paper"          # was: per_day
-EPISODES_PER_DAY_MAX: 6
+EPISODES_PER_DAY_MAX: 6            # minimum nightly target; backfill/arxiv
+                                   # coverage can legitimately exceed this
 EPISODE_TARGET_MINUTES: 10
 EPISODE_TARGET_WORDS: 1500         # ~10 min at Isabella's measured pace
 AUDIENCE: "senior staff software engineer"

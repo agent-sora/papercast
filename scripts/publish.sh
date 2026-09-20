@@ -52,10 +52,15 @@ NEW=$(grep -c '<item>' "$SITE_DIR/feed.xml" || true)
 [ -n "$NEW" ] || NEW=0
 OLD=$(curl -fsS --max-time 20 "$LIVE_URL/feed.xml" | grep -c '<item>' || true)
 [ -n "$OLD" ] && [ "$OLD" -gt 0 ] 2>/dev/null || OLD=0
-DIFF=$((NEW - OLD)); [ "$DIFF" -lt 0 ] && DIFF=0
+# Count episodes present in the new feed but NOT in the live feed, by URL —
+# catches both additions and re-dated/changed episodes (count alone misses
+# URL renames, which make players think nothing changed).
+NEWURLS=$(grep -oE '<link>[^<]+' "$SITE_DIR/feed.xml" | sed 's/<link>//' | sort -u)
+OLDURLS=$(curl -fsS --max-time 20 "$LIVE_URL/feed.xml" 2>/dev/null | grep -oE '<link>[^<]+' | sed 's/<link>//' | sort -u || true)
+ADDED=$(comm -23 <(printf '%s\n' "$NEWURLS") <(printf '%s\n' "$OLDURLS") | grep -c . || true)
 STAMP=$(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z')
-if [ "$DIFF" -gt 0 ]; then
-  MSG="Last updated $STAMP — added $DIFF new episode$([ "$DIFF" -eq 1 ] || echo s) ($NEW total)."
+if [ "$ADDED" -gt 0 ]; then
+  MSG="Last updated $STAMP — added $ADDED new episode$([ "$ADDED" -eq 1 ] || echo s) ($NEW total)."
 else
   MSG="Last updated $STAMP — no new episodes ($NEW total)."
 fi

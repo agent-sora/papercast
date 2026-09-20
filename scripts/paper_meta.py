@@ -24,11 +24,17 @@ def http_get(url, out_path=None):
 def authors_from_abs(arxiv_id):
     html = http_get(f"https://arxiv.org/abs/{arxiv_id}")
     if not html:
-        return []
+        return [], ""
     m = re.search(r'<div class="authors">(.*?)</div>', html, re.S)
     block = m.group(1) if m else ""
     names = re.findall(r'>([^<>]+)</a>', block)
-    return [n.strip() for n in names if n.strip()]
+    authors = [n.strip() for n in names if n.strip()]
+    tm = re.search(r'<h1 class="title[^"]*">\s*<span[^>]*>.*?</span>\s*(.*?)</h1>', html, re.S)
+    title = ""
+    if tm:
+        title = re.sub(r"<[^>]+>", "", tm.group(1))
+        title = re.sub(r"\s+", " ", title).strip()
+    return authors, title
 
 AFFIL_RE = re.compile(
     r"([A-Z]?[^\n]{0,120}?\b(?:University|Universit|Institute|Laborator|Lab\b|College|"
@@ -83,12 +89,12 @@ def main():
         if os.path.exists(out):
             print(f"[{i}/{len(ids)}] {aid} cached", flush=True)
             continue
-        authors = authors_from_abs(aid)
+        authors, title = authors_from_abs(aid)
         pdf_path = os.path.join(args.cache_dir, f"{aid}.pdf")
         ok = os.path.exists(pdf_path) or http_get(
             f"https://arxiv.org/pdf/{aid}", out_path=pdf_path)
         affils = affiliations_from_pdf(pdf_path) if ok else ["<pdf dl failed>"]
-        rec = {"arxiv_id": aid, "authors": authors, "affiliations": affils}
+        rec = {"arxiv_id": aid, "title": title, "authors": authors, "affiliations": affils}
         json.dump(rec, open(out, "w"), indent=1)
         print(f"[{i}/{len(ids)}] {aid}: {len(authors)} authors, "
               f"{len(affils)} affil lines", flush=True)
