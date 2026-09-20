@@ -607,3 +607,23 @@ All timestamps UTC.
 - DUPLICATE GUARD: all 6 episodes/2026-09-18-*.mp3 already exist (2609.16900, 19969, 20519, 20784, 20800, 20804) — prior run (2026-09-19) already published this day. No draft, no synth.
 - Refreshed banner via build_rss.py + publish.sh; gh-pages push 1305487 "Update site 2026-09-20_0701". origin/gh-pages index.html verified: "Last updated 2026-09-20 03:01 EDT — no new episodes (152 total)". Live URL still showed 09-19 banner ~2.5 min after push (GitHub Pages propagation lag); .nojekyll present.
 - Skipped per STOP CONDITION.
+
+## 2026-09-20 07:00-07:30 EDT — user report "cron didn't run for 2 nights" + arXiv-only add 2609.20807
+
+- INVESTIGATION: cron DID run both nights (last_status ok; fires 2026-09-19
+  03:03 and 2026-09-20 03:01 EDT). Both were weekend feeds snapping back to
+  papers-day 2026-09-18 (published Friday); duplicate guard fired correctly,
+  banner refreshed instead of republishing. Force re-fetch of 09-19/09-20
+  confirmed: nothing new (cache stays 15 papers, snap-back resolved). No
+  episodes were missed. User-visible takeaway: "no new episodes" banner means
+  the cron ran and found nothing new, NOT that it didn't run.
+- NEW: episode for 2609.20807 "Score Centering Stabilizes Off-policy RL"
+  (Martin Marek, Max Ryabinin — Together AI; user request, arXiv-only, was
+  never on HF daily). Meta via arXiv Atom API, PDF 16 pages extracted. Day
+  stamped 2026-09-17 (arXiv date). Transcript 1,678 words; lint 0 FAILs;
+  spotcheck 0 unexplained (3 verified-by-hand allowlist entries: 152K vocab,
+  6,180 H100-hours, 512 tokens — appendix figures). Committed ea3e442, synth
+  11.1 min, published: feed 152 -> 153, mp3 HTTP 200, banner "added 1 (153
+  total)", .nojekyll intact.
+- Cron model note: provider now unsloth/Qwen3.8-27B-GGUF (localhost) — the
+  180s provider-timeout and tool-cap history above was the deepinfra era.
