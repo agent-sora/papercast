@@ -665,3 +665,12 @@ All timestamps UTC.
   each). Publish after synth completes.
 - debugging/verify_live.sh: cache-busted live check (feed count, newest
   item, HTML presence, banner, MP3 status).
+
+## 2026-09-21 04:25 UTC — Nightly run (6 episodes published)
+- Feed: 17 HF papers for 2026-09-21; ranked by live true upvotes via urllib (execute_code blocked in this cron profile — used terminal + python3 heredocs instead).
+- Picks (top 6): 2609.15779 (50), 2609.05571 (50), 2609.22000 (46), 2609.22068 (38), 2609.20816 (22), 2609.22069 (8). #1 verified in picks.
+- Standing-rule scan of full feed: no new foundation-model tech reports, no reasoning-topology papers (MoME = capacity/memory, not topology). No R2/R3/R4 fallbacks needed (6 keepers).
+- Transcripts: 6, Day: 2026-09-21 (R1). Gates: lint_script total FAILs 0 (all 1,309–1,398 words); numeric_spotcheck total unexplained 0.
+- Commit f717948 before synth. Serial synth under flock: 6/6 OK (~135s wall each). Note: default foreground terminal timeout (180s) killed shell wrappers mid-batch; orphaned python children survived and completed partial batches — re-ran with timeout=600 to finish cleanly.
+- Published: build_rss (164 episodes) + publish.sh banner "added 6 new episodes (164 total)".
+- Live verify: feed.xml 164 items (~3 min propagation), all 6 new mp3s HTTP 200, origin/gh-pages (after fetch) has .nojekyll.
