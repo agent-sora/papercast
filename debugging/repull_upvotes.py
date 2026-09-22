@@ -1,38 +1,41 @@
-"""Re-pull true HuggingFace upvotes for all candidate papers of the day.
+#!/usr/bin/env python3
+"""Re-pull true upvote counts from the HuggingFace papers API.
 
-Reads episodes/feed/papers-<D>.json, fetches https://huggingface.co/api/papers/<id>
-for each arxiv id, prints a sorted table with titles, and writes the top-6 ids
-(one per line) to episodes/feed/picks/ids-<D>.txt. Usage:
-  .venv/bin/python debugging/repull_upvotes.py 2026-09-16
+The nightly shortlist (selected-*.json) carries stale/zero upvotes from the
+cache-first fetch; this script re-pulls each candidate id from
+https://huggingface.co/api/papers/<id> and writes a ranked JSON to
+episodes/feed/picks/true-upvotes-<date>.json. Usage:
+    python debugging/repull_upvotes.py 2026-09-22
 """
-import json, sys, urllib.request, time
+import json, sys, time, urllib.request
 
-D = sys.argv[1] if len(sys.argv) > 1 else None
-assert D, "need papers date"
-feed = json.load(open(f"episodes/feed/papers-{D}.json"))
-papers = feed["papers"]
-out = []
-for p in papers:
-    pid = p["arxiv_id"]
+date = sys.argv[1]
+d = json.load(open(f'episodes/feed/papers-{date}.json'))
+papers = d if isinstance(d, list) else d.get('papers', d)
+ids = [p['arxiv_id'] for p in papers]
+titles = {p['arxiv_id']: p['title'] for p in papers}
+
+res = {}
+for i in ids:
     try:
         req = urllib.request.Request(
-            f"https://huggingface.co/api/papers/{pid}",
-            headers={"User-Agent": "papercast-nightly/1.0"})
+            f'https://huggingface.co/api/papers/{i}',
+            headers={'User-Agent': 'papercast-nightly/1.0'})
         with urllib.request.urlopen(req, timeout=30) as r:
-            data = json.load(r)
-        up = int(data.get("upvotes", 0))
+            j = json.load(r)
+        res[i] = {'upvotes': j.get('upvotes', 0), 'publishedAt': j.get('publishedAt', '')}
     except Exception as e:
-        up = -1
-        print(f"  ! {pid} fetch failed: {e}", file=sys.stderr)
-    out.append((up, pid, p["title"]))
-    time.sleep(0.5)
-out.sort(key=lambda t: -t[0])
-print(f"{'UP':>5}  {'id':<12} title")
-for up, pid, title in out:
-    print(f"{up:>5}  {pid:<12} {title[:80]}")
+        res[i] = {'upvotes': None, 'error': str(e)}
+    time.sleep(1)
+
+ranked = sorted(res.items(), key=lambda kv: -(kv[1]['upvotes'] or -1))
+print(f'=== TRUE UPVOTES for {date} ===')
+for k, v in ranked:
+    print(f"{k} | up={v['upvotes']} | {titles[k][:90]}")
+
 import os
-os.makedirs("episodes/feed/picks", exist_ok=True)
-top6 = [pid for up, pid, title in out[:6] if up >= 0]
-with open(f"episodes/feed/picks/ids-{D}.txt", "w") as f:
-    f.write("\n".join(top6) + "\n")
-print("WROTE ids:", top6)
+have = {k for f in os.listdir('episodes') if f.endswith('.md') for k in ids if k in f}
+print('ALREADY COVERED:', have or 'none')
+
+json.dump(res, open(f'episodes/feed/picks/true-upvotes-{date}.json', 'w'), indent=1)
+print('saved episodes/feed/picks/true-upvotes-%s.json' % date)
