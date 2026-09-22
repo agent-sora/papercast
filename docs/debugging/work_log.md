@@ -674,3 +674,11 @@ All timestamps UTC.
 - Commit f717948 before synth. Serial synth under flock: 6/6 OK (~135s wall each). Note: default foreground terminal timeout (180s) killed shell wrappers mid-batch; orphaned python children survived and completed partial batches — re-ran with timeout=600 to finish cleanly.
 - Published: build_rss (164 episodes) + publish.sh banner "added 6 new episodes (164 total)".
 - Live verify: feed.xml 164 items (~3 min propagation), all 6 new mp3s HTTP 200, origin/gh-pages (after fetch) has .nojekyll.
+
+## 2026-09-22 03:00 UTC — nightly run
+- Fetch OK: 18 candidates, 12 on shortlist. No topology qualifiers on full-feed re-scan (R2/R3 not needed — 6 keepers).
+- TRUE upvotes re-pulled (selected-*.json stale) via new helper debugging/repull_upvotes.py (HF papers API, 3s pacing). Top 6: RRSI (62), WorldCrafter (35), GameHorizon (25), VLM→Robot (25), VideoGen-Agent (21), OmniEdu (19). OmniEdu included via standing rule (a) new foundation model.
+- 6 episodes drafted (Day: 2026-09-22), lint FAILs: 0, spotcheck unexplained: 0. Committed pre-synth (016b2c4).
+- Synth 6/6 OK under flock (133-153s wall each). Build: 170 episodes; publish banner "added 6 new episodes (170 total)".
+- Live verify: feed 170 items, 6/6 mp3 HTTP 200, banner fresh, .nojekyll in gh-pages tree.
+- Note: GameHorizon paper_meta affiliation field polluted with body text; cleaned by hand during drafting (ARC Lab Tencent / Great Bay / NUS / Fudan / PKU).
