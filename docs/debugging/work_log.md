@@ -682,3 +682,12 @@ All timestamps UTC.
 - Synth 6/6 OK under flock (133-153s wall each). Build: 170 episodes; publish banner "added 6 new episodes (170 total)".
 - Live verify: feed 170 items, 6/6 mp3 HTTP 200, banner fresh, .nojekyll in gh-pages tree.
 - Note: GameHorizon paper_meta affiliation field polluted with body text; cleaned by hand during drafting (ARC Lab Tencent / Great Bay / NUS / Fudan / PKU).
+
+## 2026-09-23 07:45 UTC — Nightly run (papers_date 2026-09-23)
+- nightly_prep.sh: 8 candidates, all with stale zero upvotes. Re-pulled true upvotes (execute_code blocked in cron mode; used .tmp/rank_today.py).
+- True upvotes: 15987=14, 25186=12, 25165=12, 25199=6, 26457=5, 24967=4, 25247=3, 25804=2. Top 6 selected; #1 (15987) verified in picks.
+- Standing-rule scan of full 15-paper feed: no foundation-model tech reports; SSM/latent-CoT/topology hits none (only false-positive 'ssm' keyword in 25186 survey). No extras needed (6 >= 3, R2/R3 not triggered).
+- Drafted 6 episodes (Day: 2026-09-23): 15987 BPO (1568w), 25186 MH-LLM survey (1335w), 25165 Ovis-Embedding (1377w), 25199 Lean Pool (1335w), 26457 AIDE^2 (1441w), 24967 emergent collusion (1490w).
+- Gates: lint total FAILs 0 (fixed: 'magic' banned word, survey +54 words); numeric_spotcheck total unexplained 0.
+- Commit 82b91ff (drafts), synth 6/6 OK under flock (~2.5 min wall each).
+- Published: "added 6 new episodes (176 total)". Live: feed 170->176 items, all 6 mp3 HTTP 200, gh-pages .nojekyll present.
