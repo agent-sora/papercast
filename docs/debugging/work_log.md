@@ -691,3 +691,12 @@ All timestamps UTC.
 - Gates: lint total FAILs 0 (fixed: 'magic' banned word, survey +54 words); numeric_spotcheck total unexplained 0.
 - Commit 82b91ff (drafts), synth 6/6 OK under flock (~2.5 min wall each).
 - Published: "added 6 new episodes (176 total)". Live: feed 170->176 items, all 6 mp3 HTTP 200, gh-pages .nojekyll present.
+
+## 2026-09-24 03:45 UTC — Nightly run, 7 episodes
+- Fetch OK: 18 papers in feed for 2026-09-24 (cache-first, fresh snapshot).
+- True-upvote re-pull for all 18: top-6 = 28466(30) 24308(26) 26780(19) 22947(19) 23038(19) 26355(13); #1 (28466) verified in picks.
+- Standing-rule scan of full feed: Hunyuan-A13B Technical Report (2609.27284, 4 upvotes) = NEW foundation model (80B total/13B active MoE, dual-mode CoT) → added per rule (a). Topology re-scan: MemBodied (recurrent associative memory for VLA) judged memory-module-for-robot-control, not reasoning-LM topology → not added; no other topology hits.
+- 7 episodes drafted in-session (no subagents), all Day: 2026-09-24. lint: total FAILs 0 (1 benign violence WARN "destroyed" in PACT). numeric_spotcheck: total unexplained 0.
+- Committed transcripts 6ee276a before synth. Synth: single synth_batch.py --only-prefix 2026-09-24 under flock, 7/7 OK (126-154s wall each).
+- Publish: build_rss -> 183 episodes; publish.sh banner "Last updated 2026-09-24 03:41 EDT — added 7 new episodes (183 total)".
+- LIVE VERIFY (after ~4 min propagation): feed 176 -> 183; all 7 mp3s HTTP 200 + in feed; banner fresh; .nojekyll present on origin/gh-pages after fetch.
