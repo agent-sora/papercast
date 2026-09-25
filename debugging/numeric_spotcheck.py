@@ -51,6 +51,9 @@ ALLOWED = {
     ("2609.20807", "fifty thousand"),        # "152K" vocab (spoken "hundred and fifty thousand")
     ("2609.20807", "six thousand one hundred"),  # paper: 6,180 H100-hours (rounded)
     ("2609.20807", "five hundred"),          # "512" tokens
+    # 2609.23407: "one hundred and forty-five thousand" -> parser splits "forty-five thousand"
+    # = "145 10^3 samples" synthetic corpus (paper figure 7 caption), verified 2026-09-25
+    ("2609.23407", "forty five thousand"),
 }
 
 
