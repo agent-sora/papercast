@@ -700,3 +700,22 @@ All timestamps UTC.
 - Committed transcripts 6ee276a before synth. Synth: single synth_batch.py --only-prefix 2026-09-24 under flock, 7/7 OK (126-154s wall each).
 - Publish: build_rss -> 183 episodes; publish.sh banner "Last updated 2026-09-24 03:41 EDT — added 7 new episodes (183 total)".
 - LIVE VERIFY (after ~4 min propagation): feed 176 -> 183; all 7 mp3s HTTP 200 + in feed; banner fresh; .nojekyll present on origin/gh-pages after fetch.
+
+## 2026-09-25 nightly (03:00 ET run)
+- Full batch for 2026-09-25 (15 feed papers; no episodes existed for today yet).
+- Re-pulled true HF upvotes for all 15 (cached values were stale/zero). TOP6 by true upvotes:
+  2609.28654 (57), 2609.23407 (15), 2609.28416 (13), 2609.29892 (7), 2609.29444 (4), 2609.29647 (4).
+  #1 true-upvote paper (WROP, 57) is in picks — verified.
+- Standing-rule rescan of full feed: no new foundation-model tech reports; no qualifying
+  reasoning-model-topology papers (hits were closed-loop agents / iterative refinement, not
+  architecture topology). No EXTRA episodes added.
+- Drafted 6 episodes (Day: 2026-09-25 per R1): WROP, OmniEcho, Agent-Editing World Model,
+  Qwen-Planner-Agent, IterSynth, AgentKernel. Gates: lint total FAILs 0, spotcheck unexplained 0.
+  Whitelisted ("2609.23407","forty five thousand"): parser splits "one hundred and forty-five
+  thousand" = 145 10^3 synthetic-corpus samples (verified vs paper fig. 7 caption).
+- Committed 5106686 before synth. Synth: 6/6 OK, ~12 min wall each (flock kokoro.lock), 0 failed.
+- Publish: build 189 episodes, banner "added 6 new episodes (189 total)", pushed gh-pages.
+- Live verify (after ~2.5 min Pages lag): feed 189, banner 2026-09-25 04:00 EDT, all 6 mp3s HTTP 200,
+  gh-pages .nojekyll present.
+- Pitfall: $PC was unset in background terminal (lock path resolved to /.tmp); relaunched with
+  explicit export PC=/home/patrick/papercast.
