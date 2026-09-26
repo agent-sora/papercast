@@ -719,3 +719,15 @@ All timestamps UTC.
   gh-pages .nojekyll present.
 - Pitfall: $PC was unset in background terminal (lock path resolved to /.tmp); relaunched with
   explicit export PC=/home/patrick/papercast.
+
+## 2026-09-26 03:40 UTC — Nightly batch (4 episodes, published)
+
+- papers_date 2026-09-25; HF shortlist 8 keepers, 4 already covered by 2026-09-25 batch (28416, 29892, 29444, 29647).
+- No 2026-09-26 HF snapshot yet (papers-2026-09-26.json absent) → R3 backfill path: 4 uncovered keepers from 09-25.
+- True-upvote re-pull (HF API): 28416=13, 29892=9, 29421=8, 29444=8, 29647=5, 30199=4, 29837=4, 29964=3. Top-6 written to ids-2026-09-26.txt; the 4 unpublished keepers = 29421, 30199, 29837, 29964 (all ≤ top-6, verified).
+- Standing rules scan of full 09-25 feed (15 papers): no new foundation-model release, no reasoning-topology paper (28654 object-permanence world model and 23087 spectral-capacity architecture don't qualify — existing-model method/architecture-design papers).
+- Episodes (Day=2026-09-26 per R1): 29421 Rufus-Air open post-training recipe (Amazon, GLM-4.5-Air-Base 106B-A12B, 8-stage pipeline); 30199 ExplorationBench (Fudan/Tencent/Tsinghua, verifiable AlienCode+AlienLogic); 29837 PUBG Ally (Krafton, System1/System2, 38,956-session cafe data, 2B on-device SLM); 29964 World Action Agent (HKUST-GZ/CUHK/Knowin AI, visual-action-rehearsal harness, LIBERO-Pro 75.6).
+- Gates: lint total FAILs 0 (1 allowed 'battle-royale' genre-term warn); spotcheck total unexplained 0.
+- Commit 7590e39 pre-synth; serial synth under flock: 135s/121s/123s/132s wall, all OK, no failures.
+- Publish: banner "added 4 new episodes (193 total)"; live feed 193 items (poll 5, ~3.5 min CDN lag); all 4 mp3 HTTP 200; gh-pages .nojekyll present, 4 new mp3s in tree.
+- Note: execute_code BLOCKED in this cron profile (arbitrary-local-python policy) — used terminal scripts for upvote re-pull instead.
