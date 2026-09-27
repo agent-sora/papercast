@@ -69,6 +69,27 @@ ARXIV_QUERY_PER_FLAVOR = {
         ' OR all:"linear attention" OR all:"fast weights" OR all:"state space model"'
         ' OR all:"adaptive computation" OR all:"early exit" OR all:"weight tying" OR all:"adaptive depth")'
     ),
+    # User rule (2026-09-26) — four added flavors.
+    "open_model_training_recipes": (
+        '(cat:cs.CL OR cat:cs.LG) AND (all:"training recipe" OR all:"post-training recipe"'
+        ' OR all:"open post-training" OR all:"reproducible training"'
+        ' OR (all:"language model" AND all:"post-training" AND all:reproduce))'
+    ),
+    "llm_for_mathematics": (
+        '(cat:cs.CL OR cat:cs.AI) AND (all:"mathematical reasoning" OR all:"theorem proving"'
+        ' OR all:"math problem solving" OR all:"autoformalization" OR all:"math agent"'
+        ' OR (all:"language model" AND all:mathematics))'
+    ),
+    "interpretability_math_analysis": (
+        '(cat:cs.LG OR cat:cs.CL) AND (all:interpretability OR all:"mechanistic interpretability"'
+        ' OR all:"sparse autoencoder" OR all:probing OR all:superposition'
+        ' OR (all:"language model" AND all:"linearity"))'
+    ),
+    "neurosymbolic_ai": (
+        '(cat:cs.AI OR cat:cs.CL OR cat:cs.LG) AND (all:neurosymbolic OR all:"symbolic reasoning"'
+        ' OR all:"proof assistant" OR all:"logical form" OR all:autoformalization'
+        ' OR (all:Lean OR all:Isabelle OR all:Coq))'
+    ),
 }
 
 IMAGE_VIDEO_VETO_RE = re.compile(

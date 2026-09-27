@@ -75,6 +75,52 @@ FLAVORS = {
         r"latent reasoning", r"continuous chain.of.thought", r"recurrent memory",
         r"universal transformer", r"iterative refinement of hidden",
     ],
+    # User rule (2026-09-26): recipes for training OPEN models.
+    "open_model_training_recipes": [
+        r"open.{0,15}(recipe|reproducib)", r"post.training recipe",
+        r"pretraining recipe", r"training recipe", r"reproducible training",
+        r"open.{0,10}model.{0,20}(train|post.train|pretrain)",
+        r"full.{0,10}(pipeline|recipe).{0,20}(sft|rlhf|rl\b)",
+        r"staged.{0,12}(pipeline|curriculum).{0,30}(sft|rl)",
+        r"we (document|release|open.source) the (full|entire|complete)",
+        r"reproduce (the|our) (recipe|pipeline|model)",
+    ],
+    # User rule (2026-09-26): LLMs for mathematics — training on maths,
+    # solving maths, maths agents, theorem discovery/proving.
+    "llm_for_mathematics": [
+        r"\bmath(s|ematic|ematically|s)?\b", r"theorem", r"proof\b",
+        r"proving", r"autoformaliz", r"formaliz", r"\blean\b", r"isabelle",
+        r"\bcoq\b", r"\boptiMaT\b", r"mathematical (reasoning|problem)",
+        r"problem.solving in (math|mathematics)", r"conjecture",
+        r"math (agent|contest|olympiad|competition)", r"\bIMO\b",
+        r"arithmetic", r"equation (solving|reasoning)", r"formal (proof|math)",
+    ],
+    # User rule (2026-09-26): interpretability + mathematical analysis of
+    # LLMs.
+    "interpretability_math_analysis": [
+        r"interpretab", r"mechanistic", r"probing\b", r"\bprobes?\b",
+        r"superposition", r"superposed", r"linear (analysis|combination|probe)",
+        r"linearity", r"circuits", r"feature (discovery|vector)",
+        r"sparse (autoencoder|coding)", r"\bSAE\b", r"activation",
+        r"weight (matrix|magnitude)", r"spectral", r"singular.value",
+        r"capacity", r"architecture (analysis|design|measurement)",
+        r"neural (spectrum|spectral)", r"attribution", r"ablation",
+        r"representation (analysis|geometry|learning)", r"toy (model|analysis)",
+        r"theoretical analysis of (transformers|LLMs|large language)",
+        r"analysis of (the )?(transformer|attention) (architecture|mechanism)",
+    ],
+    # User rule (2026-09-26): neurosymbolic AI — incl. NL->logical form and
+    # theorem proving in proof assistants (Lean/Isabelle/Coq).
+    "neurosymbolic_ai": [
+        r"neurosymbolic", r"neuro.symbolic", r"symbolic (reasoning|AI|integration)",
+        r"logical (form|representation|reasoning)", r"natural.language to (logic|symbolic|first.order|predicate)",
+        r"text.{0,15}(logic|logical)", r"first.order (logic|logic)",
+        r"predicate logic", r"proof assistant", r"formal (verification|proof|theorem)",
+        r"theorem proving", r"\blean(4|\.4)?\b", r"isabelle", r"\bcoq\b",
+        r"autoformaliz", r"formalization of (math|natural.language|theorems)",
+        r"logic (program|network|language|model)", r"knowledge graph",
+        r"symbolic (grounding|alignment)", r"neural.symbolic",
+    ],
 }
 
 # Hard veto: if ANY of these appear, the paper is out (image/video/media).
@@ -83,7 +129,8 @@ IMAGE_VIDEO_VETO = [
     r"text-to-video", r"image diffusion", r"GAN", r"image-to", r"3d generation",
     r"inpainting", r"outpainting", r"super.?resolution", r"object detection",
     r"segmentation", r"vision foundation model", r"multimodal vision",
-    r"image editing", r"\bface\b", r"\bfacial\b", r"photo", r"camera", r"render",
+    r"image editing", r"\bface\b", r"\bfacial\b", r"photo", r"camera",
+    r"ray.?trac", r"3d render", r"rendering (a|an|the|realistic|3d)",
     r"3d reconstruction", r"point cloud", r"lidar", r"depth estimation",
 ]
 

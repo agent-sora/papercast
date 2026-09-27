@@ -80,6 +80,25 @@ digits are also ok, but not scientific notation).
   more than 6 episodes in a day. Feedback "loops" (closed-loop agents,
   human-in-the-loop, control loops) do NOT qualify; the criterion is model
   architecture topology, not workflow loops. More than 6 per day is fine.
+- OPEN-MODEL TRAINING RECIPES (standing rule, user 2026-09-26): include papers
+  that are recipes for training open LLMs — full post-training/pre-training
+  pipelines, staged SFT/RLHF/RL curricula, reproducible training data +
+  hyperparameters for open-weight models. A "training recipe" that is a
+  control/orchestration layer over existing systems without a real training
+  pipeline does NOT qualify.
+- LLMs FOR MATHEMATICS (standing rule, user 2026-09-26): include papers on
+  LLMs and math in either direction — training with math problems, solving
+  math problems, math agents, conjecture discovery, and formal/theorem
+  proving (Lean/Isabelle/Coq autoformalization, proof repair, formal libraries).
+- INTERPRETABILITY & MATHEMATICAL ANALYSIS OF LLMs (standing rule,
+  user 2026-09-26): include interpretability work (mechanistic
+  interpretability, probes, SAEs, circuits, representation geometry) and the
+  mathematical/theoretical analysis of LLMs and transformer architectures
+  (spectral methods, capacity/scaling analysis, decomposition studies).
+- NEUROSYMBOLIC AI (standing rule, user 2026-09-26): include neurosymbolic
+  systems — natural language to logical form, symbolic verification of LLM
+  reasoning, LLM+proof-assistant or LLM+formal-methods integration, and
+  theorem proving in Lean/Isabelle with a focus on autoformalization.
 - Cold open (first paragraph, before anything else): the paper title, the first
   three authors, and the labs/universities/companies the authors are affiliated
   with (from the PDF's first page). Say affiliations as spoken names

@@ -26,6 +26,24 @@ TOPIC_INCLUDE_FLAVORS:
   - reasoning_model_topology       # looping/recurrent depth/attention variants
                                    # (user standing rule 2026-09-02: always
                                    # cover topological changes to reasoning LMs)
+  - open_model_training_recipes    # full recipes for training open LLMs:
+                                   # pretraining/post-training pipelines, data
+                                   # + reward design, reproducible stage
+                                   # documentation (user rule 2026-09-26)
+  - llm_for_mathematics            # LLMs trained on or solving math problems,
+                                   # math agents, theorem discovery,
+                                   # autoformalization, theorem proving (user
+                                   # rule 2026-09-26)
+  - interpretability_math_analysis # interpretability + mathematical analysis
+                                   # of LLMs: mechanistic interp, probes,
+                                   # superposition/linearity, spectral/
+                                   # architecture analysis (user rule
+                                   # 2026-09-26)
+  - neurosymbolic_ai               # neurosymbolic AI: natural language to
+                                   # logical form, symbolic reasoning with
+                                   # LLMs, neurosymbolic integration; theorem
+                                   # proving in Lean/Isabelle/Coq included
+                                   # (user rule 2026-09-26)
 
 TOPIC_EXCLUDE:
   - image_or_video                # absolutely excluded

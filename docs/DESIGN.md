@@ -18,10 +18,18 @@ Dispassionate, implementation-focused; editorial contract in
 - Topic rules (`config.yaml`): RL-for-text/agentic work, agent self-
   improvement, AI music generation, AI finance/econometrics, LoRA/PEFT for
   text/reasoning/agentic only; exclude image/video papers.
-- Standing rules: foundation-model technical reports covered only when the
-  day's top paper; topological-changes papers (looping, weight tying,
-  adaptive computation, linear/fast-weight/SSM attention, latent CoT) always
-  covered (2026-09-02).
+- Standing rules: foundation-model technical reports — new foundation models
+  (a new open-weight model, architecture, or training recipe for one) ALWAYS
+  covered (rule flipped 2026-09-20; was "only when the day's top paper");
+  topological-changes papers (looping, weight tying, adaptive computation,
+  linear/fast-weight/SSM attention, latent CoT) always covered (2026-09-02).
+- Added categories (2026-09-26, user rules): open-model LLM training recipes
+  (pretraining/post-training methods for open-weights LLMs); LLMs for maths
+  (training on or solving maths problems, maths agents, theorem proving);
+  interpretability and mathematical analysis of LLMs (probes, mechanistic
+  interp, analysis of the math of LLMs); neurosymbolic AI (incl.
+  autoformalization / converting natural language to logical form, and
+  LLM-assisted theorem proving in formal languages such as Lean/Isabelle).
 
 ## Episode granularity & dating (2026-09-20, user rules)
 
