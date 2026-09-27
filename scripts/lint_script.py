@@ -55,9 +55,10 @@ def parse(md_path):
     return meta, body
 
 
-def cold_open_ok(body: str, labs_field: str = ""):
-    """Cold open must name >=3 authors and >=1 lab (keyword list OR the
-    transcript's own Labs front-matter values, so corporate labs count)."""
+def cold_open_ok(body: str, labs_field: str = "", n_authors: int = 0):
+    """Cold open must name >=3 authors (>=1 if single-author) and >=1 lab
+    (keyword list OR the transcript's own Labs front-matter values, so
+    corporate labs count)."""
     paras = [p.strip() for p in body.split("\n\n") if p.strip()
              and not p.strip().startswith("#")]
     if not paras:
@@ -66,9 +67,13 @@ def cold_open_ok(body: str, labs_field: str = ""):
     words = len(p.split())
     if words < 25:
         return False, f"cold open too short ({words} words)"
-    # authors: capitalized name pairs, at least 3 distinct surname-ish tokens
+    # authors: capitalized name pairs. Multi-author papers need >=3 distinct
+    # names in the cold open; single-author papers name the one author.
     names = re.findall(r"\b[A-Z][a-z]+\s+[A-Z][a-zA-Z\-']+", p)
-    if len(names) < 3:
+    if n_authors == 1:
+        if not names:
+            return False, "cold open names no author"
+    elif len(names) < 3:
         return False, f"cold open names only {len(names)} author(s): {names[:4]}"
     lab_words = ("University", "Institute", "Laboratory", "Lab", "College",
                  "School", "Academy", "Research", "AI", "Google", "DeepMind",
@@ -95,7 +100,10 @@ def check_file(path: str, min_words: int = 1300, max_words: int = 1750):
     wc = len(re.findall(r"[A-Za-z0-9'-]+", body))
     if not (min_words <= wc <= max_words):
         fails.append(f"word count {wc} outside [{min_words},{max_words}]")
-    ok, why = cold_open_ok(body, meta.get("Labs", ""))
+    ok, why = cold_open_ok(body, meta.get("Labs", ""),
+                           n_authors=len([a for a in
+                                          re.split(r"[,;]", meta.get("Authors", ""))
+                                          if a.strip()]))
     if meta.get("Title") and not ok:
         fails.append(f"cold open: {why}")
     for rx, label in ((LATEX_RE, "LaTeX command"),
