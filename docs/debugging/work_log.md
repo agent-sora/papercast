@@ -731,3 +731,45 @@ All timestamps UTC.
 - Commit 7590e39 pre-synth; serial synth under flock: 135s/121s/123s/132s wall, all OK, no failures.
 - Publish: banner "added 4 new episodes (193 total)"; live feed 193 items (poll 5, ~3.5 min CDN lag); all 4 mp3 HTTP 200; gh-pages .nojekyll present, 4 new mp3s in tree.
 - Note: execute_code BLOCKED in this cron profile (arbitrary-local-python policy) — used terminal scripts for upvote re-pull instead.
+
+## 2026-09-26 ~21:00-23:00 UTC — Backfill batch: 28 theorem-proving + neurosymbolic episodes (in-session)
+
+- Scope (user, msg id 33072, confirmed via session_search): "go back to the beginning of
+  of 2026 on huggingface papers and add all of those" for theorem-proving + neurosymbolic.
+  4 named (29845, 29421, 28603, 23087) + 2 two-week (15975, 22083) + 23 full-2026 = 28.
+- 4 new topic categories added earlier this session: open_model_training_recipes,
+  llm_for_mathematics, interpretability_math_analysis, neurosymbolic_ai (config.yaml,
+  select_papers.py, arxiv_search.py, STYLE_GUIDE, DESIGN.md, cron prompt). FM-report rule
+  changed to "ALWAYS produce an episode."
+- DELEGATION DEAD: all 28 subagent attempts across 5 waves (3+4+7+7+7) FAILED with the
+  identical 180s non-streaming timeout (max_iterations, 0 files written). Qwen3.8-27B-GGUF
+  non-streaming generation exceeds 180s for ~1400-word transcript outputs. Drafting is
+  in-session only, in small batches, each gated before the next.
+- Drafted + gated ALL 28 in-session (29421 already live from 03:40 nightly cron; 27 more
+  drafted here). Both gates on all 28: lint 1300-1750 words (total FAILs 0),
+  numeric_spotcheck (total unexplained 0).
+- lint_script.py fix: cold_open_ok() now takes n_authors (single-author papers need >=1
+  name in cold open, not >=3). Regression-verified on NTT single-author + multi-author eps.
+- numeric_spotcheck gotchas hit: written numbers with "and" parse as pre-"and" component
+  ("two hundred and fifty-one" -> 200, not 251) — omit "and" for numbers >100; don't write
+  an approximate number ("six hundred thousand") when the corpus has the exact figure
+  (639,090) — it flags UNMATCHED.
+- Factual corrections vs source text while gating: 01356 count is 251 theorems, 3 axioms
+  propext/Classical.choice/Quot.sound, L2 (not "square-two") Itô integral; 26457 evaluator
+  is 4 buckets (pre/post x completeness/soundness); 19597 Z3 stage is 3 solver modes and a
+  contradictory percentage triplet was removed (126+109+105 != 246); 30861 self-feedback
+  still beats GRPO alone (less than external) and EMA = faster early learning / greater
+  instability / lower peak; 14221 iterative refinement (not "repair pairs"); 20244
+  pair-level -> strategy-level annotations (not 3 per-strategy scores).
+- Commits (pre-synth): f7e4b1c (5 eps + 20244 finish), b69f665 (15929/15617/02208),
+  c1edf85 (final 6). All 28 transcripts committed before synthesis.
+- Synth: serial synth_batch.py --only-prefix 2026-09-26 under flock .tmp/kokoro.lock,
+  resumable (skips the 4 already-synthesized 09-26 episodes: 29421/30199/29837/29964).
+  24 synthesized (done=28 failed=0 skipped=4, ~115s wall each).
+## 2026-09-27 01:15 UTC — Batch PUBLISHED
+
+- SYNTH: 24 new mp3s (done=28 failed=0 skipped=4 cron eps), ~115s wall each, total ~45 min.
+- PUBLISH: build_rss -> 221 items; publish.sh OK, banner "Last updated 2026-09-27 01:08 EDT — added 28 new episodes (221 total)." Pushed gh-pages 91850a6.
+- LIVE VERIFY: feed 221 items; 28/28 batch mp3 GUIDs present; 28/28 ranged GETs OK (>500KB each); 29845 pubDate Sat 26 Sep 2026 (publication date). Edge cache served stale 193 for ~6 min (expected).
+- NOTE: delegation record complete: 5 waves (3+4+7+7+7=28) ALL failed, 0 files. In-session drafting was the only path that worked.
+- Batch complete: 28 episodes for 2026-09-26 live.
