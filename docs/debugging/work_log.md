@@ -773,3 +773,12 @@ All timestamps UTC.
 - LIVE VERIFY: feed 221 items; 28/28 batch mp3 GUIDs present; 28/28 ranged GETs OK (>500KB each); 29845 pubDate Sat 26 Sep 2026 (publication date). Edge cache served stale 193 for ~6 min (expected).
 - NOTE: delegation record complete: 5 waves (3+4+7+7+7=28) ALL failed, 0 files. In-session drafting was the only path that worked.
 - Batch complete: 28 episodes for 2026-09-26 live.
+
+## 2026-09-28 08:00 UTC (nightly run, cron)
+- HF 2026-09-28 feed: 14 papers. True-upvote re-pull (selected json had stale zeros): FuseReg 65, InternW0-Δ 16, PISA 13, RayOrch 7, FoMo 6, 3-way tie at 4 (SLCA-GRPO, Jev, TrackEverything) -> picked SLCA-GRPO (LLM-RL, selector-shortlisted).
+- Standing rules: InternW0-Δ = new foundation model (robot WAM) -> rule a; PISA = alternative/block-sparse attention -> rule b. No rule-c additions (full-feed abstract scan, all 14).
+- 6 episodes drafted in-session (no subagents): 2609.31620, 2609.31394, 2609.31093, 2609.18703, 2609.25716, 2609.29050. All Day: 2026-09-28 (publish date, R1).
+- Gates: lint total FAILs 0 (1300-1750 words: 1309/1306/1300/1381/1309/1384); numeric_spotcheck total unexplained 0.
+- Committed pre-synth (ca71ac1). Serial synth under flock: 6/6 OK, 0 failed (~115-151s wall each, ~15 min total).
+- Published: build_rss 234 episodes; banner "added 6 new episodes (234 total)".
+- Live verify: feed 228->234 (GHP propagation lag ~4 min); all 6 mp3s HTTP 200; origin/gh-pages has .nojekyll + episodes.
