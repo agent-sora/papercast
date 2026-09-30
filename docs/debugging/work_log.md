@@ -782,3 +782,14 @@ All timestamps UTC.
 - Committed pre-synth (ca71ac1). Serial synth under flock: 6/6 OK, 0 failed (~115-151s wall each, ~15 min total).
 - Published: build_rss 234 episodes; banner "added 6 new episodes (234 total)".
 - Live verify: feed 228->234 (GHP propagation lag ~4 min); all 6 mp3s HTTP 200; origin/gh-pages has .nojekyll + episodes.
+
+## 2026-09-30 03:00 ET — Nightly (cron)
+- HF feed 2026-09-30: 35 candidates; no fallback/backfill needed.
+- True-upvote re-pull (debugging/upvote_pull.py): top 6 = Raven 2609.33439 (126), GEB 2609.38155 (41), SAKI 2609.36601 (37), GRAFT 2609.37868 (24), Omni-IO 2609.31847 (23), LongCat-DeepResearch 2609.36071 (18). #1 verified in picks.
+- Standing-rule additions: 2609.36159 (REST latent recursive CoT — topology), 2609.35210 (OPD crosscoders — interpretability), 2609.37959 (TabFM — foundation model). Total 9 episodes, Day = 2026-09-30 (publish date per R1).
+- Text via debugging/extract_text.py (pymupdf, pages 0-7 / 8-15 / 19-28 where applicable).
+- Drafted in-session (no subagents). One numeric correction caught pre-gate: GRAFT SmolLM3 block HACPO 31.51 / GRAFT 37.06 / GRPO(n=32) 35.71 verified against Table 1 before shipping.
+- Gates: lint total FAILs: 0 (one WARN 'MAGIC' = MAGIC-Video baseline name, false positive); numeric_spotcheck total unexplained: 0.
+- Commit before synth, serial synth under flock: 9/9 OK, 0 failed (~22 min wall).
+- build_rss + publish.sh: banner "Last updated 2026-09-30 04:05 EDT — added 9 new episodes (243 total)".
+- Live verify: feed.xml 243 items (after ~4 min Pages propagation), all 9 mp3 HTTP 200, .nojekyll on origin/gh-pages after fresh fetch.
