@@ -793,3 +793,13 @@ All timestamps UTC.
 - Commit before synth, serial synth under flock: 9/9 OK, 0 failed (~22 min wall).
 - build_rss + publish.sh: banner "Last updated 2026-09-30 04:05 EDT — added 9 new episodes (243 total)".
 - Live verify: feed.xml 243 items (after ~4 min Pages propagation), all 9 mp3 HTTP 200, .nojekyll on origin/gh-pages after fresh fetch.
+
+## 2026-10-01 nightly (cron)
+- Fetched 43-paper HF feed for papers_date 2026-10-01. Re-pulled true HF upvotes for all candidates (selected-*.json stale).
+- Slate (8): 2609.36484 RIDE (134), 2609.38721 UniEvo-VL (64), 2609.40340 EvoDuet (54), 2609.38288 AREX-2 (49), 2609.38143 meta-skills (39), 2609.40325 WorldAuditBench (39), 2609.40316 Looped MoE scaling laws (5, standing topology rule), 2609.34970 emergent misalignment (1, interpretability).
+- Drafted all 8 in-session (no subagents), 3 chunks each, all >=1300 words.
+- Fact-checks: EvoDuet distinct-URL 85 (Luna) vs 248 (EvoDuet), 88.1% repeat, 27.7% vs 84.5% NDG; meta-skills 394->254 no-valid-submission (35.5%), 439->535 discoveries; Looped MoE held-out RMSE 0.0656/0.0824; emergent-misalignment p<0.001, 80.0% suppression, <=0.3% Llama/GPT-OSS, <=1.5% Gemma; WorldAuditBench ablations on 126 Unreal tasks with Gemini 3.8 Flash.
+- Gates: lint total FAILs 0; numeric_spotcheck total unexplained 0.
+- Committed transcripts (765d20d) before synth. Serial synth: 8/8 OK, failed=0 (~123-164s wall each).
+- PUBLISH: first publish attempt skipped build (build_rss.py is in scripts/, not root) -> banner "no new episodes". Re-ran scripts/build_rss.py then publish.sh -> "added 8 new episodes (251 total)".
+- Live verify: feed 251, all 8 mp3 HTTP 200, gh-pages has .nojekyll. (CDN propagation lag ~5-8 min after push.)
