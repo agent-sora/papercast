@@ -803,3 +803,12 @@ All timestamps UTC.
 - Committed transcripts (765d20d) before synth. Serial synth: 8/8 OK, failed=0 (~123-164s wall each).
 - PUBLISH: first publish attempt skipped build (build_rss.py is in scripts/, not root) -> banner "no new episodes". Re-ran scripts/build_rss.py then publish.sh -> "added 8 new episodes (251 total)".
 - Live verify: feed 251, all 8 mp3 HTTP 200, gh-pages has .nojekyll. (CDN propagation lag ~5-8 min after push.)
+
+## 2026-10-02 08:25 UTC — Nightly (cron)
+- HF feed 2026-10-02: 47 papers. No existing 2026-10-02 episodes -> full batch. True-upvote re-pull (selected-*.json stale zeros) via .tmp/fetch_upvotes.py + rank_upvotes.py.
+- Slate (8): 2609.37200 Adaptive Reward Routing (98), 2610.02193 HC-DLM (47, standing topology: hierarchical continuous diffusion LM), 2609.35690 APPL (41), 2609.39027 RobustReview/SciCore (32), 2610.01415 PoS belief states (31), 2610.02162 World Observer (30), 2610.01509 Sharpening Tax (29, interpretability), 2610.01026 FloWright (0, standing workflow-RL lane). All Day: 2026-10-02 (publish date, R1).
+- Text via debugging/extract_text.py (pymupdf). Drafted all 8 in-session (no subagents); multiple expansion rounds to clear the 1300-1750 lint floor.
+- Gates: lint total FAILs 0 (word counts 1386/1317/1381/1302/1358/1314/1302/1329); numeric_spotcheck total unexplained 0 (all 8 OK).
+- Committed transcripts (7644ed2) before synth. Serial synth under flock: 8/8 OK, failed=0 (~115-142s wall each, ~17 min total).
+- build_rss 259 episodes -> publish.sh: banner "Last updated 2026-10-02 04:19 EDT — added 8 new episodes (259 total)".
+- Live verify: origin/gh-pages branch verified correct (feed 259 items, all 8 mp3s in tree, fresh banner, .nojekyll present). Live CDN (agent-sora.github.io) still serving 251 at 08:25 UTC (~6 min post-push); Pages propagation lag expected, consistent with prior 5-8 min runs.
