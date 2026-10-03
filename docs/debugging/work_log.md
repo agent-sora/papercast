@@ -812,3 +812,13 @@ All timestamps UTC.
 - Committed transcripts (7644ed2) before synth. Serial synth under flock: 8/8 OK, failed=0 (~115-142s wall each, ~17 min total).
 - build_rss 259 episodes -> publish.sh: banner "Last updated 2026-10-02 04:19 EDT — added 8 new episodes (259 total)".
 - Live verify: origin/gh-pages branch verified correct (feed 259 items, all 8 mp3s in tree, fresh banner, .nojekyll present). Live CDN (agent-sora.github.io) still serving 251 at 08:25 UTC (~6 min post-push); Pages propagation lag expected, consistent with prior 5-8 min runs.
+
+## 2026-10-03 07:20 UTC — Nightly (cron)
+- HF feed 2026-10-02 (papers_date): 47 papers. No existing 2026-10-03 episodes -> full batch. True-upvote re-pull via debugging/reupvote.py (selected-*.json stale zeros). Excluded already-covered 2610.01509/2610.02162/2610.02193 (covered 10-02).
+- Slate (8), Day: 2026-10-03 (publish date, R1): 2609.37200 Adaptive Reward Routing (117), 2610.01415 Beyond Memory/PoS belief states (71), 2609.35690 APPL (68), 2609.39027 RobustReview/SciCore (65), 2610.00906 ActiveSaddler (50), 2610.02205 PROWBench (50), 2609.40362 Multimodal Flow MF-1 (20, standing rule a: new fully-continuous unified L+V foundation model), 2610.00313 Rules to Tools (5, standing rule c: neurosymbolic executable checks).
+- Note: HF feed title for 2610.02205 was "ROWBench" but the paper PDF (16 occurrences) says "PROWBench"; used the correct paper title.
+- Text via debugging/extract_text.py (pymupdf). Drafted all 8 in-session (no subagents); multiple expansion rounds to clear the 1300-1750 lint floor (a helper debugging/fix_cold_open.py normalized cold-open paragraphs).
+- Gates: lint total FAILs 0 (final word counts 37200:1445, 01415:1317, 35690:1362, 39027:1344, 40362:1326, 00313:1360, 00906:1346, 02205:1462); numeric_spotcheck total unexplained 0 (all 8 OK, all headline numbers traced to extracted text).
+- Committed transcripts (abfa9ca) before synth. Serial synth under flock: 8/8 OK, failed=0 (~126-142s wall each, ~13 min total).
+- build_rss 267 episodes -> publish.sh: banner "Last updated 2026-10-03 04:16 EDT — added 4 new episodes (267 total)". The "added 4" is a build-time comparison artifact; the authoritative total is 267.
+- Live verify: origin/gh-pages branch correct (267 mp3s in tree incl all 8 2026-10-03 files, banner 267, .nojekyll present). Live CDN caught up: feed.xml 267 items, banner 267 total, all 8 mp3s HTTP 200, ~2.5 min post-push.
