@@ -822,3 +822,18 @@ All timestamps UTC.
 - Committed transcripts (abfa9ca) before synth. Serial synth under flock: 8/8 OK, failed=0 (~126-142s wall each, ~13 min total).
 - build_rss 267 episodes -> publish.sh: banner "Last updated 2026-10-03 04:16 EDT — added 4 new episodes (267 total)". The "added 4" is a build-time comparison artifact; the authoritative total is 267.
 - Live verify: origin/gh-pages branch correct (267 mp3s in tree incl all 8 2026-10-03 files, banner 267, .nojekyll present). Live CDN caught up: feed.xml 267 items, banner 267 total, all 8 mp3s HTTP 200, ~2.5 min post-push.
+
+## 2026-10-04 nightly (papers_date 2026-10-02)
+- Published 7 episodes (Day 2026-10-04), all from the 2026-10-02 HF feed (top true-upvote + standing-rule lanes):
+  2609.38923 GraphForge (agent training data), 2609.37200 Adaptive Reward Routing (audio-video diffusion RL),
+  2610.02193 HC-DLM (hierarchical continuous diffusion LM), 2610.01509 Sharpening Tax in Post-Training
+  (interpretability/math analysis), 2609.35690 Agent Priors-guided Policy Learning (neurosymbolic),
+  2610.02162 World Observer (persistent world modeling), 2610.00574 DARA (multi-reward RL / math).
+- Gates: lint total FAILs 0; numeric_spotcheck total unexplained 0.
+- Synth: 7/7 OK, 0 failed (~150s wall each under kokoro.lock).
+- Publish: build_rss -> 274 episodes; publish.sh banner "added 2" (URL delta vs already-live feed — 5 of 7
+  URLs were live from an earlier run today, so the banner understated the batch). Verified live: feed.xml item
+  count 274, all 7 of today's mp3s HTTP 200, .nojekyll present on origin/gh-pages.
+- Notes: PDF text layers for 2610.02162/2610.02193 flagged binary by grep — parsed via Python re over the
+  extracted text files. Model family version superscripts lost in 2610.01509 text layer, so cited plain family
+  names. DARA math suite trains on DeepScaleR-Preview (confirmed from experiments appendix).
