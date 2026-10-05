@@ -837,3 +837,20 @@ All timestamps UTC.
 - Notes: PDF text layers for 2610.02162/2610.02193 flagged binary by grep — parsed via Python re over the
   extracted text files. Model family version superscripts lost in 2610.01509 text layer, so cited plain family
   names. DARA math suite trains on DeepScaleR-Preview (confirmed from experiments appendix).
+
+## 2026-10-05 nightly (papers_date 2026-10-05)
+- Published 8 episodes (Day 2026-10-05) from the 2026-10-05 HF feed (26 papers, top 6 true-upvote + 2 topology rule-b overrides):
+  2609.38879 Fold2Reason / "Does Learning Protein Folding Generalize" (up=47, LLM-for-math/scientific-reasoning transfer),
+  2609.38078 MotorMind (up=40, general VLM zero-shot robot manipulation scaffold),
+  2609.38839 FrameMorrow (up=20, future-guided frame selection for long-horizon video),
+  2610.03632 World Embedding Benchmark (up=15, physical-video embedding benchmark),
+  2610.03195 Source Preference in the Wild (up=14, LLM agent source bias + mitigation),
+  2610.02826 RSR Recursive Self-Rewrite (up=12, trajectory scaling for complex tasks),
+  2609.36529 Triadic Linear Attention (rule-b: linear/SSM-style attention topology, 3-D recurrent states),
+  2610.01153 Looping Beyond Twice / LOOM (rule-b: looped / weight-tied depth in a MoE).
+- True upvotes re-pulled via debugging/reupvote.py (feed upvotes were stale 0). Top-6 = 38879/38078/38839/03632/03195/02826; 2 topology papers added over the cut. #1 true-upvote (Fold2Reason, 47) confirmed in picks.
+- Meta via scripts/paper_meta.py; text via debugging/extract_text.py (pymupdf). Drafted all 8 in-session (no subagents); multiple expansion rounds to clear the 1300-1750 lint floor.
+- Gates: lint total FAILs 0 (final word counts 38879:1361, 38078:1377, 38839:1410, 03632:1357, 03195:1391, 02826:1329, 36529:1379, 01153:1394); numeric_spotcheck total unexplained 0 (all 8 OK).
+- Committed transcripts (15b8d0f) before synth. Serial synth under kokoro.lock: 8/8 OK, failed=0, skipped=0 (~126-148s wall each, ~19 min total). Voice: stamped (bf_lily, bm_daniel, bf_isabella, bm_lewis, bf_alice, bf_isabella, bf_lily, bm_daniel).
+- build_rss 282 episodes -> publish.sh banner "Last updated 2026-10-05 03:47 EDT — added 8 new episodes (282 total)".
+- Live verify: origin/gh-pages has .nojekyll + all 8 mp3s + feed.xml (commit 5393341). CDN caught up after ~4 min post-push: feed.xml 282 items, all 8 mp3s HTTP 200, all 8 titles present in live feed.
