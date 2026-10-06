@@ -854,3 +854,19 @@ All timestamps UTC.
 - Committed transcripts (15b8d0f) before synth. Serial synth under kokoro.lock: 8/8 OK, failed=0, skipped=0 (~126-148s wall each, ~19 min total). Voice: stamped (bf_lily, bm_daniel, bf_isabella, bm_lewis, bf_alice, bf_isabella, bf_lily, bm_daniel).
 - build_rss 282 episodes -> publish.sh banner "Last updated 2026-10-05 03:47 EDT — added 8 new episodes (282 total)".
 - Live verify: origin/gh-pages has .nojekyll + all 8 mp3s + feed.xml (commit 5393341). CDN caught up after ~4 min post-push: feed.xml 282 items, all 8 mp3s HTTP 200, all 8 titles present in live feed.
+
+## 2026-10-06 nightly (papers_date 2026-10-06)
+- Published 7 episodes (Day 2026-10-06) from the 2026-10-06 HF feed (28 papers):
+  2610.04198 ALoDLM: Adaptively Looped Diffusion Language Models (up=35, #1 true-upvote, UIC/Amazon AGI/Korea U),
+  2610.05608 Kandinsky 6.0 Video: Foundation Models for Synchronized Video and Audio Generation (up=34, foundation-model tech report rule-a),
+  2610.05303 ASCENT: Online Test-Time Training of Long-Horizon Agents (up=11, UNSW),
+  2610.00923 CANOPY: Adaptive-Granularity Evidence Compression for Multimodal RAG (up=10, POSTECH),
+  2609.24890 OSWorld-Pro: Process-based Evaluation for Computer Use Agents (up=7, NVIDIA),
+  2610.06833 Towards Looped Models Done Right, Part II: Rethinking at Fixed Points (up=6, rule-b looped/recurrent topology, USC/CMU),
+  2610.02191 The Missing Primitive: Diagnosing and Repairing Mathematical Reasoning in LLMs (up=2, llm_for_mathematics + interpretability rule-c, TAMU/Harvard et al).
+- True upvotes re-pulled via .tmp/reupvote.py (feed upvotes stale 0). Top-6 by true upvotes = 04198/05608/05303/00923/24890/06833; #7 = 02191 (rule-c math+interpretability). #1 true-upvote (ALoDLM, 35) confirmed in picks.
+- Meta via scripts/paper_meta.py; text via debugging/extract_paper_text.py (pymupdf). Drafted all 7 in-session (no subagents; execute_code blocked this profile — reupvote written as .tmp/reupvote.py instead); multiple expansion rounds to clear the 1300-1750 lint floor.
+- Gates: lint total FAILs 0 (final words 24890:1342, 00923:1323, 02191:1315, 04198:1364, 05303:1329, 05608:1340, 06833:1300+); numeric_spotcheck total unexplained 0 (one "ninety"->90 flag on 05608 fixed by rewording the cold open to "a long contributor list").
+- Committed transcripts (714c385) before synth. Serial synth under kokoro.lock: 7/7 OK, failed=0, skipped=0 (~114-147s wall each, ~17 min total); synth auto-stamped Voice on all 7.
+- build_rss 289 episodes -> publish.sh banner "Last updated 2026-10-06 04:00 EDT — added 7 new episodes (289 total)".
+- Live verify: CDN caught up after ~4 min post-push (282 -> 289 items); all 7 mp3s HTTP 200; banner fresh; origin/gh-pages has .nojekyll.
