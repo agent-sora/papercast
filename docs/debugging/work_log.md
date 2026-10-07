@@ -870,3 +870,14 @@ All timestamps UTC.
 - Committed transcripts (714c385) before synth. Serial synth under kokoro.lock: 7/7 OK, failed=0, skipped=0 (~114-147s wall each, ~17 min total); synth auto-stamped Voice on all 7.
 - build_rss 289 episodes -> publish.sh banner "Last updated 2026-10-06 04:00 EDT — added 7 new episodes (289 total)".
 - Live verify: CDN caught up after ~4 min post-push (282 -> 289 items); all 7 mp3s HTTP 200; banner fresh; origin/gh-pages has .nojekyll.
+
+## 2026-10-07 07:40 UTC — Nightly batch (8 episodes, published)
+- papers_date 2026-10-07; HF fetch cache-first OK (34 candidates: 24 selected + 10 feed-extra).
+- TRUE upvotes re-pulled (debugging/pull_upvotes.py): top-6 = 08448 (40), 05030 (24), 07767 (22), 05140 (21), 07753 (20), 05966 (16). #1 (08448) in picks. Verified.
+- Standing-rule re-scan of full feed added 2 extras: 2610.05842 (HLA — query-dependent chunk-wise linear attention / GDN; reasoning-model topology), 2609.38972 (CIA — CoT-interpretability alignment, probe-based + GRPO faithfulness post-training; interpretability lane). No new foundation-model tech report today.
+- Drafted 8 transcripts in-session (no subagents), Day=2026-10-07 per R1. Word counts 1338–1487 (lint ok). Fixed byline error: AutoSciBench is Genentech + KAIST (not Columbia).
+- Gates: lint total FAILs: 0; numeric_spotcheck total unexplained: 0.
+- Committed before synth (9a03474). Serial synth under kokoro.lock: done=8 failed=0 (~8–10.5 min audio each, ~27 min wall).
+- build_rss (297 episodes) + publish.sh: banner "added 8 new episodes (297 total)".
+- Live verify: feed 289→297, all 8 mp3s HTTP 200 (~3 min GitHub Pages propagation). gh-pages .nojekyll present.
+- NOTE: publish.sh requires TMPDIR set (mktemp failed with default /.tmp). Set TMPDIR=$PC/.tmp before publish.
