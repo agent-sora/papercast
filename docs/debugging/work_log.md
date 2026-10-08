@@ -881,3 +881,11 @@ All timestamps UTC.
 - build_rss (297 episodes) + publish.sh: banner "added 8 new episodes (297 total)".
 - Live verify: feed 289→297, all 8 mp3s HTTP 200 (~3 min GitHub Pages propagation). gh-pages .nojekyll present.
 - NOTE: publish.sh requires TMPDIR set (mktemp failed with default /.tmp). Set TMPDIR=$PC/.tmp before publish.
+
+## 2026-10-08 04:20 UTC — Nightly batch (9 episodes)
+- Selected 9 ids (top HF upvotes + standing topology/math lanes): 2609.38169 (STEPQuant), 2610.10528 (Long-WAM), 2610.08621 (Recursive Game Creator), 2610.04299 (Questioning the Questions), 2610.08699 (nanoMuse), 2609.40360 (Semifactual CAPO), 2610.07591 (Recurrent Looped Transformer), 2610.10114 (Hybrid Mechanics Part 1.1), 2610.08144 (Navier-Stokes Lean autoformalization).
+- Drafted 9 transcripts in-session; lint 0 FAILs, numeric spotcheck 0 unexplained.
+- Synth 9/9 OK under flock (~115-156s wall each, ~18 min total).
+- build_rss -> 306 episodes; publish.sh banner "added 9 new episodes (306 total)".
+- Live verify: feed.xml 306 items (was 297), all 9 mp3s HTTP 200 (after ~90s Pages propagation), gh-pages .nojekyll present.
+- Note: first build_rss call used root path (file is scripts/build_rss.py); rebuilt correctly before publish.
