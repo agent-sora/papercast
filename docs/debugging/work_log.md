@@ -898,3 +898,11 @@ All timestamps UTC.
 - Committed before synth (ee36f67). Serial synth under kokoro.lock: done=10 failed=0 (~115-163s wall each, ~20 min total).
 - build_rss -> 316 episodes; publish.sh banner "added 10 new episodes (316 total)".
 - Live verify: feed.xml 306->316 (after ~5 min Pages propagation), all 10 mp3s HTTP 200 at /episodes/ path, gh-pages .nojekyll present. NOTE: mp3s live under episodes/<file>.mp3 on the CDN, not root.
+
+## 2026-10-10 04:40 UTC — Nightly batch (8 episodes)
+- Locked 8-id slate from top-6 true HF upvotes + standing lanes: 2610.07967 (DecepEval, 72up), 2610.06293 (VepAgent, 55up), 2501.09223 (Foundations of LLMs, 34up), 2610.10444 (RunningTab, 34up), 2609.39306 (ReSAIL, 33up), 2610.08995 (PhysEvo, 30up), 2610.07659 (DLoop, 12up, topology/looping lane), 2610.07226 (Minimal Witness RL, 19up, interpretability lane). #1 true-upvote (07967) verified in picks.
+- Drafted 8 transcripts in-session (no subagents), Day=2026-10-10 per R1. Word counts 1306-1604 (all in 1300-1750 band). Corrected VepAgent SFT set size from "forty thousand" -> "four thousand" after verifying against paper (4,038 chain-of-thought samples); spotcheck ablation numbers (71.03/81.44/70.20/47.50, +11.63/+10.41/+11.65) all match Table 3.
+- Gates: lint total FAILs: 0; numeric_spotcheck total unexplained: 0.
+- Committed before synth (2c6d1b5). Serial synth under kokoro.lock: done=8 failed=0 skipped=0 (~120-163s wall each, ~17 min total).
+- build_rss -> 324 episodes; publish.sh banner "added 8 new episodes (324 total)".
+- Live verify: origin gh-pages feed.xml 324 items + all 8 mp3s present under episodes/ (recursive ls-tree). CDN lag: live feed showed 316 and mp3s 404 for ~4 min, then propagated to feed 324, all 8 mp3s HTTP 200 at /episodes/2026-10-10-<id>.mp3, banner "added 8 new episodes", gh-pages .nojekyll present.
