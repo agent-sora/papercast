@@ -889,3 +889,12 @@ All timestamps UTC.
 - build_rss -> 306 episodes; publish.sh banner "added 9 new episodes (306 total)".
 - Live verify: feed.xml 306 items (was 297), all 9 mp3s HTTP 200 (after ~90s Pages propagation), gh-pages .nojekyll present.
 - Note: first build_rss call used root path (file is scripts/build_rss.py); rebuilt correctly before publish.
+
+## 2026-10-09 08:26 UTC — Nightly batch (10 episodes)
+- Locked 10-id slate from top-6 true HF upvotes + standing lanes: 2610.06100 (Traces to Agentic Worlds, 56up), 2610.12126 (SuperNav, 56up), 2610.08215 (Learn2Play, 79up), 2610.12374 (AgentGarten, 59up), 2610.11959 (MiMo-V2.6 foundation model, 35up), 2610.12468 (DreamTrue, 31up), 2610.11570 (Loop-Native Attention Residuals, topology), 2610.07730 (SanSi looping), 2610.11251 (V-CoLA linear attention, topology), 2609.34344 (Geometry of RLVR, interpretability). #1 true-upvote (06100) verified in picks.
+- True upvotes drifted upward since initial pull; re-pulled live HF API and updated all Upvotes front-matter to current values (06100 still #1, slate valid). 2609.34344 is an arXiv preprint not on HF Papers -> honest Upvotes: 0.
+- Drafted 10 transcripts in-session (no subagents), Day=2026-10-09 per R1. Reworded lint violence hits (08215: destroyed/destroying -> threw away/discarding) and banned word "magic" (34344). Word counts 1304-1710.
+- Gates: lint total FAILs: 0; numeric_spotcheck total unexplained: 0.
+- Committed before synth (ee36f67). Serial synth under kokoro.lock: done=10 failed=0 (~115-163s wall each, ~20 min total).
+- build_rss -> 316 episodes; publish.sh banner "added 10 new episodes (316 total)".
+- Live verify: feed.xml 306->316 (after ~5 min Pages propagation), all 10 mp3s HTTP 200 at /episodes/ path, gh-pages .nojekyll present. NOTE: mp3s live under episodes/<file>.mp3 on the CDN, not root.
