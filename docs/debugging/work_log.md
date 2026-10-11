@@ -906,3 +906,30 @@ All timestamps UTC.
 - Committed before synth (2c6d1b5). Serial synth under kokoro.lock: done=8 failed=0 skipped=0 (~120-163s wall each, ~17 min total).
 - build_rss -> 324 episodes; publish.sh banner "added 8 new episodes (324 total)".
 - Live verify: origin gh-pages feed.xml 324 items + all 8 mp3s present under episodes/ (recursive ls-tree). CDN lag: live feed showed 316 and mp3s 404 for ~4 min, then propagated to feed 324, all 8 mp3s HTTP 200 at /episodes/2026-10-10-<id>.mp3, banner "added 8 new episodes", gh-pages .nojekyll present.
+
+## 2026-10-11 03:48 UTC — nightly run (papers_date 2026-10-09 backfill)
+- HF snapshot cache-first; 2026-10-09 feed = 44 papers, 10 episodes already live (10-09), 34 uncovered.
+- R3 backfill (--min-kept 2 --max-days 2 --emit) → shortlist; R2 not needed (≥3 keepers).
+- True upvotes re-pulled live from HF for all 34 candidates. Top uncovered after dropping
+  2501.09223 (already covered by 2026-10-10 episode): 2610.12242 (129), 2610.12299 (52),
+  2609.38173 (47), 2610.12461 (42), 2610.06801 (37), 2610.12289 (34).
+- Standing rules re-scan: no new foundation-model tech reports or reasoning-topology papers
+  among the 34 uncovered that weren't already captured; 6-episode slate locked (all ≥37 upvotes).
+- Drafted 6 transcripts (Day: 2026-10-11):
+  - 2610.12242 TokenRouter (CMU/Tsinghua) — token-level LLM routing serving system, 2.45× latency, 40.5% cost.
+  - 2610.12299 ME-World (KAIST) — multi-agent egocentric world model, 43M params, 16 FPS.
+  - 2609.38173 SimpleICL (CASIA/Amap) — in-context robot learning recipe, 250h→2.2h, 72.1 vs 40.3 sim.
+  - 2610.12461 OuroWorld (NYCU/Alaya) — 3D Gaussian Splatting → looping 3D cinemagraphs.
+  - 2610.06801 MC-Sparse (Fudan/Tencent HY) — dense-sparse attention gap in DiTs, 1.8–2.3× speedup.
+  - 2610.12289 TestPrism (PKU/Shanghai AI Lab) — rethinking test eval beyond single reference, JSM 77.17.
+- Gates: lint total FAILs 0; numeric_spotcheck total unexplained 0 (all 6 OK).
+  - Fixed during drafting: 12289 word count (1296→1301), 12242 word count (1205→1508),
+    "kills" lint warn (→"rejects"), 12461 upvote 41→42, MC-Sparse two-pass selector wording,
+    SimpleICL sim numbers (70.1→72.1, 43.0→40.3, 26.6→24.6, 20.6→20.2 per Table 1/2).
+- Committed episodes (a579063) before synth. Serial synth under kokoro.lock (proc_f7af95933819).
+- Synth: done=6 failed=0 skipped=0 (wall 121–168s/ep, ~12 min total).
+- Published via build_rss + publish.sh: gh-pages banner "added 6 new episodes (330 total)".
+- Verified live (GitHub Pages deploy lagged ~3 min): feed items 324→330; all 6 mp3s HTTP 200
+  at /episodes/2026-10-11-<id>.mp3; banner fresh "added 6 (330 total)"; gh-pages has .nojekyll.
+- NOTE: mp3s are served under /episodes/ subpath, not repo root — verify with that path.
+- Committed work log; pushing main.
