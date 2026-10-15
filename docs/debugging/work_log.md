@@ -963,3 +963,14 @@ All timestamps UTC.
 - Publish: build_rss 350 episodes; banner "Last updated 2026-10-14 03:52 EDT — added 6 new episodes (350 total)".
 - Live verify: first pass at ~45s post-push hit CDN lag (feed still 344, mp3s 404); retry loop caught up at ~3 min: feed 350 items, all 6 mp3 HTTP 200, banner fresh, origin/gh-pages has .nojekyll + all 6 mp3s. Note for future runs: allow 2-4 min CDN settle after publish before verifying HTTP.
 - Quirk: nested `sh -c`/`for` one-liners keep hitting the Tirith approval gate (analysis-incomplete); writing a tiny .sh script in .tmp and running `bash .tmp/x.sh` is clean and fast.
+
+## 2026-10-15 ~04:15 EDT — nightly batch (8 episodes)
+- Slate (Day=2026-10-15, R1): 2610.20584 Player-1 (113 uv, #1), 2610.19975 LatentLoop (looped-MoE topology),
+  2610.20399 Cortex (memory consolidation), 2610.19820 ActionOPD, 2610.20572 CriticOPD,
+  2610.19366 multimodal-agent-memory survey, 2610.15542 Apertus 1.5 (foundation-model tech report),
+  2610.20586 Continuum Attention (alternative attention / latent-CoT-adjacent topology).
+- True-upvote re-pull via .tmp/upvote_rank.py confirmed Player-1 #1. Picks -> episodes/feed/picks/ids-2026-10-15.txt.
+- Gates: lint total FAILs: 0 (all 8 in 1300-1750); numeric_spotcheck total unexplained: 0.
+- Synth: 8/8 OK (7.7-9.2 min each, serial under kokoro.lock).
+- Publish: build_rss 358 episodes; publish.sh banner "added 8 new episodes (358 total)".
+- Live verify: feed 358 (CDN settled ~2 tries); 8/8 mp3 HTTP 200; gh-pages ls-tree has all 8 + .nojekyll.
