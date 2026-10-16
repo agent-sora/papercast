@@ -974,3 +974,15 @@ All timestamps UTC.
 - Synth: 8/8 OK (7.7-9.2 min each, serial under kokoro.lock).
 - Publish: build_rss 358 episodes; publish.sh banner "added 8 new episodes (358 total)".
 - Live verify: feed 358 (CDN settled ~2 tries); 8/8 mp3 HTTP 200; gh-pages ls-tree has all 8 + .nojekyll.
+
+## 2026-10-16 03:38 UTC — nightly batch (6 episodes)
+- papers_date 2026-10-16 (HF feed, 55 papers; no R2/R3 fallback needed, >=3 keepers).
+- Standing-rule full-feed scan: no new foundation-model / topology / open-training / math / interpretability / neurosymbolic qualifiers. CarryOn "dual-loop" excluded as a feedback harness (rule exception).
+- True-upvote re-pull over 36 shortlist candidates; top 6 -> picks/ids-2026-10-16.txt:
+  21601 Waypoint-OPD (104), 18813 Self-Evolving Agent Harness (70), 14993 Dynamic Band Splitting (45),
+  22341 3DCodeVerse (36), 19849 DeltaStreamer (29), 22174 Mosaic (26). #1 verified in picks.
+- Drafted 6 transcripts (Day=2026-10-16), 1300-1516 words each.
+- Gates: lint total FAILs 0; numeric_spotcheck total unexplained 0 (rephrased "Qwen three eight-billion" to avoid 3.8B false positive).
+- Committed episodes; serial synth (flock kokoro.lock): 6/6 OK, ~130s wall each.
+- build_rss (364 episodes) + publish.sh: banner "added 6 new episodes (364 total)".
+- Live verify after ~4min CDN settle: feed 364, all 6 mp3 HTTP 200, banner added 6; origin/gh-pages has .nojekyll.
