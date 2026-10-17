@@ -986,3 +986,27 @@ All timestamps UTC.
 - Committed episodes; serial synth (flock kokoro.lock): 6/6 OK, ~130s wall each.
 - build_rss (364 episodes) + publish.sh: banner "added 6 new episodes (364 total)".
 - Live verify after ~4min CDN settle: feed 364, all 6 mp3 HTTP 200, banner added 6; origin/gh-pages has .nojekyll.
+
+## 2026-10-17 2026-10-17 08:32 UTC — night batch (8 episodes)
+
+- 2026-10-17 HF feed absent; R3 backfill (min-kept 2, max-days 2) produced 30
+  uncovered keepers for 2026-10-16. Re-pulled true HF upvotes (stale feed
+  upvotes), took top-6 + 2 standing-rule adds (MaLoW fast-weight/LoRA memory
+  topology; Calibrated Typed Decisions neurosymbolic).
+- Slate (all Day 2026-10-17): OpenGCUA 2610.22200 (310), MJev-Spatial
+  2610.22276 (234), RoTA-Bench 2610.17665 (200), VLA-Delta 2610.21306 (54),
+  AutoSFT 2610.22194 (35), WorldCast 2610.20731 (30), MaLoW 2610.22070 (7),
+  Calibrated Typed Decisions 2610.17113 (6).
+- Gates: lint total FAILs: 0; numeric_spotcheck total unexplained: 0.
+- Commit before synth (8 episode .md). Serial synth under kokoro.lock:
+  SYNTH_BATCH_DONE done=8 failed=0 (~115-144s wall each).
+- PUBLISH GLITCH: first build command used `build_rss.py` at repo root
+  (wrong path; it lives at scripts/build_rss.py), so the build step failed and
+  publish.sh pushed a STALE feed (banner still "no new episodes (364 total)").
+  FIX: re-ran `python scripts/build_rss.py --episodes-dir episodes --site-dir
+  site --config config.yaml` (372 episodes), re-ran publish.sh.
+- Live verify (after ~6 min CDN settle): 8/8 new mp3 HTTP 200, feed 372 items,
+  banner "Last updated 2026-10-17 04:24 EDT — added 8 new episodes (372 total)",
+  gh-pages .nojekyll present. RESULT PASS.
+- Voice lines (bf_lily, bm_lewis x2, bm_daniel x2, bm_fable x2, bm_george)
+  assigned by synth_kokoro.py; no placeholders.
