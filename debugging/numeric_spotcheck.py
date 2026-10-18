@@ -54,6 +54,9 @@ ALLOWED = {
     # 2609.23407: "one hundred and forty-five thousand" -> parser splits "forty-five thousand"
     # = "145 10^3 samples" synthetic corpus (paper figure 7 caption), verified 2026-09-25
     ("2609.23407", "forty five thousand"),
+    # 2610.22344: "more than eleven thousand entries" — paper: "11,649 entries"
+    # (Meta-Kaggle metadata snapshot, rounded spoken; verified 2026-10-18)
+    ("2610.22344", "eleven thousand"),
 }
 
 
