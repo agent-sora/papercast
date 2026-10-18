@@ -1010,3 +1010,12 @@ All timestamps UTC.
   gh-pages .nojekyll present. RESULT PASS.
 - Voice lines (bf_lily, bm_lewis x2, bm_daniel x2, bm_fable x2, bm_george)
   assigned by synth_kokoro.py; no placeholders.
+
+## 2026-10-18 ~04:00 EDT — Nightly batch (7 episodes, Day 2026-10-18)
+- Source: 2026-10-16 HF feed (papers_date 2026-10-16). 14 episodes already covered by 10-16/10-17 batches; 22 candidates remained.
+- Picks (true HF upvotes, re-pulled): 2610.21439 (56, MRTPO), 2610.17560 (26, EdgeWise), 2610.22344 (25, MLExpert), 2610.22192 (25, Terminal-RSI), 2610.22131 (25, Intern-Decision), 2610.21463 (21, SpecAgent), 2610.20818 (43, Intern Lumina U2 — foundation-model tech report, standing rule a).
+- Gates: lint total FAILs 0 (word counts 1323-1375); numeric_spotcheck total unexplained 0 after whitelisting ("eleven thousand" -> paper's "11,649 entries" in Meta-Kaggle snapshot, verified against 2610.22344 appendix A).
+- Notes: 2610.22192 arXiv page has no affiliations; PDF first page garbled (MuPDF 'minorversion' error) — affiliation "Tencent" verified by rendering page-0 header to PNG (Tencent Hy logo). 2610.22319 (Gemini 4 Argon Minecraft) reviewed and skipped (does not match standing lanes).
+- Synth: 7/7 OK serial under flock, ~2 min wall each (~500s audio total). First synth attempt failed: $PC unset in background shell so flock used "/.tmp/kokoro.lock" — reran with absolute lock path.
+- Publish: build_rss 379 episodes; gh-pages push OK (commit e989038, .nojekyll present, 7 new mp3s in tree). Live verify after ~4 min CDN settle: 7x HTTP 200, feed.xml 379 items, banner "added 7 new episodes (379 total)".
+- Commit: c500415 (episodes + picks + spotcheck whitelist).
