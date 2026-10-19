@@ -1019,3 +1019,11 @@ All timestamps UTC.
 - Synth: 7/7 OK serial under flock, ~2 min wall each (~500s audio total). First synth attempt failed: $PC unset in background shell so flock used "/.tmp/kokoro.lock" — reran with absolute lock path.
 - Publish: build_rss 379 episodes; gh-pages push OK (commit e989038, .nojekyll present, 7 new mp3s in tree). Live verify after ~4 min CDN settle: 7x HTTP 200, feed.xml 379 items, banner "added 7 new episodes (379 total)".
 - Commit: c500415 (episodes + picks + spotcheck whitelist).
+
+## 2026-10-19 ~04:00 EDT — Nightly batch (9 episodes, Day 2026-10-19)
+- Source: 2026-10-19 HF feed (48 papers, 35-item shortlist). True HF upvotes re-pulled via .tmp/pull_upvotes.py.
+- Picks (top-6 true upvotes + 3 standing rules): 2610.22471 (87, GPT-6-Astra embodied), 2610.18784 (87, CarryOn), 2610.23479 (69, HexaShell), 2610.19159 (69, Into the Unknown), 2610.20424 (55, BizBench), 2610.21783 (36, ACT3D); standing: 2610.23374 (8, MOSS-Image, foundation-model tech report a), 2610.23036 (3, Looped Models Part I, reasoning-topology b), 2610.20951 (2, LEV, reasoning-topology b).
+- Gates: lint total FAILs 0 (word counts 1312-1533); numeric_spotcheck total unexplained 0 (fixed "and"-broken number phrasing so spoken numerals match corpus: 789/601/730/1807/793.9M; 1942h -> "just under two thousand hours").
+- Synth: 9/9 OK serial under flock, ~7-9 min audio each, ~2 min wall each.
+- Publish: build_rss 388 episodes; gh-pages push OK (.nojekyll present, 9 new mp3s in tree). Live verify after CDN settle: 9x HTTP 200, feed.xml 388 items, banner "added 9 new episodes (388 total)".
+- Commit: 50060b9 (9 episode transcripts).
