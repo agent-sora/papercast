@@ -1027,3 +1027,15 @@ All timestamps UTC.
 - Synth: 9/9 OK serial under flock, ~7-9 min audio each, ~2 min wall each.
 - Publish: build_rss 388 episodes; gh-pages push OK (.nojekyll present, 9 new mp3s in tree). Live verify after CDN settle: 9x HTTP 200, feed.xml 388 items, banner "added 9 new episodes (388 total)".
 - Commit: 50060b9 (9 episode transcripts).
+
+## 2026-10-20 08:11 UTC — nightly 2026-10-20 (7 episodes)
+
+Picks (true-upvote ranked + standing rules): 2610.25736 FERT/CEL (84), 2610.26860 OpenVLHarness (56), 2610.22791 Self-HPO (30), 2610.24960 CoworkEnv (28), 2610.24087 OR-License (23), 2610.26844 AnyGoal (22), 2610.26834 KronLSTM (8, standing rule b — linear attention/Kronecker delta rule, added beyond top-6 cut). #1 true-upvote paper verified in picks. HF shortlist for the day had 28 candidates; full feed re-scanned for standing-rule lanes (topology/math/interp/opentrain) — no additional qualifiers beyond KronLSTM.
+
+Gates: lint total FAILs 0 (all 7 in [1300,1750]); numeric_spotcheck total unexplained 0.
+
+Synth: 7/7 OK via synth_batch --only-prefix 2026-10-20 under flock (~2 min wall each).
+
+Publish: build_rss (395 episodes) + publish.sh — banner "Last updated 2026-10-20 04:02 EDT — added 7 new episodes (395 total)".
+
+Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, .nojekyll present in gh-pages tree.
