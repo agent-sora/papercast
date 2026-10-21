@@ -1039,3 +1039,17 @@ Synth: 7/7 OK via synth_batch --only-prefix 2026-10-20 under flock (~2 min wall 
 Publish: build_rss (395 episodes) + publish.sh — banner "Last updated 2026-10-20 04:02 EDT — added 7 new episodes (395 total)".
 
 Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, .nojekyll present in gh-pages tree.
+
+## 2026-10-21 08:14 UTC — Night batch (2026-10-21)
+- Prep OK; 0 existing episodes for 2026-10-21 (full batch, not duplicate guard).
+- Re-pulled true HF upvotes (selected-*.json were stale up=0). Top slate: FocusGUI 96,
+  Sage-A1.5 53, PAR 52, VPM 4D World 36, SolarRenderer 34, VLA-Rolling 29.
+- Standing-rule additions: Lafa flow LM (2610.28559, topology/parallel generation),
+  Beyond Compilation NL->Lean (2606.31002, neurosymbolic/LLM-for-math).
+- 8 transcripts drafted in-session (no subagents). Day: 2026-10-21 on all (publish-date rule).
+- Gates: lint total FAILs: 0 (3 were under 1300-word floor, expanded in-session);
+  numeric_spotcheck total unexplained: 0.
+- Committed transcripts (091e259), synth 8/8 OK (failed=0, ~110-140s wall each).
+- build_rss 403 episodes; publish banner "added 8 new episodes (403 total)".
+- Live verify: feed 403 items, today_refs=16, all 8 mp3 HTTP 200 (CDN settled ~3rd-4th poll).
+- Note: live mp3 URLs use /episodes/<file>.mp3 (not /audio/).
