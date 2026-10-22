@@ -1053,3 +1053,11 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - build_rss 403 episodes; publish banner "added 8 new episodes (403 total)".
 - Live verify: feed 403 items, today_refs=16, all 8 mp3 HTTP 200 (CDN settled ~3rd-4th poll).
 - Note: live mp3 URLs use /episodes/<file>.mp3 (not /audio/).
+
+## 2026-10-22 04:30 EDT — nightly run (8 episodes published)
+- papers_date 2026-10-22; true HF upvotes pulled via .tmp/pull_upvotes.py (selected-*.json counts were stale/zero).
+- Picks (8): top-6 by true upvotes {2610.26828 WildAWM(54), 2610.28577 Cache Engineering/AKV(53), 2610.17860 Socratic Skill Learning(28), 2610.20538 PrismaCoder(23), 2610.21114 Spectral-Spatial Interpretation(23), 2610.28589 AgenticRoboRL(16)} + standing-rule {2610.28711 Qwen-Audio-3.1-ASR (foundation, 3), 2610.28887 CFDN linear-attention teams (topology, 11)}.
+- Drafted all 8 in-session (no subagents); gates: lint total FAILs 0, numeric_spotcheck total unexplained 0 (408 cases written as digits to avoid the 'four hundred and eight' parser split — verified against paper).
+- Committed md before synth (bbdf566). Serial synth under flock: SYNTH_BATCH_DONE done=8 failed=0, ~127-151s wall each.
+- build_rss.py is under scripts/ (not repo root). Banner: added 8 (411 total). Pushed gh-pages.
+- Live verify (after ~4 min CDN settle): feed 403->411, all 8 mp3 HTTP 200, banner "added 8 new episodes (411 total)", .nojekyll present on origin/gh-pages.
