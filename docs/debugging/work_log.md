@@ -1061,3 +1061,11 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Committed md before synth (bbdf566). Serial synth under flock: SYNTH_BATCH_DONE done=8 failed=0, ~127-151s wall each.
 - build_rss.py is under scripts/ (not repo root). Banner: added 8 (411 total). Pushed gh-pages.
 - Live verify (after ~4 min CDN settle): feed 403->411, all 8 mp3 HTTP 200, banner "added 8 new episodes (411 total)", .nojekyll present on origin/gh-pages.
+
+## 2026-10-23 (Fri) — nightly batch, 9 episodes
+- Picks (9): top-6 by true upvotes {2610.30181 Deep Search in Real-World Web Environments (90), 2610.30926 FAPL cinematic video gen (83), 2610.25100 Deep Fusion Memory (30), 2610.28889 Policy-Mask (25), 2610.27851 LaLa-World (23), 2610.27598 Meta Expert (20)} + standing-rule {2610.20459 MolLean (llm_for_math/neurosymbolic, 5), 2610.31062 SCOPE (neurosymbolic, 2), 2610.30882 Wait provenance (interpretability, 3)}. #1 true-upvote paper verified in picks.
+- Meta fixes from PDF first-page: 2610.27598 -> Tsinghua University; Shanghai AI Laboratory; 2610.31062 -> Plurai (Arnon Mazza, Elad Levi). Cached meta JSONs lack upvotes -> used true values from .tmp/upvote_rank.py pull.
+- Drafted all 9 in-session (no subagents); gates: lint total FAILs 0 (all 1300-1750 words), numeric_spotcheck total unexplained 0.
+- Committed md before synth. Serial synth under flock: SYNTH_BATCH_DONE done=9 failed=0, ~121-149s wall each.
+- build_rss + publish: 420 episodes; banner "added 9 new episodes (420 total)"; pushed gh-pages.
+- Live verify: feed 411->420, banner "added 9", .nojekyll present on origin/gh-pages. MP3s initially 404 under /audio/ — enclosure path is /episodes/<date>-<id>.mp3; all 9 returned HTTP 200 at that path.
