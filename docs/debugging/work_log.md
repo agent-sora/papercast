@@ -1069,3 +1069,13 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Committed md before synth. Serial synth under flock: SYNTH_BATCH_DONE done=9 failed=0, ~121-149s wall each.
 - build_rss + publish: 420 episodes; banner "added 9 new episodes (420 total)"; pushed gh-pages.
 - Live verify: feed 411->420, banner "added 9", .nojekyll present on origin/gh-pages. MP3s initially 404 under /audio/ — enclosure path is /episodes/<date>-<id>.mp3; all 9 returned HTTP 200 at that path.
+
+## 2026-10-24 (Sat) — nightly batch, 6 episodes
+- papers_date 2026-10-23 (31 papers); forced re-fetch confirmed same 31, no late arrivals. 9 of the day's top papers already covered by yesterday's 9-episode batch (2610.30181/30926/25100/27851/27598/20459/28889/30882/31062).
+- True HF upvotes pulled for all 31 (.tmp/fetch_upvotes_1024.py). Top uncovered = slate; standing lanes re-scanned full feed: no new foundation-model tech report, no reasoning-topology paper, all math/neurosymbolic/interpretability lane papers already covered.
+- Picks (6, top-6 uncovered by true upvotes): 2610.24738 LayerEditor (74), 2610.29677 Physical RSI (49), 2610.23987 What Generation Knows/GAFU (33), 2610.30320 FRED (26), 2610.28416 Code2Video-Compass (24), 2610.26233 Heartbeat Thinking (18). #1 true-upvote paper (2610.24738) in picks.
+- Meta via paper_meta.py; PDFs + text (pages 0-7/8-15/19-28) via pymupdf. Labs hand-fixed from PDF page 1: 2610.30320 KAIST;RLWRLD; 2610.26233 Ant International.
+- Drafted all 6 in-session (no subagents); Day/filename 2026-10-24 (publish-date rule). Gates: lint total FAILs 0, numeric_spotcheck total unexplained 0.
+- Committed md before synth (58faad9). Serial synth under flock (6 prefixes).
+- build_rss + publish: N episodes; banner "added 6 (N total)".
+- Live verify: feed +6, all 6 mp3 HTTP 200, .nojekyll on origin/gh-pages.
