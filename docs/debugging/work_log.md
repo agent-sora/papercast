@@ -1079,3 +1079,19 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Committed md before synth (58faad9). Serial synth under flock (6 prefixes).
 - build_rss + publish: N episodes; banner "added 6 (N total)".
 - Live verify: feed +6, all 6 mp3 HTTP 200, .nojekyll on origin/gh-pages.
+
+## 2026-10-25 night shift (cron)
+
+- papers_date 2026-10-23 feed had grown to 31 papers (17 shortlisted; 8 already covered by the 10 existing 2026-10-23/24-dated episodes). Re-scanned full feed for standing-rule candidates and re-pulled true upvotes from the HF API (top: 2610.30181 @160, already covered last night — excluded).
+- Published 6 episodes dated Day: 2026-10-25 (backfilled per R1):
+  - 2610.19705 RouteWeaver (NTU/HUST/UIUC) — 23 upvotes
+  - 2610.31158 OmniDR-Bench, video deep-research reports (PKU/Alibaba Token Hub) — 23
+  - 2610.30755 RAW-RAG naive memory (XJTLU/SJTU) — 21
+  - 2610.31494 AgentVQA (UMD/Princeton) — 17
+  - 2610.25376 TILDE embodied distillation (HKU) — 8
+  - 2610.31668 video world models survey (Oxford/NUS/NTU/UC Merced) — 8
+- Gates: lint_script total FAILs: 0 (all six in 1300-1750 window); numeric_spotcheck total unexplained: 0.
+- Committed 71c839d before synth; serial synth under flock; publish + verify pending in this entry.
+- SYNTH: 6/6 OK, ~132-151s wall each. PUBLISH: banner "added 6 new episodes (432 total)", pushed gh-pages.
+- VERIFY: gh-pages has .nojekyll + all 6 mp3s; live feed count 432; all 6 mp3s HTTP 200 (CDN needed ~5 min settle, first two checks at 2.5 and 5.5 min still showed 426).
+- Note: build_rss.py is at scripts/build_rss.py, not repo root.
