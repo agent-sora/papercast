@@ -1095,3 +1095,25 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - SYNTH: 6/6 OK, ~132-151s wall each. PUBLISH: banner "added 6 new episodes (432 total)", pushed gh-pages.
 - VERIFY: gh-pages has .nojekyll + all 6 mp3s; live feed count 432; all 6 mp3s HTTP 200 (CDN needed ~5 min settle, first two checks at 2.5 and 5.5 min still showed 426).
 - Note: build_rss.py is at scripts/build_rss.py, not repo root.
+
+## 2026-10-26 ~04:15 EDT — Nightly batch (6 episodes)
+
+- Feed papers-2026-10-26.json: 16 papers (dict with `papers` key; note feed JSON is
+  {requested_date, papers_date, papers}). No R2/R3 fallback needed (normal slate).
+- True upvotes via HF API re-pull (.tmp/reupvote.py — ranking worked, picks write
+  crashed on tuple unpack; wrote picks manually).
+- Picks (top 6 by true upvotes; RynnUnify is the standing-rule foundation-model hit,
+  already in top 6): 2610.30932 UserArena (28), 2610.31162 HiSTEVE (25),
+  2610.32253 RSIHub (24), 2610.27103 Omni-Woodpecker (21), 2610.32965 RynnUnify (17),
+  2610.31066 Dual Exam (11).
+- Selected PDFs were missing from episodes/feed/text/_pdf; used paper_meta.py cache
+  PDFs in episodes/feed/meta/*.pdf via .tmp/extract_texts.py (pymupdf, pages 0-7/8-15).
+- All 6 transcripts drafted in-session; lint: 1 initial FAIL (RynnUnify cold open
+  22 words < 25) fixed by extending cold open; final total FAILs: 0. One benign warn:
+  'killing' as Minecraft task family name (quoted from paper). numeric_spotcheck:
+  total unexplained: 0 (all 6 OK, no whitelisting needed).
+- Synth: 6/6 OK, ~128-143s wall each under flock (faster than usual; no queue).
+- Build+publish: banner "Last updated 2026-10-26 04:01 EDT — added 6 new episodes
+  (438 total)". CDN settled ~4 min after push: feed 438 items, mp3 HTTP 200, index
+  shows 6 new entries, .nojekyll present on origin/gh-pages after fetch.
+- mp3 files are gitignored (site-only artifacts); md + picks committed on main.
