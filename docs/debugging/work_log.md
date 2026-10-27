@@ -1117,3 +1117,26 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
   (438 total)". CDN settled ~4 min after push: feed 438 items, mp3 HTTP 200, index
   shows 6 new entries, .nojekyll present on origin/gh-pages after fetch.
 - mp3 files are gitignored (site-only artifacts); md + picks committed on main.
+
+## 2026-10-27 (UTC) — nightly batch, 7 episodes
+- Feed: 26 papers for papers_date 2026-10-27 (cache-first fetch, populated by prep).
+- True upvotes re-pulled (HF API, 3s pacing): 33568 (119), 34662 (95), 32285 (89),
+  33966 (71), 34467 (27), 35845 (22), then 33512 (19), 32195 (16), 34238 (15).
+  Top 6 -> picks; plus standing-rule coverage: RynnVLA-Latent 2610.34356 (new
+  foundation-model VLA release, 19 upvotes, outside top 6). 7 episodes total.
+- Re-scanned full 26-paper feed for reasoning-topology / user-category hits: none
+  beyond the 7 (agent/RL papers like S3AC, ProAS, Skill^inf stay below the bar;
+  no new foundation model, no looping/latent-CoT/topology paper, no math/proof paper).
+- Meta via paper_meta.py (7/7), pymupdf text extraction pages 0-7/8-15 (+19-28).
+- All 7 drafted in-session (no subagents). Lint: several first drafts under 1300
+  words; expanded method/eval/verdict sections -> final total FAILs: 0.
+  numeric_spotcheck: total unexplained: 0 (no whitelisting).
+- Committed episodes before synth (commit 1935d9f).
+- Synth: 7/7 OK, ~116-139s wall each under flock (one --only-prefix 2026-10-27 run;
+  all 7 share the date prefix).
+- Build+publish: banner "Last updated 2026-10-27 03:56 EDT — added 7 new episodes
+  (445 total)". CDN settle was slow this run (~7 min after push vs usual 2-4):
+  new mp3s 404 / feed 438 while old mp3s stayed 200 (pure cache, not content);
+  after settle: feed 445 items, all 7 new mp3 HTTP 200, .nojekyll present on
+  origin/gh-pages (445 mp3s in tree, incl. the 7 new).
+- md + picks committed on main; mp3s gitignored (site-only artifacts).
