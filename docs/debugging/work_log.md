@@ -1140,3 +1140,35 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
   after settle: feed 445 items, all 7 new mp3 HTTP 200, .nojekyll present on
   origin/gh-pages (445 mp3s in tree, incl. the 7 new).
 - md + picks committed on main; mp3s gitignored (site-only artifacts).
+
+## 2026-10-28 (UTC) — nightly batch, 10 episodes
+- Feed: 35 papers for papers_date 2026-10-28 (cache-first fetch, populated by prep).
+- True upvotes re-pulled (HF API, 3s pacing) into .tmp/upvotes-true-2026-10-28.json:
+  34283 (131), 36729 (79), 37381 (61), 36068 (47), 36077 (44), 37666 (42) = top 6;
+  plus standing-rule extras: 2610.26030 Truncate-or-Not (looped-transformer TBP
+  scaling study, topology, 25), 2610.36269 Cross-modal Steering Vectors
+  (interpretability / representation geometry, 7), 2610.37585 Timestral (new
+  HF time-series foundation-model family, 2), 2610.36466 Nemotron-Labs-Diffusion-Uni
+  (new NVIDIA unified diffusion LLM, 3). 10 episodes total. #1 true-upvote (34283)
+  verified in picks.
+- Re-scanned full 35-paper feed for topology / user-category hits: the 4 extras
+  above are the only qualifying papers (no other new foundation model, no other
+  looping/SSM/fast-weight/latent-CoT, no other math/Lean/interpretability paper).
+- Meta via paper_meta.py (10/10), pymupdf text pages 0-7/8-15 (+19-28 where tables).
+- All 10 drafted in-session (no subagents). Lint: 3 first drafts under 1300 words
+  (Steering, NLD-Uni, Timestral); expanded -> final total FAILs: 0.
+  numeric_spotcheck: 1 unexplained -> 2610.37381 "twenty one hundred one" (2101)
+  was a misread of the paper's 20,101 subtask-annotation hours; fixed to
+  "twenty thousand one hundred one" -> total unexplained: 0 (no whitelisting).
+- Committed episodes before synth (commit f3f615a).
+- Synth: 10/10 OK, ~115-147s wall each, one --only-prefix 2026-10-28 run under flock
+  (all 10 share the date prefix); background proc, done=10 failed=0.
+- Build+publish: first build_rss call FAILED (ran bare `build_rss.py` but it lives
+  at scripts/build_rss.py) so banner showed stale "no new episodes (445)"; re-ran
+  with scripts/build_rss.py -> "added 10 new episodes (455 total)".
+- CDN settle ~6-7 min after push (slow again vs usual 2-4): feed 445 / new mp3s 404
+  on first ~4 checks while old content stayed 200 (pure cache); after settle:
+  feed 455 items, all 10 new mp3 HTTP 200, .nojekyll present on origin/gh-pages
+  (455 mp3s in tree, incl. the 10 new).
+- md + picks committed on main; mp3s gitignored (site-only artifacts).
+- NOTE for future runs: build_rss.py is at scripts/build_rss.py, NOT repo root.
