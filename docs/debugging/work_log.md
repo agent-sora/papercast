@@ -1172,3 +1172,11 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
   (455 mp3s in tree, incl. the 10 new).
 - md + picks committed on main; mp3s gitignored (site-only artifacts).
 - NOTE for future runs: build_rss.py is at scripts/build_rss.py, NOT repo root.
+
+## 2026-10-29 nightly pass (UTC 04:0x-05:3x)
+- Today's HF feed: 6 papers, 2 keepers (2610.37230 TAO, 2601.15351 OmniSpectra) → R3 backfill triggered; 18 uncovered keepers from 2026-10-28 considered.
+- True upvotes re-pulled from HF API; final slate = top-6 (2610.34073 147, 2610.24520 80, 2610.36456 37, 2610.33066 29, 2610.26030 27, 2610.33624 20) + 2 HF keepers = 8 episodes. 2610.37386 (#7, 19, no standing-rule flavor) correctly excluded.
+- 2610.26030 (looped transformers, topology rule) was ALREADY covered as 2026-10-28-2610.26030.md — my pre-draft duplicate check (search_files on bare id) missed it because episodes are date-prefixed. Per "never delete episodes" both copies kept; publish banner correctly reported "added 7" (7 new URLs + 1 re-dated). FEED = 463.
+- Gates: lint total FAILs:0 (several drafts needed 2-3 expansion patches to clear the 1300 floor); numeric_spotcheck total unexplained:0 (fixed one ungrounded "90.28" claim in Memory Tax before the check — gold-context range is 73.4-92.8).
+- Synth: 8/8 OK, ~130s wall each under flock. Build+publish one call. Live verify after ~6 min CDN settle: feed 463, all 8 mp3s HTTP 200, .nojekyll on origin/gh-pages, 463 items on branch.
+- LESSON: duplicate check must match `*<id>*` across date-prefixed filenames (e.g. ls episodes/ | grep <id>), not just exact-id file search.
