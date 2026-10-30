@@ -1180,3 +1180,14 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Gates: lint total FAILs:0 (several drafts needed 2-3 expansion patches to clear the 1300 floor); numeric_spotcheck total unexplained:0 (fixed one ungrounded "90.28" claim in Memory Tax before the check — gold-context range is 73.4-92.8).
 - Synth: 8/8 OK, ~130s wall each under flock. Build+publish one call. Live verify after ~6 min CDN settle: feed 463, all 8 mp3s HTTP 200, .nojekyll on origin/gh-pages, 463 items on branch.
 - LESSON: duplicate check must match `*<id>*` across date-prefixed filenames (e.g. ls episodes/ | grep <id>), not just exact-id file search.
+
+## 2026-10-30 03:00-04:10 EDT — Nightly batch (6 episodes)
+- Feed: 21 papers on HF papers_date 2026-10-30; selected-*.json had stale/zero upvotes.
+- Re-pulled true HF upvotes for 22 candidates via .tmp/true_upvotes.py (dict-shaped feed; arxiv_id fallback). Top: 2610.29927 (125), 2610.39633 (44), 2610.38568 (36), 2610.36671 (25), 2610.37161 (21), 2610.32411 (20). #1 in picks.
+- Picks (6): 2610.29927, 2610.39633, 2610.38568, 2610.36671, 2610.37161, 2610.32411. No foundation-model / topology standing-rule additions needed.
+- Drafted 6 transcripts (Day=2026-10-30 per R1). Gates: lint total FAILs:0; numeric_spotcheck total unexplained:0.
+- NOTE: first draft of 2610.37161 (WorkFactory) had fabricated benchmark model names (Gemma 3 32B) and invented numbers; caught in self-verification pass and rewritten from actual paper text (Qwen3.5-4B / Qwen3.6-27B / Qwen3.6-35B-A3B students, GLM-5.3 teacher, 112,686 tasks / 612 occupations, GDPval-AA 879->1565 Elo). 2610.29927 draft also had unverified AIME-gap claims; corrected to Table 1 figures (21.09% top-3 gap reduction, LOO >=0.9137). All six episodes' numbers re-verified against episodes/feed/text/<id>.txt before commit.
+- Commit before synth: fc7127c (transcripts + picks).
+- Serial synth (flock kokoro.lock, --only-prefix 2026-10-30): 6/6 OK, ~11 min total. Audio: 29927=561s, 32411=460s, 36671=434s, 37161=577s, 38568=532s, 39633=488s.
+- build_rss + publish: "added 6 new episodes (469 total)". Remote gh-pages verified: index banner 469, feed 469 items, 6 new mp3s + .nojekyll present on branch.
+- Live CDN check: agent-sora.github.io still serving prior deploy (463) at 04:10 EDT — GitHub Pages propagation lag, not a deploy failure (branch content confirmed correct). Re-check on next run if still stale.
