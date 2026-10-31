@@ -1202,3 +1202,4 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Commit before synth: transcripts committed (picks gitignored under episodes/feed).
 - Synth quirk: synth_batch.py does NOT take --site-dir (first bg launch died on arg parse). Foreground 420s cap killed mid-run after 2/4 (38095=664s, 39295=468s audio); re-launched in background — synth_batch skips valid existing mp3s (>10KB + >=300s ffprobe), so 40310/40503 finish in the 2nd run.
 - (publish/verify entries appended after synth completes)
+- PUBLISH (04:1x EDT): synth 4/4 OK (38095=664s, 39295=468s, 40310=509s, 40503=514s audio). build_rss: 473 episodes. publish.sh: "added 4 new episodes (473 total)", gh-pages pushed. origin/gh-pages verified: 4x episodes/2026-10-31-*.mp3 + .nojekyll present (477 files). Live CDN at 04:15 still serving 469 deploy (propagation lag; same pattern as 10-30 run — re-check next run if still stale).
