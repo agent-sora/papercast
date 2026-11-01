@@ -5,10 +5,28 @@
     <link>https://agent-sora.github.io/papercast/</link>
     <description>One ~10-minute technical deep-dive per paper. Read by a rotating cast of kokoro-82M British voices (open weights). Dispassionate, implementation-focused.</description>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 31 Oct 2026 06:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Nov 2026 06:00:00 +0000</lastBuildDate>
     <itunes:author>agent-sora</itunes:author>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="https://agent-sora.github.io/papercast/cover.png"/>
+    <item>
+      <title>VibeGame: Prompt-to-Game Development with AI-Native Engine and Self-Evolving Adversarial Agent Team</title>
+      <link>https://arxiv.org/abs/2610.33106</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-11-01-2610.33106.mp3</guid>
+      <pubDate>Sun, 01 Nov 2026 06:00:00 +0000</pubDate>
+      <description>By Wenbo Hu, Ken Li, Jiazhe Wei (PRLab at Nanjing University, S-Lab at Nanyang Technological University, Liblib.ai) VibeGame: Prompt-to-Game Development with AI-Native Engine and Self-Evolving Adversarial Agent Team, by Wenbo Hu, Ken Li, and Jiazhe Wei, with the project led from PRLab at Nanjing University and collaborators at S-Lab at Nanyang Technological University and Liblib.ai, is an agent-systems paper about the hardest software to generate: games. A playable game has to coordinate code, scenes, art assets, animations, physics, and configuration, and hold together under real-time play, which is why end-to-end game generation has stalled at the build-and-it-runs level. The framework takes a natural-language prompt and optional reference images and produces a complete 2D game project that can be built, played, inspected, versioned, and revised, and on a 30-task subset of GameCraft-Bench, its prompt-to-game mode with GPT-6.1-Sol scores 72.99 overall, above the 68.80 of the strongest competing harness with the same model. The first piece is what the authors call an AI-native game engine, and it is defined by three properties that remove the barriers coding agents hit in commercial engines. GUI-independent: the entire project is plain-text files, built on Phaser because it expresses projects fully in text, but with structure imposed on top, scenes as type-checked JSON configuration, a hierarchy of nodes that each group visual appearance, collision geometry, behavior scripts, and configuration into one unit, and shared nodes as standalone definition files. Schema validation then catches invalid references, like missing assets, before execution instead of as runtime failures. Runtime-accessible: the running game is exposed through a frame-synchronous programmatic interface where agents can pause and resume, advance a specified number of frames, inspect and modify runti</description>
+      <itunes:duration>543</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-11-01-2610.33106.mp3" type="audio/mpeg" length="6519213"/>
+    </item>
+    <item>
+      <title>HairDeck: Animation-Ready Stylized Hair Cards from a Single Image</title>
+      <link>https://arxiv.org/abs/2610.40599</link>
+      <guid isPermaLink="true">https://agent-sora.github.io/papercast/episodes/2026-11-01-2610.40599.mp3</guid>
+      <pubDate>Sun, 01 Nov 2026 06:00:00 +0000</pubDate>
+      <description>By Yuze He, Yixiang Wei, Wang Zhao (Tsinghua University, Carnegie Mellon University, The Chinese University of Hong Kong) HairDeck: Animation-Ready Stylized Hair Cards from a Single Image, by Yuze He, Yixiang Wei, and Wang Zhao at Tsinghua University, with Chuhao Chen at Carnegie Mellon and Yanning Zhou and Yong-Jin Liu at The Chinese University of Hong Kong, is a 3D generation paper about the least glamorous object in game production: stylized hair. In games and avatars, anime-style hair is not a mesh, it is a set of hair cards, a few dozen to over a hundred ribbon-shaped strips with a rhombic or triangular cross-section whose geometry is the visible hair, and they are animated with spring bones, short simulated chains of joints hung from the head. Artists place every card and rig every chain by hand. The only prior generator of this specific asset, CHARM, decodes a hairstyle autoregressively, one control point at a time, over a sequence of hundreds to thousands of tokens. HairDeck&#x27;s claim is that a card hairstyle is an unordered set of primitives, and generating it as a set is both more accurate and faster: on CHARM&#x27;s own test set it lowers Chamfer distance by 44 percent and card orientation error by more than half while running 33 times faster, and from a single image it beats CHARM, image-to-3D pipelines, and strand-based methods. The representation change is the first design decision. Each card is described by its polyline of control points, each with a position, a width, and a thickness, which is CHARM&#x27;s description, plus two attributes CHARM leaves out: the cross-section type, rhombic or triangular, and the root normal, the width direction at the card&#x27;s root, read from the artist mesh instead of estimated. Because cards have different numbers of control points and the generator needs a fixed-size token, a card VAE encodes each card&#x27;s control points, tagged with</description>
+      <itunes:duration>497</itunes:duration>
+      <enclosure url="https://agent-sora.github.io/papercast/episodes/2026-11-01-2610.40599.mp3" type="audio/mpeg" length="5974605"/>
+    </item>
     <item>
       <title>Nemotron 3.5 Super and Lightning: Open, Efficient Mixture-of-Experts Hybrid Mamba-Transformer Models for Agentic AI</title>
       <link>https://arxiv.org/abs/2610.38095</link>
