@@ -1,38 +1,56 @@
-"""Extract paper text (pages 0-7, 8-15, 19-28) via pymupdf from cached PDFs
-or arXiv, for the nightly Papercast batch. Usage: python extract_text.py
+#!/usr/bin/env python3
+"""Extract PDF page ranges to text for draft transcripts.
+
+Usage: extract_text.py
+Reads episodes/feed/picks/ids-<today>.txt (or a given ids file) and, for each
+arXiv id, pulls the matching PDF from episodes/feed/meta/<id>.pdf and writes:
+  episodes/feed/text/<id>.txt            pages 0-7   (abstract + intro)
+  episodes/feed/text/<id>-more.txt       pages 8-15
+  episodes/feed/text/<id>-experiments.txt pages 19-28 (only if >= 20 pages)
+Uses pymupdf (import fitz). Idempotent: skips ids whose .txt already exists.
 """
-import json
 import os
 import sys
-import urllib.request
 
-sys.path.insert(0, '/home/patrick/papercast/.venv/lib/python3.11/site-packages')
-import pymupdf  # noqa: E402
+import fitz  # pymupdf
 
-PC = '/home/patrick/papercast'
-ids = [l.strip() for l in open(f'{PC}/episodes/feed/picks/ids-2026-10-03.txt') if l.strip()]
-os.makedirs(f'{PC}/episodes/feed/text', exist_ok=True)
-os.makedirs(f'{PC}/episodes/feed/pdf', exist_ok=True)
+PC = "/home/patrick/papercast"
+META = os.path.join(PC, "episodes/feed/meta")
+TEXT = os.path.join(PC, "episodes/feed/text")
+PICKS = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PC, "episodes/feed/picks/ids-2026-10-05.txt")
 
-for pid in ids:
-    pdf = f'{PC}/episodes/feed/pdf/{pid}.pdf'
-    if not os.path.exists(pdf):
-        url = f'https://arxiv.org/pdf/{pid}'
-        req = urllib.request.Request(url, headers={'User-Agent': 'papercast/1.0'})
-        try:
-            with urllib.request.urlopen(req, timeout=120) as r:
-                open(pdf, 'wb').write(r.read())
-        except Exception as e:
-            print(f'PDF FAIL {pid}: {e}')
+
+def pages_text(doc, lo, hi):
+    n = doc.page_count
+    hi = min(hi, n - 1)
+    parts = []
+    for i in range(lo, hi + 1):
+        parts.append(f"\n===== PAGE {i} =====\n")
+        parts.append(doc[i].get_text())
+    return "".join(parts)
+
+
+def main():
+    ids = [ln.strip() for ln in open(PICKS) if ln.strip()]
+    os.makedirs(TEXT, exist_ok=True)
+    for pid in ids:
+        pdf = os.path.join(META, f"{pid}.pdf")
+        base = os.path.join(TEXT, f"{pid}.txt")
+        if os.path.exists(base):
+            print(f"skip {pid} (exists)")
             continue
-    doc = pymupdf.open(pdf)
-    n = len(doc)
-    base = f'{PC}/episodes/feed/text/{pid}.txt'
-    open(base, 'w').write('\n'.join(doc[i].get_text() for i in range(0, min(8, n))))
-    if n > 8:
-        open(f'{PC}/episodes/feed/text/{pid}-more.txt', 'w').write(
-            '\n'.join(doc[i].get_text() for i in range(8, min(16, n))))
-    if n > 19:
-        open(f'{PC}/episodes/feed/text/{pid}-experiments.txt', 'w').write(
-            '\n'.join(doc[i].get_text() for i in range(19, min(29, n))))
-    print(pid, 'pages', n)
+        if not os.path.exists(pdf):
+            print(f"MISSING pdf {pid}")
+            continue
+        doc = fitz.open(pdf)
+        n = doc.page_count
+        open(base, "w").write(pages_text(doc, 0, 7))
+        open(base.replace(".txt", "-more.txt"), "w").write(pages_text(doc, 8, 15))
+        if n >= 20:
+            open(base.replace(".txt", "-experiments.txt"), "w").write(pages_text(doc, 19, 28))
+        print(f"{pid}: {n} pages -> text written")
+        doc.close()
+
+
+if __name__ == "__main__":
+    main()

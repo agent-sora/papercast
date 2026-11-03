@@ -1203,3 +1203,14 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Synth quirk: synth_batch.py does NOT take --site-dir (first bg launch died on arg parse). Foreground 420s cap killed mid-run after 2/4 (38095=664s, 39295=468s audio); re-launched in background — synth_batch skips valid existing mp3s (>10KB + >=300s ffprobe), so 40310/40503 finish in the 2nd run.
 - (publish/verify entries appended after synth completes)
 - PUBLISH (04:1x EDT): synth 4/4 OK (38095=664s, 39295=468s, 40310=509s, 40503=514s audio). build_rss: 473 episodes. publish.sh: "added 4 new episodes (473 total)", gh-pages pushed. origin/gh-pages verified: 4x episodes/2026-10-31-*.mp3 + .nojekyll present (477 files). Live CDN at 04:15 still serving 469 deploy (propagation lag; same pattern as 10-30 run — re-check next run if still stale).
+
+## 2026-11-03 09:00 UTC — Nightly run (8 episodes, published)
+- Fetch: HF snapshot papers_date=2026-11-03, 20 papers; selected-*.json had 15 shortlist entries. No R2 arXiv fallback / R3 backfill needed (>=3 keepers).
+- True-upvote re-pull over all candidates; top picks written to episodes/feed/picks/ids-2026-11-03.txt (8 ids): 2611.00859, 2610.40191, 2611.01560, 2611.03126, 2611.02102, 2611.00172, 2611.03526, 2610.41574.
+- Standing-rule scan of full feed: 2610.41574 (BYOD, LoRA AR->DLM conversion) and 2610.38637 (TESD, self-distillation) / 2610.27815 (ProVe) considered; kept BYOD (inference-efficiency recipe, no new lane but high value); 38637/27815 cut on score (2 each) — no topology/foundation-model papers in today's feed.
+- meta + pymupdf text (0-7, 8-15, 19-28 where applicable) for all 8.
+- Drafted 8 transcripts (Day: 2026-11-03). Lint word-count floor trips: 6 of 8 first drafts under 1300 tokens — expanded in-place, final lint total FAILs: 0 (1511/1309/1407/1573/1315/1389/1322/1301). numeric_spotcheck: total unexplained: 0, all 8 OK.
+- Commit 6acba41 (episodes) BEFORE synth. Serial synth under flock: 8/8 OK, ~7.3-9.4 min audio each, ~110-144s wall.
+- build_rss: 483 episodes. publish.sh: banner "added 8 new episodes (483 total)".
+- Live verify: GitHub Pages propagation lag ~5 min (feed stayed at 475 items / 404 for first ~3 min); after propagation: feed 483 items, all 8 mp3 HTTP 200, index banner "added 8 new episodes", origin/gh-pages has .nojekyll.
+- Episodes: Wave Forcing (streaming video gen, 7.07x speedup), Agentic Video Generation (position paper), uni-robot-agent (open robot-use harness, 31.39 RoboDojo), CUA-Master-27B (nested flywheel, 25.0 Agents' Last Exam), NorthCUA (experience flywheel family, 93.3 ScreenSpot-Pro), Omnimodal Embeddings survey (coverage/comparability/compositionality), Library of Layers (runtime layer routing), BYOD (LoRA AR->DLM conversion on 4 families).
