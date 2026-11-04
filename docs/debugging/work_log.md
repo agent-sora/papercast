@@ -1214,3 +1214,11 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - build_rss: 483 episodes. publish.sh: banner "added 8 new episodes (483 total)".
 - Live verify: GitHub Pages propagation lag ~5 min (feed stayed at 475 items / 404 for first ~3 min); after propagation: feed 483 items, all 8 mp3 HTTP 200, index banner "added 8 new episodes", origin/gh-pages has .nojekyll.
 - Episodes: Wave Forcing (streaming video gen, 7.07x speedup), Agentic Video Generation (position paper), uni-robot-agent (open robot-use harness, 31.39 RoboDojo), CUA-Master-27B (nested flywheel, 25.0 Agents' Last Exam), NorthCUA (experience flywheel family, 93.3 ScreenSpot-Pro), Omnimodal Embeddings survey (coverage/comparability/compositionality), Library of Layers (runtime layer routing), BYOD (LoRA AR->DLM conversion on 4 families).
+
+## 2026-11-04 nightly (04:00-04:40 EST)
+- Full batch, 7 episodes (all Day: 2026-11-04): 2611.04916 Kling (42 upvotes), 2611.03233 Axion 1.0 (31), 2611.05036 ToolSpace (28), 2611.00617 Pandora (27), 2611.02497 RoboColosseum (27), 2611.04418 VidUEU-Agent (18), 2611.04449 near-zero embeddings gated-SSM (topology rule).
+- Day feed only had 3 papers; true upvotes re-pulled for all 20 selected candidates (.tmp/repull_upvotes.py, execute_code blocked in cron). #1 true-upvote (Kling, 42) in picks. Gated-SSM embeddings paper included per reasoning-model topology rule.
+- Gates: lint total FAILs: 0 (1308-1363 words each); numeric_spotcheck total unexplained: 0 (first pass clean, no whitelist needed).
+- Committed b4e76cf before synth. Serial synth under flock: 7/7 OK, 0 failed (~2.2 min wall each, ~16 min total).
+- build_rss + publish: banner "added 7 new episodes (490 total)"; pushed gh-pages.
+- Live verify: GH Pages lagged ~10 min; at +~11 min feed=490, all 7 mp3s HTTP 200 (under episodes/ path), banner 2026-11-04 04:10, .nojekyll present.
