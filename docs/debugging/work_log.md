@@ -1222,3 +1222,15 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Committed b4e76cf before synth. Serial synth under flock: 7/7 OK, 0 failed (~2.2 min wall each, ~16 min total).
 - build_rss + publish: banner "added 7 new episodes (490 total)"; pushed gh-pages.
 - Live verify: GH Pages lagged ~10 min; at +~11 min feed=490, all 7 mp3s HTTP 200 (under episodes/ path), banner 2026-11-04 04:10, .nojekyll present.
+
+## 2026-11-05 nightly (04:00-04:5x EST) — Full batch, 8 episodes, PUBLISHED
+- Fetch: HF snapshot papers_date=2026-11-05, 21 papers; selected-*.json 13 candidates (stale/zero upvotes).
+- True upvotes re-pulled via HF API for all 13. #1 = 2611.06728 (46). Picks (8): 2611.06728, 2611.06910, 2611.06918, 2611.06483, 2611.01120, 2611.04391, 2611.02857, 2611.05304.
+- Standing rules: Solv3R (2611.02857) + LoopVQ (2611.05304) covered via reasoning-model topology rule (looped transformers); Solv3R true upvotes corrected 0->10 from HF API. No foundation-model reports in feed.
+- meta via paper_meta.py (8/8); text via .tmp/extract_texts.py (pymupdf, pages 0-7/8-15/19-28).
+- Drafted 8 transcripts in-session (Day: 2026-11-05 per R1). All 8 first drafts under 1300-word floor -> expanded in-place with grounded detail from -more.txt. Gates: lint total FAILs:0 (final 1300-1338 words); numeric_spotcheck total unexplained:0.
+- Commit c1ff959 (episodes) BEFORE synth. Serial synth under flock: 8/8 OK, 0 failed, ~105-135s wall each (~15 min total). Audio: 421-542s each.
+- Build+publish: build_rss.py -> 498 episodes; publish.sh banner "added 8 new episodes (498 total)".
+  - NOTE: first publish.sh run failed with "mktemp: failed to create directory via template '/.tmp/tmp.XX'" because TMPDIR was set to a RELATIVE path ($PC/.tmp) in the parent shell; publish.sh's subshell resolved it against / . Re-ran with absolute TMPDIR=/home/patrick/papercast/.tmp -> OK. Lesson: export absolute TMPDIR.
+- Live verify (script .tmp/verify_live_20261105.sh): CDN settled at ~5 min (feed 490 -> 498, mp3s 404 -> 200), all 8 mp3s HTTP 200. origin/gh-pages: 498 mp3s incl. 8 new + .nojekyll.
+- Episodes: TurnWise (turn-level credit RL for streaming video, 46 upvotes), FrontierPhysics (56-task physicist-authored agent benchmark), NEO-VLA (encoder-free VLA), multi-turn RL analysis (budget-dependent gains), StreamDuo (live game commentator + research agent), H2RB (human-to-robot VLA transfer), Solv3R (3D looped transformer multi-view solver), LoopVQ (sub-1-bit KV cache quantization for looped transformers).
