@@ -1234,3 +1234,17 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
   - NOTE: first publish.sh run failed with "mktemp: failed to create directory via template '/.tmp/tmp.XX'" because TMPDIR was set to a RELATIVE path ($PC/.tmp) in the parent shell; publish.sh's subshell resolved it against / . Re-ran with absolute TMPDIR=/home/patrick/papercast/.tmp -> OK. Lesson: export absolute TMPDIR.
 - Live verify (script .tmp/verify_live_20261105.sh): CDN settled at ~5 min (feed 490 -> 498, mp3s 404 -> 200), all 8 mp3s HTTP 200. origin/gh-pages: 498 mp3s incl. 8 new + .nojekyll.
 - Episodes: TurnWise (turn-level credit RL for streaming video, 46 upvotes), FrontierPhysics (56-task physicist-authored agent benchmark), NEO-VLA (encoder-free VLA), multi-turn RL analysis (budget-dependent gains), StreamDuo (live game commentator + research agent), H2RB (human-to-robot VLA transfer), Solv3R (3D looped transformer multi-view solver), LoopVQ (sub-1-bit KV cache quantization for looped transformers).
+
+## 2026-11-06 nightly (papers_date 2026-11-06)
+- Fetch OK (16 papers in feed). True-upvote re-pull: #1 VFlash (49) in top-6.
+- Slate = 8: top-6 by true upvotes (VFlash 49, Harness-S 30, WeLM-Image 21, TailSteer 19, BestRand 19, VisSearch-Bench 12) + 2 standing-rule adds:
+  - (a) NEW foundation model: Drex (open decision-model family, Nace.AI, 11 upvotes).
+  - (c) open-model training recipe: Open-HumanWAM (first fully open 50k-hr egocentric pretraining recipe, 2 upvotes).
+- WeLM-Image also a (a) new image foundation model (WeChat Vision/Tencent), already in top-6.
+- paper_meta OK (8/8). Text via pymupdf: all 8 extracted (Open-HumanWAM PDF v2 title "Open-HumanWAM", used that).
+- Drafted all 8 in-window (lint word counts 1304-1497). GATES: lint total FAILs:0 (fixed "brutally"->"extremely" violence warn), spotcheck total unexplained:0 (fixed BestRand construction-cost 50.1->51.3% per abstract).
+- Commit fc52064 (episodes) BEFORE synth. Serial synth under flock (bg proc_4cb780c46475).
+- Synth: 8/8 OK, 0 failed, 0 skipped, ~119-137s wall each (~17 min total). Audio 470-546s each.
+- Build: 506 episodes -> site; publish banner "added 8 new episodes (506 total)".
+- Live verify: feed 498 -> 506 (settled ~3 min), all 8 mp3s HTTP 200 (episodes/ path), gh-pages .nojekyll + 8 new 2026-11-06 mp3s present.
+- Episodes: VFlash (49, fast visual planning via flash primitive decoding), Harness-S (30, sibling-harness rescue RL), WeLM-Image (21, Tencent unified image foundation model, MoT-MoE), TailSteer (19, multi-turn drift-resistant editing), BestRand (19, low-cost benchmark compression), VisSearch-Bench (12, long-horizon visual search agent benchmark), Drex (11, Nace.AI open decision-model family), Open-HumanWAM (2, open 50k-hr egocentric pretraining recipe).
