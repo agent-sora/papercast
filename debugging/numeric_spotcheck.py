@@ -57,6 +57,13 @@ ALLOWED = {
     # 2610.22344: "more than eleven thousand entries" — paper: "11,649 entries"
     # (Meta-Kaggle metadata snapshot, rounded spoken; verified 2026-10-18)
     ("2610.22344", "eleven thousand"),
+    # 2610.40131: parser splits at "and" (not a numword). Corpus has "326 videos ...
+    # 2,476 turns ... 1,387 depend" (verified 2026-11-07). Spoken "three hundred and
+    # twenty six" -> 300, "two thousand four hundred [and seventy six]" -> 2400,
+    # "one thousand three hundred [and eighty seven]" -> 1300.
+    ("2610.40131", "three hundred"),
+    ("2610.40131", "two thousand four hundred"),
+    ("2610.40131", "one thousand three hundred"),
 }
 
 
