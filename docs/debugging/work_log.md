@@ -1260,3 +1260,13 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Build: 512 episodes. publish.sh first run timed out at 300s foreground cap (clone of 512-mp3 repo + push is slow); re-ran at 600s: banner "Last updated 2026-11-07 04:01 EST — added 6 new episodes (512 total)"; pushed gh-pages.
 - Live verify (settled ~5 min after push): feed 506→512 items, all 6 mp3s HTTP 200 under episodes/ path, index banner fresh, .nojekyll present.
 - Episodes: OPD generalization limitation (post-RL consolidation, OOD forgetting), EvoMemState (RL-evolving memory state, GRPO), Muon-RT (momentum-free Muon reusing EMA teacher displacement), VideoMemBench (326-video multi-turn memory benchmark, best Claude Opus 5 45.7%), SpecOPD (branch-parallel OPD for speculative decoding, 16.09x throughput), SleuthVLM (ASR+VLM agentic omni video, 75.0% avg).
+
+## 2026-11-09 nightly
+- Full batch, 7 episodes (papers_date 2026-11-09, all Day=2026-11-09 per R1).
+- True-upvote ranking: 07461(25) 07624(18) 06043(10) 03953(9) 35959(7) 09382(6) = top6; +04434 Sketchpad (standing rule c: LLM-for-math / neurosymbolic Lean proof, 1 upvote).
+- Episodes: 2611.07461 HEELO (Last Mile/agent primitives), 2611.07624 Beneath the Surface (agent evolution), 2611.06043 Confucius4-R2T2 (streaming ASR), 2611.03953 P2-MOPD (param-prior on-policy distill), 2610.35959 AgentBaton (model handoff), 2611.09382 Weight-Space Programming, 2611.04434 Sketchpad (certified arithmetic + Lean).
+- No foundation-model tech report, no reasoning-topology paper in the 18-paper feed (rescanned titles).
+- Gates: lint total FAILs 0; numeric_spotcheck total unexplained 0. All 7 in [1300,1750].
+- Commit b236040 before synth. Synth: 7/7 done, 0 failed, ~17 min wall.
+- build_rss + publish.sh: 519 total, banner "added 7 new episodes".
+- Live verified (after ~5 min GitHub Pages propagation): feed 7 new items; all 7 mp3 HTTP 200; .nojekyll on gh-pages. Pushed main.
