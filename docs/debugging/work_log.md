@@ -1270,3 +1270,16 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Commit b236040 before synth. Synth: 7/7 done, 0 failed, ~17 min wall.
 - build_rss + publish.sh: 519 total, banner "added 7 new episodes".
 - Live verified (after ~5 min GitHub Pages propagation): feed 7 new items; all 7 mp3 HTTP 200; .nojekyll on gh-pages. Pushed main.
+
+## 2026-11-10 nightly (run ~04:00 UTC)
+
+- Fetch OK for papers_date 2026-11-10: 14 papers in feed, 10 in selector shortlist.
+- True upvotes re-pulled from HF API: WorldFoundry 34, Sage-Taiyi 18, ReproBridge 16, Flide 8, SIRIS 7, TRIO 4, + interpretability standing-rule pick "All Quiet on the Neural Front" (Ferrera, USC) 1. 7 picks, top-1 WorldFoundry in picks (verified).
+- Standing-rule re-scan of full feed: no new foundation-model tech report, no reasoning-topology paper; interpretability lane hit = OWMI pain-reporting paper (covered). R2/R3 fallbacks not needed (>=3 keepers).
+- 7 episodes drafted in-repo (no subagents), all Day/filename 2026-11-10:
+  2611.10771 WorldFoundry, 2611.12762 Sage-Taiyi, 2611.08452 ReproBridge, 2610.42148 Flide, 2611.10329 SIRIS, 2611.02810 TRIO, 2611.10123 All Quiet on the Neural Front.
+- Gates: lint total FAILs 0 (after expanding 6 drafts that landed 1170-1285 words below the 1300 floor); numeric_spotcheck total unexplained 0 (all numbers verified against episodes/feed/text).
+- Committed 8eb9453 before synth; serial synth under flock (~143s wall/episode).
+- Synth: 7/7 OK, failed=0 (wall 112-148s/episode, audio 7.3-9.9 min each).
+- build_rss: 526 episodes; publish.sh banner "Last updated 2026-11-10 03:33 EST — added 7 new episodes (526 total)"; pushed gh-pages.
+- Live verify: origin/gh-pages feed.xml = 526 items, .nojekyll present. CDN initially served stale 519-item cache (cache-control max-age=600, x-cache HIT) — waiting out TTL.
