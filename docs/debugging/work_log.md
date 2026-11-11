@@ -1283,3 +1283,13 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Synth: 7/7 OK, failed=0 (wall 112-148s/episode, audio 7.3-9.9 min each).
 - build_rss: 526 episodes; publish.sh banner "Last updated 2026-11-10 03:33 EST — added 7 new episodes (526 total)"; pushed gh-pages.
 - Live verify: origin/gh-pages feed.xml = 526 items, .nojekyll present. CDN initially served stale 519-item cache (cache-control max-age=600, x-cache HIT) — waiting out TTL.
+
+## 2026-11-11 nightly (cron)
+- papers_date 2026-11-11: HF feed 20 papers, selector kept 14.
+- True upvotes (re-pulled): MMDM 23, World ICL 17, DepthGraft 12, ProTEUS 8, Market JEPA 4, ExRL 4, Tree-Ising 2.
+- 7 episodes drafted (Day 2026-11-11): 14309 (MMDM), 12885 (World In-Context Learning), 03142 (DepthGraft), 13348 (ProTEUS), 13572 (Market-Conditioned JEPA), 13482 (ExRL), 14210 (Tree-Ising — interpretability/math-analysis standing rule).
+- Standing-rule re-scan: no new foundation-model tech report; no reasoning-topology beyond slate. Tree-Ising added per interpretability+math-analysis lane.
+- Gates: lint FAILs:0 (after expanding DepthGraft 1235->1380, Market JEPA 1201->1305); spotcheck unexplained:0 (after fixing fabricated MMDM axis-flip numbers: 1214->1,024, dropped 37-pt/8K claims; 64,817 tokens verified).
+- Synth: 7/7 OK serial (111-141s wall each, ~15 min total).
+- Publish: added 7 new episodes (533 total, up from 526). gh-pages feed 533 items + 7 mp3s + fresh banner confirmed.
+- Live verify (after ~5 min CDN lag): feed.xml=533, sampled mp3s HTTP 200, banner "added 7 (533 total)", .nojekyll present.
