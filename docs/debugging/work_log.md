@@ -1293,3 +1293,13 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Synth: 7/7 OK serial (111-141s wall each, ~15 min total).
 - Publish: added 7 new episodes (533 total, up from 526). gh-pages feed 533 items + 7 mp3s + fresh banner confirmed.
 - Live verify (after ~5 min CDN lag): feed.xml=533, sampled mp3s HTTP 200, banner "added 7 (533 total)", .nojekyll present.
+
+## 2026-11-12 ~08:45 UTC — Nightly run (6 episodes, published)
+
+- HF feed papers-2026-11-12: 9 papers, all with stale zero upvotes; re-pulled true upvotes from HF API.
+- Top-6 picks (true upvotes): 2610.40394 TOME-Math (26), 2610.39671 Self-Learning RL (14), 2611.13028 GTAGym (11), 2611.10193 PISA-E (5), 2608.22237 SparseRead (4), 2607.24999 CogBattery (2). #1 verified in picks.
+- Standing-rule re-scan of full feed: 2607.24999 (CogBattery — cognitive evaluation/interpretability-adjacent) and 2608.22237 (SparseRead — agent reading control) covered; no foundation-model tech reports or topology papers in today's feed; remaining 3 papers (2611.08379, 2611.08286, 2603.27343) did not meet keep threshold.
+- Drafted 6 transcripts (1303-1430 words). Gates: lint total FAILs 0 (3 word-count fails fixed by expansion patches; "crushes" warn reworded), numeric_spotcheck total unexplained 0.
+- Committed episodes before synth (c41ca2a). Synth serial under flock: 6/6 OK, ~130-163s wall each, done 08:35 UTC.
+- Published: build_rss 539 episodes, publish.sh banner "added 6 new episodes (539 total)", pushed gh-pages.
+- Live verify (after ~5 min GH Pages propagation delay): feed 539 items, all 6 mp3s HTTP 200, banner fresh, .nojekyll on origin/gh-pages.
