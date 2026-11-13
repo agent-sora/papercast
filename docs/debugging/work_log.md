@@ -1303,3 +1303,14 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Committed episodes before synth (c41ca2a). Synth serial under flock: 6/6 OK, ~130-163s wall each, done 08:35 UTC.
 - Published: build_rss 539 episodes, publish.sh banner "added 6 new episodes (539 total)", pushed gh-pages.
 - Live verify (after ~5 min GH Pages propagation delay): feed 539 items, all 6 mp3s HTTP 200, banner fresh, .nojekyll on origin/gh-pages.
+
+## 2026-11-13 ~09:24 UTC — Nightly run (8 episodes, published)
+
+- HF feed papers-2026-11-13 fetched; selected-*.json upvotes stale/zero, re-pulled true upvotes from HF API.
+- Top-6 picks (true upvotes): 2611.14815 BirdDreams (36), 2611.15131 Duo (25), 2611.05984 SimpleHC (22), 2611.15777 SO-Arena (28), 2611.17167 Actor/Judge/Teacher (15), 2611.16748 PhysLoop (13). #1 (14815) verified in picks.
+- Standing-rule re-scan added 2: 2611.16517 UniSpark (foundation model + hybrid linear attention) and 2611.16321 NESTONE (adaptive computation / System-One model) — both reasoning-model-topology + foundation-model, always-covered. Total 8 episodes.
+- Drafted 8 transcripts (1314-1495 words). Gates: lint total FAILs 0 (5 short drafts expanded to floor via grounded paragraphs before verdict), numeric_spotcheck total unexplained 0 (reworded 2611.16517 data-scale + 2611.05984 30B phrasing to paper's exact digit values).
+- Committed episodes before synth (b7adaea). Synth serial under flock: 8/8 OK, ~105-147s wall each, done 09:14 UTC.
+- Published: build_rss 547 episodes, publish.sh banner "added 8 new episodes (547 total)", pushed gh-pages.
+- Note: build_rss.py injects `Voice:` lines into all episode .md working trees (539 pre-today files show as modified in `git status`); per convention committed episodes carry NO Voice: line, so those are left uncommitted (working-tree noise, matches prior runs).
+- Live verify (after GH Pages propagation): feed 547 items (up from 539), all 8 mp3s HTTP 200 at /episodes/2026-11-13-<id>.mp3 (5.25-6.97 MB, byte sizes match local), .nojekyll present on origin/gh-pages.
