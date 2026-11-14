@@ -64,6 +64,16 @@ ALLOWED = {
     ("2610.40131", "three hundred"),
     ("2610.40131", "two thousand four hundred"),
     ("2610.40131", "one thousand three hundred"),
+    # 2611.13907 (EVAThink, 2026-11-14): rounded spoken counts; paper stores
+    # "6.7K training samples" and "118.2K" candidate pool (K-suffixed).
+    ("2611.13907", "six thousand seven hundred"),
+    ("2611.13907", "one hundred eighteen thousand"),
+    # 2611.12865 (Shortcuts, 2026-11-14): model sizes "Qwen3.5-9B" /
+    # "Qwen3.5-272B"; corpus carries PDF null-byte artifacts that break the
+    # substring match on "9B"/"272B", so the spoken "nine billion" /
+    # "two hundred seventy two billion" are whitelisted (verified 2026-11-14).
+    ("2611.12865", "nine billion"),
+    ("2611.12865", "two hundred seventy two billion"),
 }
 
 
