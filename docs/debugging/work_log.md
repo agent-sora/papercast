@@ -1314,3 +1314,18 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Published: build_rss 547 episodes, publish.sh banner "added 8 new episodes (547 total)", pushed gh-pages.
 - Note: build_rss.py injects `Voice:` lines into all episode .md working trees (539 pre-today files show as modified in `git status`); per convention committed episodes carry NO Voice: line, so those are left uncommitted (working-tree noise, matches prior runs).
 - Live verify (after GH Pages propagation): feed 547 items (up from 539), all 8 mp3s HTTP 200 at /episodes/2026-11-13-<id>.mp3 (5.25-6.97 MB, byte sizes match local), .nojekyll present on origin/gh-pages.
+## 2026-11-14 ~09:10 UTC — Nightly run (Saturday), R3 backfill, 4 episodes, PUBLISHED
+- Today is Saturday 2026-11-14; HF fetch for "today" snapped back to papers-day 2026-11-13 (weekend behavior).
+- DUPLICATE GUARD: the 2026-11-13 feed was already fully published by the 11-13 run (8 episodes, feed 539->547, commit b7adaea). The main-slate top-6 (SO-Arena, BirdDreams, PhysLoop, G-STAR, Duo, Actor/Judge/Teacher) plus topology keepers (NESTONE 2611.16321, Hyper-Connections 2611.05984) were already covered. Did NOT re-draft the main slate; deleted the one duplicate transcript (2026-11-14-2611.15777.md) that a pre-compaction pass had written.
+- R3 backfill (backfill.py --min-kept 2 --max-days 2 --emit) surfaced uncovered filter-passing papers from the 11-13 and 11-11 HF days. Covered the top 4 on-topic leftovers (Day = 2026-11-14 per R1):
+  - 2611.16905 FOAM (Factored One-sided Adam-Moment / SOAP), 12 up — 2nd-order optimizer, NAVER AI Lab.
+  - 2611.13907 EVAThink (evidence-sufficiency-guided adaptive thinking, video RL), 3 up — ECNU/Zhongguancun/Huawei.
+  - 2611.13560 Are Dense Rewards Worth Their Tokens in GRPO, 5 up — Case Western, matched-compute study.
+  - 2611.12865 Shortcuts and Boundaries (CoT regime / model-vs-problem difficulty boundary), 5 up — UCAS.
+- True upvotes re-pulled live per id (HF API). Meta via paper_meta.py; text via pymupdf (pages 0-7 / 8-15 / 19-28 as present).
+- Drafted 4 transcripts (1492-1607 words). Gates: lint total FAILs 0; numeric_spotcheck total unexplained 0 (whitelisted 4 grounded k/B-notation values: EVAThink 6.7K/118.2K, Shortcuts Qwen3.5-9B/272B — corpus carries PDF null-byte artifacts that break the 9B/272B substring match).
+- CAUTION: FOAM's large scale is 760M (GPT-2-768M is 760M params per the paper), NOT 768M. Transcript line 21 correctly says "seven hundred sixty million" (760M); fixed a skeptical-paragraph misstatement that had rounded to "seven hundred million".
+- Committed episodes before synth (240199e). Synth serial under flock kokoro.lock, --only-prefix 2026-11-14: 4/4 OK, ~131-154s wall each.
+- Published: build_rss 551 episodes, publish.sh banner "added 4 new episodes (551 total)", pushed gh-pages.
+- Live verify: GH Pages edge lagged ~8 min (feed 547 / mp3s 404) then caught up: live feed 551, all 4 mp3s HTTP 200 (6.47-7.49 MB), .nojekyll present on origin/gh-pages.
+- Note: Voice: lines remain working-tree noise (61 episode .md files + today's 4 show as modified); per convention committed episodes carry NO Voice: line, left uncommitted. mp3s untracked (as in prior runs).
