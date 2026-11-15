@@ -1329,3 +1329,14 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Published: build_rss 551 episodes, publish.sh banner "added 4 new episodes (551 total)", pushed gh-pages.
 - Live verify: GH Pages edge lagged ~8 min (feed 547 / mp3s 404) then caught up: live feed 551, all 4 mp3s HTTP 200 (6.47-7.49 MB), .nojekyll present on origin/gh-pages.
 - Note: Voice: lines remain working-tree noise (61 episode .md files + today's 4 show as modified); per convention committed episodes carry NO Voice: line, left uncommitted. mp3s untracked (as in prior runs).
+
+## 2026-11-15 03:00 UTC — nightly run (backfill batch)
+- nightly_prep: papers-day = 2026-11-13 (fetched for 2026-11-15). The 2026-11-13 slate was already published (8 episodes, 2026-11-13-*.md); #1 true-upvote paper SO-Arena (136) verified covered. G-STAR (2611.13004, 45 up) is uncovered but fails the selector's topic filters (compression paper, not a standing-rule lane), so not added.
+- True upvotes re-pulled for all 17 candidates of 2026-11-13 (episodes/feed/true_upvotes-2026-11-13.json): SO-Arena 136, BirdDreams 50, PhysLoop 46, G-STAR 45, Duo 40, Actor/Judge/Teacher 34, Hyper-Connections 29, Ropedia 27.
+- R3 backfill (--min-kept 2 --max-days 2 --emit): 2 keepers 2026-11-13 (2611.08219 Agent-R2, 2610.41453 Evidence-Guided Recovery), 4 keepers 2026-11-11 (2611.12955 ConceptTime, 2611.12934 EarthRecord, 2611.12200 WM-PPO, 2611.07464 FINCOSMOS).
+- Batch: 6 episodes drafted (Day/filename 2026-11-15 per R1): 2611.07464 (26 up), 2611.08219 (6), 2610.41453 (4), 2611.12955 (3), 2611.12934 (4), 2611.12200 (4). Picks file episodes/feed/picks/ids-2026-11-15.txt.
+- Gates: lint total FAILs: 0 (after expanding 3 episodes under 1300 words + 1 violence-word fix); numeric_spotcheck total unexplained: 0.
+- Committed 2eb8cbd before synth. synth_batch --only-prefix 2026-11-15 running under flock.
+- Synth: 6/6 OK (511-529s audio each, ~130s wall each).
+- Published: banner "Last updated 2026-11-15 03:31 EST — added 6 new episodes (557 total)".
+- Live verify: feed.xml 557 items; all 6 mp3s HTTP 200 at /episodes/2026-11-15-<id>.mp3; .nojekyll present on origin/gh-pages.
