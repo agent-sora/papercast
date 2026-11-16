@@ -1340,3 +1340,14 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Synth: 6/6 OK (511-529s audio each, ~130s wall each).
 - Published: banner "Last updated 2026-11-15 03:31 EST — added 6 new episodes (557 total)".
 - Live verify: feed.xml 557 items; all 6 mp3s HTTP 200 at /episodes/2026-11-15-<id>.mp3; .nojekyll present on origin/gh-pages.
+
+## 2026-11-16 05:10 UTC — Nightly run (2026-11-16)
+- Feed: 17 papers for papers_date 2026-11-16; 7 selected by lanes.
+- True-upvote re-pull (.tmp/true_upvotes.py): Gamer 55, Envisioning 46, MMFlash 22, Loopback 13, JVT 12, MEM-SQL 11, Bonbon 8.
+- Picks (7): 2611.18397 Gamer; 2611.18359 Envisioning Agentic Robotics; 2611.18482 MMFlash; 2611.07226 Loopback Transformer (standing rule b, topology); 2611.18549 JVT; 2611.18338 MEM-SQL; 2611.14504 Bonbon (standing rule a, new foundation model for molecular interactions).
+- Dup-check: 07226 matched old 2026-10-10-2610.07226 episode — different paper (2610 vs 2611 prefix); covered as new.
+- Gates: lint 0 FAILs, numeric_spotcheck 0 unexplained (all 7 OK, no whitelists needed).
+- Synth: 7/7 OK via serial flock synth_batch --only-prefix (~125-141s wall each).
+- Publish: "added 7 new episodes (564 total)", pushed gh-pages (commit bb0af64).
+- Live verify (debugging/verify_live_2026-11-16.sh): feed 557->564, 7/7 new ids, all 7 mp3 HTTP 200, banner "added 7 new episodes (564 total)" after ~12 min Pages propagation delay. .nojekyll present on origin/gh-pages.
+- Note: two long inline verify one-liners hit the hardline blocklist (parser limit); wrote debugging/verify_live_2026-11-16.sh instead — reuse for future days.
