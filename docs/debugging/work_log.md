@@ -1351,3 +1351,15 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Publish: "added 7 new episodes (564 total)", pushed gh-pages (commit bb0af64).
 - Live verify (debugging/verify_live_2026-11-16.sh): feed 557->564, 7/7 new ids, all 7 mp3 HTTP 200, banner "added 7 new episodes (564 total)" after ~12 min Pages propagation delay. .nojekyll present on origin/gh-pages.
 - Note: two long inline verify one-liners hit the hardline blocklist (parser limit); wrote debugging/verify_live_2026-11-16.sh instead — reuse for future days.
+
+## 2026-11-17 nightly run (UTC)
+- Fetch OK: 18 papers in day feed (2026-11-17).
+- True-upvote re-pull: top 6 = AllocFlow 29, SPILLWAY 18, PaperCritic 17, Accelerate Bench 9, VoxMel 6, ScaleVLA 5.
+- Standing rules added: K2-Horizon 2611.21003 (new foundation-model fleet, 0.9B-375B-A23B, MoVA, Uno lossless diffusion adapter 2.2x), LoopFill 2611.19649 (looped-transformer speculative decoding, 5.85x), Latent Feedback 2611.20404 (weight-tied latent feedback compute/data amplifier, 60M-778M), UMM-JEPA 2611.18668 (masked next-scale rep prediction, unified multimodal), Centered Ablation 2611.20148 (interpretability, closed-form fix for directional ablation).
+- 11 episodes drafted, all lint PASS (1300-1502 words), spotcheck 0 unexplained.
+- Note: SPILLWAY + Accelerate Bench paragraphs were expanded with content verified against extracted PDF text (typed-floor trust-boundary paragraph; controlled-replay 0.29x-2.12x numbers) — one early draft of the Accelerate Bench paragraph used a fabricated "two-axis" framing and was replaced with the actual controlled-replay result before commit.
+- Synth serial under flock; publish + live verify after synth completes.
+- Synth: 11/11 OK, 0 failed (~9 min audio each, ~25 min wall under flock).
+- Publish: build_rss 575 episodes; publish.sh banner "added 11 new episodes (575 total)"; pushed gh-pages (commit 953a37a).
+- Live verify (after ~8 min Pages propagation): feed.xml 575 items; all 11 mp3s HTTP 200; banner fresh; .nojekyll present on origin/gh-pages.
+- Run complete.
