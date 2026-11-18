@@ -1363,3 +1363,11 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Publish: build_rss 575 episodes; publish.sh banner "added 11 new episodes (575 total)"; pushed gh-pages (commit 953a37a).
 - Live verify (after ~8 min Pages propagation): feed.xml 575 items; all 11 mp3s HTTP 200; banner fresh; .nojekyll present on origin/gh-pages.
 - Run complete.
+
+## 2026-11-18 ~04:15 UTC — Nightly batch (7 episodes)
+- HF feed 2026-11-18: 20 papers, all re-pulled true upvotes (HF API); top-6 by true upvotes + pi^4 (2611.23144, up=7) via foundation-model standing rule.
+- Episodes: 2611.22115 (TeleChat→Xing4, 135 up), 2611.17621 (AscendGYM, 84), 2611.22055 (Weight-Space Programming, 40), 2611.21099 (ForceHarness, 38), 2611.19800 (Multi-Branch Transformer, 29), 2611.23143 (TCP4D, 23), 2611.23144 (pi^4, 7). All ids verified NEW vs episodes/.
+- Drafts self-written (no subagents). Gates: lint total FAILs: 0 (word counts 1304-1345, a few needed expansion patches to clear 1300 floor); numeric_spotcheck total unexplained: 0 (no whitelist needed).
+- Note: meta upvotes were None; used re-pulled values. build_rss.py lives at scripts/build_rss.py (prompt path was wrong).
+- Synth: 7/7 OK, 0 failed (~130-147s wall each, serial under flock).
+- Publish: banner "added 7 new episodes (582 total)"; live verified: feed 582 items, all 7 mp3 HTTP 200 at /episodes/<date>-<id>.mp3, gh-pages has .nojekyll. Live propagation lagged ~4 min after push (banner/feed showed prior state until then).
