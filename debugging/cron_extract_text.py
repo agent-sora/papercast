@@ -32,9 +32,10 @@ def fetch_pdf(pid: str) -> Path:
 
 
 def main() -> None:
+    day = sys.argv[1] if len(sys.argv) > 1 else "2026-11-18"
     picks = [
         l.strip()
-        for l in (PC / "episodes/feed/picks/ids-2026-11-18.txt").read_text().splitlines()
+        for l in (PC / f"episodes/feed/picks/ids-{day}.txt").read_text().splitlines()
         if l.strip()
     ]
     out = PC / "episodes/feed/text"
