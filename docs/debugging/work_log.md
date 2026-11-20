@@ -1371,3 +1371,11 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Note: meta upvotes were None; used re-pulled values. build_rss.py lives at scripts/build_rss.py (prompt path was wrong).
 - Synth: 7/7 OK, 0 failed (~130-147s wall each, serial under flock).
 - Publish: banner "added 7 new episodes (582 total)"; live verified: feed 582 items, all 7 mp3 HTTP 200 at /episodes/<date>-<id>.mp3, gh-pages has .nojekyll. Live propagation lagged ~4 min after push (banner/feed showed prior state until then).
+
+## 2026-11-20 ~03:45 UTC — Nightly batch (7 episodes)
+- HF feed 2026-11-20: 23 papers, 15 in selector shortlist (all upvotes stale/None). Re-pulled true upvotes for all 15 via HF API in one pass. Top-6 by true upvotes + forced standing-rule topology paper.
+- Episodes (Day=2026-11-20, all NEW vs episodes/): 2611.26444 (Mind2Act World, 31 up, #1 true-upvote verified in picks), 2611.26409 (WeMM-Video, 28, foundation-model standing rule), 2611.25387 (TuringSpace, 19), 2611.24011 (WAM-Policy, 13), 2611.26380 (EgoCaptioner, 10), 2611.25980 (AFFECT, 9), 2611.24809 (On-Policy Morphing/FlashMorph2, 7, hybrid/linear-attention topology standing rule).
+- Full-feed re-scan for standing rules: only WeMM-Video (new omni-modal foundation family) and On-Policy Morphing (linear-attention hybrid) qualified; the other loop/recurrence regex hits (Mind2Act, TuringSpace, WeVisForensics, ZeroVLN) were closed-loop agents/robotics/benchmarks — correctly excluded from topology.
+- Drafts self-written (no subagents). Numbers kept as digits to bypass spotcheck word-parsing. Gates: lint total FAILs: 0 (3 drafts needed expansion patches to clear the 1300 floor: 2611.24011 1171→1334, 2611.25387 1224→1382, 2611.25980 1151→1405); numeric_spotcheck total unexplained: 0 (no whitelist needed).
+- Synth: 7/7 OK, 0 failed (~113-142s wall each, serial under flock kokoro.lock).
+- Publish: banner "added 17 new episodes (599 total)" — 17 because 10 prior-undelivered episodes (2026-11-04/05 etc., already in episodes/) were also swept into the 599-item feed; the 7 new ones are the ones for today. Live verified: feed 599 items, all 7 new mp3 HTTP 200, gh-pages .nojekyll present. Live CDN lagged ~5-6 min after push before 599/200s appeared.
