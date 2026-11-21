@@ -1341,6 +1341,17 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Published: banner "Last updated 2026-11-15 03:31 EST — added 6 new episodes (557 total)".
 - Live verify: feed.xml 557 items; all 6 mp3s HTTP 200 at /episodes/2026-11-15-<id>.mp3; .nojekyll present on origin/gh-pages.
 
+## 2026-11-21 ~03:45 UTC — Nightly batch (6 episodes)
+- papers_date 2026-11-20 was ALREADY published by the 2026-11-20 run (7 episodes, 599 total). DUPLICATE GUARD nearly triggered — but R4 re-check saved the day.
+- R4 force re-fetch (fetch_papers.py --date 2026-11-20 --force) returned the SAME 23 ids as the prior cached snapshot (0 added/0 removed at the papers-list level), BUT the prior run's 7 picks only covered 7 of the 23; 16 feed papers were never covered in episodes/. The prior night's selector shortlist + top-6 cut had left 16 uncovered.
+- True-upvote re-pull (HF API, one pass) for the 16 uncovered: WeVisForensics 51, Posterior Matching Distillation 35, Coda-DaVinci 34, VODA/3D-Gaussian-seg 31, Depth Pro 2 28, ZeroVLN 21, WM^MLLM 15, AutoMaster 13, CompoundingKernel 11, VSpark 9, Embeddings-vs-Grep 8, DailySafe 4, NarrowSpec 4, VideoLLM-Shortcut 4, S1CogBench 2, PlayCraft 2.
+- Standing-rule re-scan of the 16: NONE qualified (no new foundation model, no reasoning-topology, no open-model recipe, no LLM-math, no interpretability, no neurosymbolic — all were video-gen / VLN / 3D / code-search / benchmarks). So slate = top-6 by true upvotes.
+- Picks (Day=2026-11-21, all NEW vs episodes/): 2611.21373 WeVisForensics (51, #1 true-upvote verified in picks); 2611.26629 Posterior Matching Distillation (35); 2611.26595 Coda-DaVinci (34); 2611.21383 VODA/The Mask Is Not the Object (31); 2611.26603 Depth Pro 2 (28); 2611.26414 ZeroVLN (21).
+- Drafts self-written (no subagents). Gates: lint total FAILs: 0 (4 drafts started under the 1300 floor, expanded via patch to 1302/1341/1355/1412; one 'kills' violence-word warning in Depth Pro 2 reworded to 'erases'); numeric_spotcheck total unexplained: 0 (no whitelist).
+- Synth: 6/6 OK, 0 failed (~115-135s wall each, serial under flock kokoro.lock; ~12 min total). Note: $PC is NOT exported in the cron shell — first synth launch used $PC in the flock path and failed ('/.tmp/kokoro.lock'); relaunched with absolute /home/patrick/papercast paths. publish.sh also needs TMPDIR set (mktemp otherwise targets /.tmp).
+- Publish: build_rss 605 episodes; publish.sh banner "added 6 new episodes (605 total)"; pushed gh-pages.
+- Live verify (after ~6-7 min Pages propagation; first check at +2.5 min still showed prior 599/404 state): feed.xml 605 items; all 6 new mp3 HTTP 200; banner fresh "added 6 new episodes (605 total)"; .nojekyll present on origin/gh-pages. Run complete.
+
 ## 2026-11-16 05:10 UTC — Nightly run (2026-11-16)
 - Feed: 17 papers for papers_date 2026-11-16; 7 selected by lanes.
 - True-upvote re-pull (.tmp/true_upvotes.py): Gamer 55, Envisioning 46, MMFlash 22, Loopback 13, JVT 12, MEM-SQL 11, Bonbon 8.
