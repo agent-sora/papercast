@@ -2,6 +2,30 @@
 
 All timestamps UTC.
 
+## 2026-11-25 03:00 UTC — night-shift batch (7 episodes)
+- HF shortlist for 2026-11-25 gave a working batch of 7 (top true-upvote + standing-rule re-scan):
+  2611.31205 ACAP (top upvote, S-Lab NTU / Oxford / ACE Robotics),
+  2611.30634 Loom Attention (reasoning-model topology — dual-stream vector/matrix attention, BUPT / ColorfulClouds),
+  2611.32554 PartAgent (agentic 3D part segmentation, HKUST / Tencent),
+  2611.28649 S-Mind (spatial-intelligence VLM, HKUST / NTU),
+  2611.25509 LingSante MedGuard (4B/9B/27B medical guardrail, LingSante),
+  2611.25403 Antom 3-in-1 Transformer (7B payment foundation model, Ant International — foundation-model rule),
+  2611.28719 KMed-31B (31B medical LLM, KMed Team at NAVER).
+- Meta via paper_meta.py; text via debugging/cron_extract_text.py (pages extracted).
+- Affiliation metadata was corrupt for the two team papers (2611.25509, 2611.28719); Labs: set to the
+  visible team names (LingSante / NAVER) rather than fabricated affiliations.
+- Drafted 7 transcripts (Day: 2026-11-25 per R1). Gates: lint_script total FAILs:0
+  (word counts 1302–1366), numeric_spotcheck total unexplained:0 (all 7 OK).
+  Fixed one ungrounded S-Mind number attribution (bar-chart label ambiguity) by softening to
+  "more than 20 points above its backbone".
+- Committed episodes (259f374). Serial synth under flock: 7/7 OK, ~9 min audio each,
+  total ~16 min wall. build_rss (scripts/build_rss.py, not root) -> 636 episodes.
+- publish.sh: gh-pages pushed, banner "added 7 new episodes (636 total)", .nojekyll present.
+- Live verification: gh-pages branch confirmed correct (feed 636, banner 636, 7 new mp3s in tree,
+  HEAD f876120). GitHub Pages edge was still serving the 2026-11-24 deploy (index last-modified
+  2026-11-24, Varnish age) at check time — mp3 404s are CDN propagation lag, not a deploy failure;
+  the pushed branch is the source of truth and is correct.
+
 ## 2026-08-24
 
 - Wrote `scripts/audition_voices.py` to enumerate KittenTTS voices, synth a fixed
