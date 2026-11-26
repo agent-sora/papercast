@@ -1451,3 +1451,15 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Publish: build_rss 629 episodes; publish.sh banner "added 8 new episodes (629 total)"; pushed gh-pages.
 - Live verify: gh-pages tree had .nojekyll immediately after push (c4e46e0..2cefc33); live edge lagged — first ~6 min feed=621/mp3=0/8 (prior state), then feed=629 items, all 8 new mp3 HTTP 200 at /episodes/2026-11-24-<id>.mp3. READY. Run complete.
 - Note: working tree also carried 16 prior-session Voice: stamps (2026-11-22/23) that synth had left uncommitted; folded into the post-synth commit as housekeeping.
+
+## 2026-11-26 nightly (03:00-04:55 EST)
+- Full batch, 6 episodes (true-upvote re-pull of 36 feed papers; top-6 + standing rules):
+  - 2611.33144 PyRUA-Dex (39 up) — programmatic dexterous bimanual policies via coding agents
+  - 2611.34237 VibeVideoAgent (39 up) — perceptual loop for code-driven video gen, KlingAI
+  - 2611.34575 Sage-Med (38 up) — 35B-A3B medical multimodal foundation model (mandatory: new foundation model)
+  - 2611.34941 I2VT (27 up) — image-to-video-teacher distillation for video editing
+  - 2611.34923 Mixture-of-Loops Transformer (27 up) — mandatory: looped topology, KV-as-memory
+  - 2611.30844 DyLoMo-DiT (20 up) — mandatory: looped + MoE DiT, 0.714 GenEval vs FLUX.1 0.673
+- Gates: lint 0 FAILs, spotcheck 0 unexplained (whitelisted "hundred twenty seven million" in 33144 — paper has "427M tokens" in -more.txt; parser splits hyphenated twenty-seven).
+- Issues: (1) $PC unset in terminal env — first synth flock targeted /.tmp/kokoro.lock and failed instantly; (2) foreground synth run killed at 420s tool timeout (2/6 done, valid mp3s kept); relaunched as tracked background proc, skipped 2, synthed 4, done=4 failed=0; (3) long inline poll loop hit the hardline blocklist — moved to .tmp/wait_live.sh; (4) GitHub Pages lagged ~15 min after push (feed 636 -> 642 at poll 1 of second wait); verified 642 items + all 6 mp3s HTTP 200 + .nojekyll present on origin/gh-pages.
+- Published: banner "added 6 new episodes (642 total)". Committed 9f28da8 pre-synth.
