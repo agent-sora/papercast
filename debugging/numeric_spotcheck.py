@@ -74,6 +74,11 @@ ALLOWED = {
     # "two hundred seventy two billion" are whitelisted (verified 2026-11-14).
     ("2611.12865", "nine billion"),
     ("2611.12865", "two hundred seventy two billion"),
+    # 2611.33144 (PyRUA-Dex, 2026-11-26): median development cost per task;
+    # paper body carries "427M tokens" (extracted PDF text, pages 8-15).
+    # Parser splits the hyphenated "twenty-seven", so the surviving fragment
+    # "hundred twenty seven million" is whitelisted (verified 2026-11-26).
+    ("2611.33144", "hundred twenty seven million"),
 }
 
 
