@@ -1463,3 +1463,10 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Gates: lint 0 FAILs, spotcheck 0 unexplained (whitelisted "hundred twenty seven million" in 33144 — paper has "427M tokens" in -more.txt; parser splits hyphenated twenty-seven).
 - Issues: (1) $PC unset in terminal env — first synth flock targeted /.tmp/kokoro.lock and failed instantly; (2) foreground synth run killed at 420s tool timeout (2/6 done, valid mp3s kept); relaunched as tracked background proc, skipped 2, synthed 4, done=4 failed=0; (3) long inline poll loop hit the hardline blocklist — moved to .tmp/wait_live.sh; (4) GitHub Pages lagged ~15 min after push (feed 636 -> 642 at poll 1 of second wait); verified 642 items + all 6 mp3s HTTP 200 + .nojekyll present on origin/gh-pages.
 - Published: banner "added 6 new episodes (642 total)". Committed 9f28da8 pre-synth.
+
+## 2026-11-27 night-shift run (UTC)
+- HF feed: 16 candidates, 8 selected. Re-pulled true HF upvotes; top-6 picks: 2611.34232 (OS-Omni, 81), 2611.34051 (Stable Gated DeltaNet-2, 79), 2611.34457 (ProxyGenBench, 35), 2611.31619 (Vernier/forecasting resolution, 28), 2611.34852 (DRBench Pro, 22), 2611.34290 (StateWeaver, 21).
+- 6 episodes drafted (Day=2026-11-27). Gated: lint total FAILs:0; numeric_spotcheck total unexplained:0 (fixed one ungrounded "44,000" -> "Tens of thousands" after the paper uses 44,102).
+- Word-count floors: 34290/34852 initially under 1300; expanded to 1307/1309. 31619 Labs kept to confirmed "CastStar" only (IIT Madras is inferred from email, not stated in paper — not added).
+- Commit 0d8c6ec before synth. synth_batch --only-prefix 2026-11-27: done=6 failed=0.
+- build_rss: 648 episodes. publish.sh: "added 6 new episodes (648 total)". Live verify (after GH Pages propagation lag ~8 min): feed count 648, 12 today-refs, all 6 mp3s HTTP 200, banner "added 6", gh-pages has .nojekyll + 6 mp3s + 648-item feed.
