@@ -1470,3 +1470,21 @@ Live verify: feed.xml 395 items; all 7 mp3 HTTP 200; git fetch origin/gh-pages, 
 - Word-count floors: 34290/34852 initially under 1300; expanded to 1307/1309. 31619 Labs kept to confirmed "CastStar" only (IIT Madras is inferred from email, not stated in paper — not added).
 - Commit 0d8c6ec before synth. synth_batch --only-prefix 2026-11-27: done=6 failed=0.
 - build_rss: 648 episodes. publish.sh: "added 6 new episodes (648 total)". Live verify (after GH Pages propagation lag ~8 min): feed count 648, 12 today-refs, all 6 mp3s HTTP 200, banner "added 6", gh-pages has .nojekyll + 6 mp3s + 648-item feed.
+2026-11-28 09:39 UTC
+
+## 2026-11-28 ~03:00-05:00 EST — Nightly batch (3 episodes, R2 arXiv fallback)
+- HF feed for papers_date 2026-11-27: 16 candidates, 8 selected; true-upvote re-pull of all 16 (.tmp/fetch_true_upvotes.py): OS-Omni 107, Stable GDN-2 128, Solve Vision w/ Code 61, Forecasting Leaderboard 58, ProxyGenBench 36, StateWeaver 27, DRBench Pro 24, ShowNow 21, Boundary-Aware 7, DB-agent 4, Reading-Not-Adapting 2, Guarding 2, Generation-as-Reverse-2, Clinical 3, 3x3-matmul 0, Financial Proximity 1.
+- Duplicate guard: top HF keepers (34232 OS-Omni, 34051 Stable GDN-2, 34457, 31619, 34852, 34290) ALREADY covered as 2026-11-27 episodes (6 published that night) and confirmed absent from live feed check of today's ids -> no new HF content today.
+- R2 ARXIV FALLBACK triggered (<3 new HF episodes): arxiv_search.py --days 5 -> .tmp/arxiv-shortlist.json (174 entries). Standing-rule re-scan picked 3:
+  - 2611.34529 AliceAI-Foundation-80B-A3B-Base (Yandex) — rule (a) NEW foundation model (80B-A3B MoE, Kimi Delta Attention hybrid, Attention Residuals, Muon, 17.5T tokens).
+  - 2611.34276 Scaling Looped MoE Language Models under Matched Budgets (Meituan) — rule (b) looped/weight-tied depth topology.
+  - 2611.32063 Integral DeltaNet (KAIST+KRAFTON) — rule (b) alternative attention (dual-state linear attention).
+- Picks: episodes/feed/picks/ids-2026-11-28.txt (3 ids). All 3 verified NEW vs episodes/ (bare-id substring).
+- Meta via paper_meta.py; text via .tmp/extract_texts.py (pymupdf, pages 0-7/8-15/19-28).
+- Drafts: self-written (no subagents), Day/filename 2026-11-28 per R1. Bylines from meta json: Skachkov/Redina/Konoplev @Yandex Alice AI Team; Bai/Qin/Liu @Meituan; Oh/Yun/Kim @KAIST+KRAFTON+UW-Madison.
+- Gates: lint total FAILs:0 (34529 1307, 34276 1339, 32063 1445 words; expansions with grounded numbers: per-benchmark pp gains 0.59/0.39/0.78/2.86 + 1.94/1.58/1.56/4.08, Dolma PPL 8.3109/8.3567/8.3596/8.4948, mHC 1.8104->1.7844 @11.9B vs 14.5B total; 32063 Table 5 decode 2.99GiB/4.63ms vs KDA 2.85/3.34, Transformer++ 83.7GiB/42.6ms @64K, R-linear 2/3 vs 1/3 retrieval-risk proposition). numeric_spotcheck total unexplained:0 (no whitelist).
+- Commit 6c7581d (drafts) before synth; voice-stamp commit after synth.
+- Synth: 3/3 OK, 0 failed (511-634s audio, 128-164s wall each, serial under flock kokoro.lock, ~9.5 min total).
+- Publish: build_rss 651 episodes; banner "added 3 new episodes (651 total)"; pushed gh-pages.
+- Live verify: GH Pages lagged ~12 min (still 648/404s at +3 min); then feed=651 items, all 3 mp3 HTTP 200 at /episodes/2026-11-28-<id>.mp3, banner fresh, .nojekyll present on origin/gh-pages.
+- Outcome: RUN COMPLETE.
